@@ -8,7 +8,7 @@ function ListePiecesAdmin({ pieces }) {
         var dictionnaireCategories = Object();
 
         pieces.forEach(piece => {
-            if (dictionnaireCategories[piece.catgorie] === undefined) {
+            if (dictionnaireCategories[piece.categorie] === undefined) {
                 dictionnaireCategories[piece.categorie] = true;
             }
         });
