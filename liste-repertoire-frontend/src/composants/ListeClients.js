@@ -3,7 +3,7 @@ import Alert from 'react-bootstrap/Alert'
 
 function ListeClients({ clients }) {
     if (clients?.length) {
-        var dictionnaireCategories = Object();
+        var dictionnaireIDs = Object();
 
         clients.forEach(client => {
             if (dictionnaireIDs[client.id] === undefined) {
@@ -16,13 +16,13 @@ function ListeClients({ clients }) {
         return (
             <>
                 {idClients.map((id) => {
-                    const clientsAssociees = clients.filter((client) => client.id === id);
+                    const clientsGeneral = clients.filter((client) => client.id === id);
                     return (
-                        <div key={categorie}>
-                            <h4>{categorie}</h4>
+                        <div key={idClients}>
+                            <h4>{id}</h4>
                             <ul>
                                 {
-                                    clientsAssociees.map(client => <li key={client.id}>{client.prenom} - {client.nom}</li>)
+                                    clientsGeneral.map(client => <li key={client.id}>{client.prenom} - {client.nom}</li>)
                                 }
                             </ul>
                         </div>
