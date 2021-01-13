@@ -5,7 +5,7 @@ import PageAjouter from './pages/PageAjouter';
 import PageModifier from './pages/PageModifier';
 import PageSupprimer from './pages/PageSupprimer';
 import PagePriver from './pages/PagePriver';
-import PageFormulaire from './pages/PageFormlaire';
+import PageFormulaire from './pages/PageFormulaire';
 import Page404 from './pages/Page404';
 import BarreNavigation from './composants/BarreNavigation';
 import './App.css';

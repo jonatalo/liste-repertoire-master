@@ -5,7 +5,7 @@ import {
 } from 'react';
 import ListePiecesRepertoire from '../composants/ListePiecesRepertoire';
 
-function PageAdmin() {
+function PageFormulaire() {
     const [listePieces, setListePieces] = useState([]);
 
     useEffect(() => {
