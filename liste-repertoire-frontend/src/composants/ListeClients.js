@@ -11,11 +11,11 @@ function ListeClients({ clients }) {
             }
         });
 
-        const categories = Object.keys(dictionnaireIDs);
+        const idClients = Object.keys(dictionnaireIDs);
 
         return (
             <>
-                {categories.map((id) => {
+                {idClients.map((id) => {
                     const clientsAssociees = clients.filter((client) => client.id === id);
                     return (
                         <div key={categorie}>
