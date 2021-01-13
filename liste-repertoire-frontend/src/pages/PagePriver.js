@@ -7,13 +7,13 @@ import {
 import ListeClients from '../composants/ListeClients';
 
 function PagePriver() {
-    const [ListeClients, setListePieces] = useState([]);
+    const [ListeClients, setListeClients] = useState([]);
 
     useEffect(() => {
         const chercherDonnees = async () => {
             const resultat = await fetch(`/api/clients`);
             const body = await resultat.json().catch((error) => {console.log(error)});
-            setListePieces(body);
+            setListeClients(body);
         };
         chercherDonnees();
     }, []);
