@@ -31,6 +31,10 @@ function PageAdmin() {
             
             <h2>Liste du répertoire</h2>
             <ListePiecesAdmin pieces={listePieces} />
+
+            <Link to="/priver">
+                <Button>Voir les clients avec des listes</Button>    
+            </Link>
         </>
     );
 }
