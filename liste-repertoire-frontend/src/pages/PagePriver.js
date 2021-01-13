@@ -6,7 +6,7 @@ import {
 
 import ListeClients from '../composants/ListeClients';
 
-function PageRepertoire() {
+function PagePriver() {
     const [ListeClients, setListePieces] = useState([]);
 
     useEffect(() => {
