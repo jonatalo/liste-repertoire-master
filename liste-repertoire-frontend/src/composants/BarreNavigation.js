@@ -20,7 +20,17 @@ function BarreNavigation() {
                     </LinkContainer>
                     <LinkContainer to="/admin">
                         <Nav.Link>Admin</Nav.Link>
-                    </LinkContainer>            
+                    </LinkContainer>
+
+                    <LinkContainer to="/priver">
+                        <Nav.Link>Priver</Nav.Link>
+                    </LinkContainer>              
+
+                    <LinkContainer to="/formulaire">
+                        <Nav.Link>Formulaire</Nav.Link>
+                    </LinkContainer>              
+
+
                 </Nav>
             </Navbar.Collapse>
         </Navbar>
