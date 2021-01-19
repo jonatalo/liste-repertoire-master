@@ -8,9 +8,11 @@ function ListePiecesAdmin({ pieces }) {
         var dictionnaireCategories = Object();
 
         pieces.forEach(piece => {
-            if (dictionnaireCategories[piece.categorie] === undefined) {
-                dictionnaireCategories[piece.categorie] = true;
-            }
+            piece.categories.forEach(categorie => {
+                if (dictionnaireCategories[categorie] === undefined) {
+                    dictionnaireCategories[categorie] = true;
+                }
+            })            
         });
 
         const categories = Object.keys(dictionnaireCategories);
@@ -18,7 +20,9 @@ function ListePiecesAdmin({ pieces }) {
         return (
             <>
                 {categories.map((categorie) => {
-                    const piecesAssociees = pieces.filter((piece) => piece.categorie === categorie);
+                    const piecesAssociees = pieces.filter((piece) => 
+                        piece.categories.indexOf(categorie) !== -1);
+                        
                     return (
                         <div key={categorie}>
                             <h4>{categorie}</h4>

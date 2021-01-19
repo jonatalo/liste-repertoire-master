@@ -7,6 +7,8 @@ import PageSupprimer from './pages/PageSupprimer';
 import PagePriver from './pages/PagePriver';
 import PageFormulaire from './pages/PageFormulaire';
 import Page404 from './pages/Page404';
+import PageEnvoyerDemande from './pages/PageEnvoyerDemande';
+import PageListeDemandes from './pages/PageListeDemandes';
 import BarreNavigation from './composants/BarreNavigation';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -26,6 +28,8 @@ function App() {
           <Route path="/" component={PageAccueil} exact />
           <Route path="/repertoire" component={PageRepertoire} />
           <Route path="/admin" component={PageAdmin} />
+          <Route path="/demande-speciale" component={PageEnvoyerDemande} />
+          <Route path="/liste-demandes" component={PageListeDemandes} />
           <Route path="/ajouter" component={PageAjouter} />
           <Route path="/modifier/:id" component={PageModifier} />
           <Route path="/supprimer/:id" component={PageSupprimer} />
