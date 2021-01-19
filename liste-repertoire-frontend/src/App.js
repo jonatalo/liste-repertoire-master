@@ -33,8 +33,6 @@ function App() {
           <Route path="/ajouter" component={PageAjouter} />
           <Route path="/modifier/:id" component={PageModifier} />
           <Route path="/supprimer/:id" component={PageSupprimer} />
-          <Route path="/priver" component={PagePriver} />
-          <Route path="/formulaire" component={PageFormulaire} />
           <Route component={Page404} />
         </Switch>        
       </Container>
