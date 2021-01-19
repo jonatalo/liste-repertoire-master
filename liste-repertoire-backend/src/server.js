@@ -1,7 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import { MongoClient, ObjectID } from 'mongodb';
-//hello world
+
 const app = express();
 
 app.use(bodyParser.json());
@@ -26,7 +26,7 @@ app.get('/api/pieces', (requete, reponse) => {
         reponse.status(200).json(listePieces);
     }, reponse).catch(
         () => reponse.status(500).send("Erreur lors de la requête")
-    );;
+    );
 });
 // liste de clients
 app.get('/api/clients', (requete, reponse) => {
@@ -51,26 +51,26 @@ app.get('/api/pieces/:id', (requete, reponse) => {
 });
 
 app.put('/api/pieces/ajouter', (requete, reponse) => {
-    const {titre, artiste, categorie} = requete.body;
+    const {titre, artiste, categories} = requete.body;
 
-    if (titre !== undefined && artiste !== undefined && categorie !== undefined) {
+    if (titre !== undefined && artiste !== undefined && categories !== undefined) {
         utiliserDB(async (db) => {
             await db.collection('pieces').insertOne({ 
                 titre: titre,
                 artiste: artiste,
-                categorie: categorie
+                categories: categories
             });
             
             reponse.status(200).send("Pièce ajoutée");
         }, reponse).catch(
             () => reponse.status(500).send("Erreur : la pièce n'a pas été ajoutée")
-        );;        
+        );     
     }
     else {
         reponse.status(500).send(`Certains paramètres ne sont pas définis :
             - titre: ${titre}
             - artiste: ${artiste}
-            - categorie: ${categorie}`);
+            - categories: ${categories}`);
     }
 });
 //Ajouter Clients
@@ -101,17 +101,17 @@ app.put('/api/pieces/ajouter', (requete, reponse) => {
 });
 
 app.post('/api/pieces/modifier/:id', (requete, reponse) => {
-    const {titre, artiste, categorie} = requete.body;
+    const {titre, artiste, categories} = requete.body;
     const id = requete.params.id;
 
-    if (titre !== undefined && artiste !== undefined && categorie !== undefined) {
+    if (titre !== undefined && artiste !== undefined && categories !== undefined) {
         utiliserDB(async (db) => {
             var objectId = ObjectID.createFromHexString(id);
             await db.collection('pieces').updateOne({ _id: objectId }, {
                 '$set': {
                     titre: titre,
                     artiste: artiste,
-                    categorie: categorie
+                    categories: categories
                 }
             });
             
@@ -124,7 +124,7 @@ app.post('/api/pieces/modifier/:id', (requete, reponse) => {
         reponse.status(500).send(`Certains paramètres ne sont pas définis :
             - titre: ${titre}
             - artiste: ${artiste}
-            - categorie: ${categorie}`);
+            - categories: ${categories}`);
     }
 });
 
@@ -139,6 +139,37 @@ app.delete('/api/pieces/supprimer/:id', (requete, reponse) => {
     }, reponse).catch(
         () => reponse.status(500).send("Erreur : la pièce n'a pas été supprimée")
     );    
+});
+
+app.get('/api/demandes', (requete, reponse) => {
+    utiliserDB(async (db) => {
+        const listeDemandes = await db.collection('demandes').find().toArray();
+        reponse.status(200).json(listeDemandes);
+    }, reponse).catch(
+        () => reponse.status(500).send("Erreur lors de la requête")
+    );
+});
+
+app.put('/api/demandes/ajouter', (requete, reponse) => {
+    const {nom, pieces} = requete.body;
+
+    if (nom !== undefined && pieces !== undefined) {
+        utiliserDB(async (db) => {
+            await db.collection('demandes').insertOne({ 
+                nom: nom,
+                pieces: pieces
+            });
+            
+            reponse.status(200).send("Demande ajoutée");
+        }, reponse).catch(
+            () => reponse.status(500).send("Erreur : la demande n'a pas été ajoutée")
+        );       
+    }
+    else {
+        reponse.status(500).send(`Certains paramètres ne sont pas définis :
+            - nom: ${nom}
+            - pieces: ${pieces}`);
+    }
 });
 
 app.listen(8000, () => console.log("Serveur démarré sur le port 8000"));
