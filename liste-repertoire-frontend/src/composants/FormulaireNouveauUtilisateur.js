@@ -12,11 +12,7 @@ function FormulaireConnection(){
     const [motDePasse, setMotDePasse] = useState('');
     const [confirmationMotDePasse, setConfirmationMotDePasse] = useState('');
     
-    {/*à enlever */}
-    const [titre, setTitre] = useState('');
-    const [artiste, setArtiste] = useState('');
-    const [categories, setCategories] = useState(['']);
-    const [rediriger, setRediriger] = useState(false);
+   
 
     return (
         <>
