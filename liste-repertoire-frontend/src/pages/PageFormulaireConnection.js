@@ -6,10 +6,14 @@ import {
 import { Form } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import FormulaireConnection from '../composants/FormulaireConnection'
-function PageFormulaireConnection()
-{
-    <>
+function PageFormulaireConnection(){
+    return(
+        <>
         <h1>test</h1>
         < FormulaireConnection />
     </>
+    )
 }
+    
+
+export default PageFormulaireConnection;
