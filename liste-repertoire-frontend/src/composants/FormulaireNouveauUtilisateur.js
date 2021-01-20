@@ -18,7 +18,7 @@ function FormulaireConnection(){
         
             {/*à modifier*/}
         await fetch(`/api/utilisateur/ajouter`, {
-            method: 'post',
+            method: 'put',
             body: JSON.stringify({ nomUtilisateur, motDePasse }),
             headers: {
                 'Content-Type': 'application/json'
