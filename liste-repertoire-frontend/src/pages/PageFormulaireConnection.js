@@ -9,6 +9,6 @@ import FormulaireConnection from '../composants/FormulaireConnection'
 function PageFormulaireConnection()
 {
     <>
-        
+        < FormulaireConnection />
     </>
 }
