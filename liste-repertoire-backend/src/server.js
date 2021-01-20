@@ -28,6 +28,15 @@ app.get('/api/pieces', (requete, reponse) => {
         () => reponse.status(500).send("Erreur lors de la requête")
     );
 });
+// liste de clients
+app.get('/api/clients', (requete, reponse) => {
+    utiliserDB(async (db) => {
+        const listeClients = await db.collection('clients').find().toArray();
+        reponse.status(200).json(listeClients);
+    }, reponse).catch(
+        () => reponse.status(500).send("Erreur lors de la requête")
+    );;
+});
 
 app.get('/api/pieces/:id', (requete, reponse) => {
     const id = requete.params.id;
@@ -62,6 +71,32 @@ app.put('/api/pieces/ajouter', (requete, reponse) => {
             - titre: ${titre}
             - artiste: ${artiste}
             - categories: ${categories}`);
+    }
+});
+//Ajouter Clients
+app.put('/api/pieces/ajouter', (requete, reponse) => {
+    const {id, prenom, nom,listePieces} = requete.body;
+
+    if (id !== undefined && prenom !== undefined && nom !== undefined && listePieces !== undefined) {
+        utiliserDB(async (db) => {
+            await db.collection('clients').insertOne({ 
+                id:id,
+                prenom: prenom,
+                nom: nom,
+                listePieces: listePieces
+            });
+            
+            reponse.status(200).send("Clients ajoutée");
+        }, reponse).catch(
+            () => reponse.status(500).send("Erreur : le client n'a pas été ajoutée")
+        );;        
+    }
+    else {
+        reponse.status(500).send(`Certains paramètres ne sont pas définis :
+            - id: ${id}
+            - prenom: ${prenom}
+            - nom: ${nom}
+            - listePieces: ${listePieces}`);
     }
 });
 
