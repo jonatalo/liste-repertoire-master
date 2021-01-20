@@ -4,6 +4,7 @@ import PageAdmin from './pages/PageAdmin';
 import PageAjouter from './pages/PageAjouter';
 import PageModifier from './pages/PageModifier';
 import PageSupprimer from './pages/PageSupprimer';
+import PageFormulaireConnection from './pages/PageFormulaireConnection';
 import Page404 from './pages/Page404';
 import PageEnvoyerDemande from './pages/PageEnvoyerDemande';
 import PageListeDemandes from './pages/PageListeDemandes';
@@ -25,6 +26,7 @@ function App() {
         <Switch>
           <Route path="/" component={PageAccueil} exact />
           <Route path="/repertoire" component={PageRepertoire} />
+          <Route path="/connection" component={PageFormulaireConnection} />
           <Route path="/admin" component={PageAdmin} />
           <Route path="/demande-speciale" component={PageEnvoyerDemande} />
           <Route path="/liste-demandes" component={PageListeDemandes} />
