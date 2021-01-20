@@ -1,12 +1,12 @@
 import { Redirect, Route } from 'react-router-dom';
-import {UtiliseAuth} from './context/auth';
+import {UtiliseAuth} from '../context/auth';
 
 function RoutePrivee({component: Component,...reste}){
-    const estAuthenfie = UtiliseAuth();
+    const {authentification} = UtiliseAuth();
 
     return(
         <Route {...reste}
-            render={(props) => estAuthenfie ? (
+            render={(props) => authentification ? (
                     <Component {...props} />
                 ) : (
                     <Redirect to="/" />
