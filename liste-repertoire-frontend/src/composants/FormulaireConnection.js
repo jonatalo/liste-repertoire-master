@@ -7,19 +7,17 @@ import { Form } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import { Redirect } from 'react-router-dom';
 
-function FormulaireConnection({ id }) {
-    const [titre, setTitre] = useState('');
-    const [artiste, setArtiste] = useState('');
-    const [categories, setCategories] = useState(['']);
-    const [rediriger, setRediriger] = useState(false);
 
-    const envoyerFormulaire = async () => {
+function FormulaireConnection() {
+    const [nomUtilisateur, setNomUtilisateur] = useState('');
+    const [motPasse, setMotPasse] = useState('');
+    const envoyerUtilisateur = async () => {
         // Enlever les chaînes vides de l'array
         const nouvellesCategories = categories.filter(categorie =>
             categorie !== '');
 
-        await fetch(`/api/pieces/ajouter`, {
-            method: 'put',
+        await fetch(`/api/pieces/modifier/${id}`, {
+            method: 'post',
             body: JSON.stringify({ titre, artiste, categories: nouvellesCategories }),
             headers: {
                 'Content-Type': 'application/json'
@@ -27,64 +25,34 @@ function FormulaireConnection({ id }) {
         });
         setRediriger(true);
     };
-
-    function afficherRedirection() {
-        if (rediriger === true) {
-            return <Redirect to="/admin" />
-        }
-    }
-
-    function ajouterCategorie() {
-        const nouvellesCategories = categories.slice();
-        nouvellesCategories.push("");
-        setCategories(nouvellesCategories);
-    }
-    
-    return (
+return(
     <>
-        {afficherRedirection()}
-        <Form className="mb-1">
+        <Form>
+            <Form.Group> 
+                <Form.Control type="text" id="login" class="fadeIn second" name="login" placeholder="login"
+                    onChange={(event) => setNomUtilisateur(event.target.value)}
+                />
+            </Form.Group> 
             <Form.Group>
-                <Form.Label>Titre</Form.Label>
-                <Form.Control type="text" value={titre} 
-                    onChange={(event) => setTitre(event.target.value)} />
+                <Form.Control type="text" id="password" class="fadeIn third" name="login" placeholder="password" 
+                    onChange={(event) => setMotPasse(event.target.value)}
+                />
             </Form.Group>
-
-            <Form.Group>
-                <Form.Label>Artiste / Groupe</Form.Label>
-                <Form.Control type="text" value={artiste} 
-                    onChange={(event) => setArtiste(event.target.value)} />
-            </Form.Group>
-
-            <Form.Group>
-                <Form.Label>
-                    Catégories
-                    <Button variant="primary" className="ml-2" 
-                        onClick={ajouterCategorie}>
-                        Ajouter une catégorie
-                    </Button>
-                </Form.Label>
-                {
-                    categories.map((categorie, index) =>
-                        <Form.Control key={index} type="text" value={categorie} 
-                            className="mb-1" 
-                            onChange={(event) => {
-                                const nouvellesCategories = categories.slice();
-                                nouvellesCategories[index] = event.target.value;
-                                setCategories(nouvellesCategories);
-                            }} />
-                    )
-                }                
-            </Form.Group>
-
             
-
-            <Button variant="success" onClick={envoyerFormulaire} >
-                Ajouter la pièce
+            <Button variant="success" onClick={envoyerUtilisateur}>
+            Connection
             </Button>
+            
+         
+            
+            
         </Form>
+        
+    
     </>
-    );
+);
+    
+
 }
 
 export default FormulaireConnection;
