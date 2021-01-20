@@ -8,10 +8,19 @@ import ListePiecesAdmin from '../composants/ListePiecesAdmin';
 
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
+
+
 
 function PageAdmin() {
     const [listePieces, setListePieces] = useState([]);
+    const [rediriger, setRediriger] = useState(true);
 
+    function afficherRedirection() {
+        if (rediriger === true) {
+            return <Redirect to="/connection" />
+        }
+    }
     useEffect(() => {
         const chercherDonnees = async () => {
             const resultat = await fetch(`/api/pieces`);
@@ -23,6 +32,7 @@ function PageAdmin() {
 
     return (
         <>
+        {afficherRedirection()}
             <h1>Page administrateur</h1>
 
             <Link to="/ajouter">
