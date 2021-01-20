@@ -9,7 +9,7 @@ function RoutePrivee({component: Component,...reste}){
             render={(props) => authentification ? (
                     <Component {...props} />
                 ) : (
-                    <Redirect to="/" />
+                    <Redirect to="/connection" />
                 )
             }
         />
