@@ -17,26 +17,29 @@ import {
   Route,
   Switch
 } from 'react-router-dom';
+import { ContexteAuth } from './context/auth';
 
 function App() {
   return (
-    <Router>
-      <Container>
-        <BarreNavigation />
-        <Switch>
-          <Route path="/" component={PageAccueil} exact />
-          <Route path="/repertoire" component={PageRepertoire} />
-          <Route path="/connection" component={PageFormulaireConnection} />
-          <Route path="/admin" component={PageAdmin} />
-          <Route path="/demande-speciale" component={PageEnvoyerDemande} />
-          <Route path="/liste-demandes" component={PageListeDemandes} />
-          <Route path="/ajouter" component={PageAjouter} />
-          <Route path="/modifier/:id" component={PageModifier} />
-          <Route path="/supprimer/:id" component={PageSupprimer} />
-          <Route component={Page404} />
-        </Switch>        
-      </Container>
-    </Router>
+    <ContexteAuth.Provider value={false}>
+      <Router>
+        <Container>
+          <BarreNavigation />
+          <Switch>
+            <Route path="/" component={PageAccueil} exact />
+            <Route path="/repertoire" component={PageRepertoire} />
+            <Route path="/connection" component={PageFormulaireConnection} />
+            <RoutePriver path="/admin" component={PageAdmin} />
+            <Route path="/demande-speciale" component={PageEnvoyerDemande} />
+            <Route path="/liste-demandes" component={PageListeDemandes} />
+            <Route path="/ajouter" component={PageAjouter} />
+            <Route path="/modifier/:id" component={PageModifier} />
+            <Route path="/supprimer/:id" component={PageSupprimer} />
+            <Route component={Page404} />
+          </Switch>        
+        </Container>
+      </Router>
+    </ContexteAuth.Provider>
   );
 }
 
