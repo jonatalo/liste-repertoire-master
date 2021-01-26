@@ -14,13 +14,7 @@ function PageEnvoyerDemande() {
     const [listePieces, setListePieces] = useState([]);
     const [listeDemandes, setListeDemandes] = useState({});
     const [confirmation, setConfirmation] = useState(false);
-    const [rediriger, setRediriger] = useState(true);
-
-    function afficherRedirection() {
-        if (rediriger === true) {
-            return <Redirect to="/connection" />
-        }
-    }
+   
     useEffect(() => {
         const chercherDonnees = async () => {
             const resultat = await fetch(`/api/pieces`);
@@ -68,7 +62,6 @@ function PageEnvoyerDemande() {
 
     return (
         <>
-        {afficherRedirection()}
             <h1>Envoyer une demande spéciale</h1>
             <Form className="mb-1">
                 <Form.Group>
