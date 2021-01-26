@@ -32,7 +32,7 @@ return(
                 />
             </Form.Group> 
             <Form.Group>
-                <Form.Control type="text" class="fadeIn third" name="login" placeholder="password" 
+                <Form.Control type="password" class="fadeIn third" name="login" placeholder="password" 
                     onChange={(event) => setMotPasse(event.target.value)}
                 />
             </Form.Group>
