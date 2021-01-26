@@ -7,7 +7,7 @@ import { Form } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import { Redirect } from 'react-router-dom';
 
-function FormulaireConnection(){
+function FormulaireNouveauUtilisateur(){
     const [nomUtilisateur, setNomUtilsateur] = useState('');
     const [motDePasse, setMotDePasse] = useState('');
     const [confirmationMotDePasse, setConfirmationMotDePasse] = useState('');
@@ -15,16 +15,16 @@ function FormulaireConnection(){
 
     const envoyerFormulaireUtilisateur = async () => {
         if(ConfirmerMotDePasse()){
-        await fetch(`/api/utilisateurs/ajouter`, {
-            method: 'put',
-            body: JSON.stringify({ nomUtilisateur, motDePasse }),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
+            await fetch(`/api/utilisateurs/ajouter`, {
+                method: 'put',
+                body: JSON.stringify({ nomUtilisateur, motDePasse }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
             setRediriger(true);
         }
-    };
+    }
 
     function afficherRedirection() {
         if (rediriger === true) {
@@ -47,12 +47,11 @@ function FormulaireConnection(){
     function ConfirmerMotDePasse(){
         
         if(motDePasse == confirmationMotDePasse){
-            return( 
-                true
-            );
+            return true;
         }
         else {
-             return false;
+            return false;
+        }
     }
     return (
         <>
@@ -85,4 +84,4 @@ function FormulaireConnection(){
         );
 }
 
-export default FormulaireConnection;
+export default FormulaireNouveauUtilisateur;
