@@ -6,6 +6,7 @@ import {
 import { Form } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import { Redirect } from 'react-router-dom';
+import Alert from 'react-bootstrap/Alert';
 
 function FormulaireNouveauUtilisateur(){
     const [nomUtilisateur, setNomUtilsateur] = useState('');
@@ -14,7 +15,10 @@ function FormulaireNouveauUtilisateur(){
     const [rediriger, setRediriger] = useState(false);
 
     const envoyerFormulaireUtilisateur = async () => {
-        if(ConfirmerMotDePasse()){
+        const utilisateurjson = await fetch(`/api/utilisateurs/${nomUtilisateur}`);
+        const utilisateur = await utilisateurjson.json();
+
+        if(ConfirmerMotDePasse() && utilisateur == null){
             await fetch(`/api/utilisateurs/ajouter`, {
                 method: 'put',
                 body: JSON.stringify({ nomUtilisateur, motDePasse }),
@@ -31,18 +35,6 @@ function FormulaireNouveauUtilisateur(){
             return <Redirect to="/" />
         }
     }
-    // function ConfirmerNomUtilisateur(){
-    //     {/*à voir*/}
-    //     const utilisateurjson = await fetch(`/api/utilisateur/${nomUtilisateur}`);
-    //     const utilisateur = await utilisateurjson.json();
-    //      {/*à voir ce qu'une requete null renvoie */}
-    //     if(utilisateur === null){
-    //         return true;
-    //     }
-    //     else{
-    //         return <Alert variant="Danger" >L'utilisateur existe déja</Alert>
-    //     }
-    // }
 
     function ConfirmerMotDePasse(){
         
