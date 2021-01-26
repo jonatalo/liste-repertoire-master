@@ -40,7 +40,7 @@ app.get('/api/utilisateurs', (requete, reponse) => {
 //clients
 app.get('/api/utilisateurs/:nomUtilisateur', (requete, reponse) => {
     const nomUtilisateur = requete.params.nomUtilisateur
-    //vérification se fait
+    
     utiliserDB(async (db) => {
         const utilisateur = await db.collection('utilisateurs').findOne({nom: nomUtilisateur});
         reponse.status(200).json(utilisateur);
@@ -105,7 +105,6 @@ app.put('/api/utilisateurs/ajouter', (requete, reponse) => {
             - motDePasse: ${motDePasse}`);
     }
 });
-
 app.post('/api/pieces/modifier/:id', (requete, reponse) => {
     const {titre, artiste, categories} = requete.body;
     const id = requete.params.id;
