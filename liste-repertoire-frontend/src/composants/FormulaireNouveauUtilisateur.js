@@ -46,7 +46,7 @@ function FormulaireNouveauUtilisateur(){
 
     function ConfirmerMotDePasse(){
         
-        if(motDePasse == confirmationMotDePasse){
+        if(motDePasse == confirmationMotDePasse && motDePasse !== ''){
             return true;
         }
         else {
@@ -64,14 +64,14 @@ function FormulaireNouveauUtilisateur(){
                 </Form.Group>
     
                 <Form.Group>
-                    <Form.Label>Mot de passe</Form.Label>
-                    <Form.Control type="password" value={motDePasse} required="required"
+                    <Form.Label>Mot de passe </Form.Label>
+                    <Form.Control type="password" value={motDePasse} required="required" 
                         onChange={(event) => setMotDePasse(event.target.value)} />
                 </Form.Group>
                 
                 <Form.Group>
                     <Form.Label>Confirmation mot de passe</Form.Label>
-                    <Form.Control type="password" value={confirmationMotDePasse} required="required"
+                    <Form.Control type="password" value={confirmationMotDePasse} required="required" minLength="8"maxLength="16"
                         onChange={(event) => setConfirmationMotDePasse(event.target.value)} />
                 </Form.Group> 
                 
