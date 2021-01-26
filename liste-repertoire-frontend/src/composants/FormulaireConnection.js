@@ -14,7 +14,7 @@ function FormulaireConnection() {
     const {setAuthentification} = UtiliseAuth();
 
     const connectionUtilisateur = async () => {
-        const utilisateurjson = await fetch(`/api/utilisateur/${nomUtilisateur}`);
+        const utilisateurjson = await fetch(`/api/utilisateurs/${nomUtilisateur}`);
         const utilisateur = await utilisateurjson.json();
         
         if(motPasse !== utilisateur.motDePasse){
