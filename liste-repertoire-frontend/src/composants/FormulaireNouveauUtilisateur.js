@@ -14,7 +14,7 @@ function FormulaireConnection(){
     const [rediriger, setRediriger] = useState(false);
 
     const envoyerFormulaireUtilisateur = async () => {
-        
+        if(ConfirmerMotDePasse()){
         await fetch(`/api/utilisateurs/ajouter`, {
             method: 'put',
             body: JSON.stringify({ nomUtilisateur, motDePasse }),
@@ -22,7 +22,8 @@ function FormulaireConnection(){
                 'Content-Type': 'application/json'
             }
         });
-        setRediriger(true);
+            setRediriger(true);
+        }
     };
 
     function afficherRedirection() {
@@ -30,25 +31,25 @@ function FormulaireConnection(){
             return <Redirect to="/" />
         }
     }
-//     function ConfirmerNomUtilisateur(){
-//         {/*à voir*/}
-//         const utilisateurjson = await fetch(`/api/utilisateur/${nomUtilisateur}`);
-//         const utilisateur = await utilisateurjson.json();
-//          {/*à voir ce qu'une requete null renvoie */}
-//         if(utilisateur === null){
-//             return true;
-//         }
-//         else{
-//             return <Alert variant="Danger" >L'utilisateur existe déja</Alert>
-//         }
-//     }
+    function ConfirmerNomUtilisateur(){
+        {/*à voir*/}
+        const utilisateurjson = await fetch(`/api/utilisateur/${nomUtilisateur}`);
+        const utilisateur = await utilisateurjson.json();
+         {/*à voir ce qu'une requete null renvoie */}
+        if(utilisateur === null){
+            return true;
+        }
+        else{
+            return <Alert variant="Danger" >L'utilisateur existe déja</Alert>
+        }
+    }
 
     function ConfirmerMotDePasse(){
         if(motDePasse === confirmationMotDePasse){
             return true;
         }
         else {
-            //return <Alert variant="Danger" >Les mots de passes sont différents</Alert>
+             return false;
         }
     }
     return (
