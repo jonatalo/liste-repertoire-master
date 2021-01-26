@@ -6,7 +6,6 @@ import {
 import { Form } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import { Redirect } from 'react-router-dom';
-import Alert from 'react-bootstrap/Alert';
 
 function FormulaireNouveauUtilisateur(){
     const [nomUtilisateur, setNomUtilsateur] = useState('');
