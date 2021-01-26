@@ -87,7 +87,7 @@ function FormulaireConnection(){
                     <Form.Control type="password" value={confirmationMotDePasse} required="required"
                         onChange={(event) => setConfirmationMotDePasse(event.target.value)} />
                 </Form.Group> 
-                <ConfirmationMotDePasse/>
+                <ConfirmerMotDePasse/>
     
                 <Button variant="primary" onClick={envoyerFormulaireUtilisateur} >
                     Ajouter utilisateur
