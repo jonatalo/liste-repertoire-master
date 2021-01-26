@@ -1,15 +1,14 @@
 import React from 'react';
-import FormulaireAjouterPiece from '../composants/FormulaireAjouterPiece';
 import Button from 'react-bootstrap/Button'
 import { Link } from 'react-router-dom';
+import FormulaireNouveauUtilisateur from '../composants/FormulaireNouveauUtilisateur';
 
 function PageConnexionNouveauUtilisateur() {
     return (
     <>
         <h1>Ajouter un nouveau utilisateur</h1>
         <FormulaireNouveauUtilisateur />
-        {/*Modifier le path */}
-        <Link to="/admin">
+        <Link to="/connection">
             <Button variant={'danger'} >Annuler</Button>    
         </Link>
     </>
