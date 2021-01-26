@@ -44,20 +44,15 @@ function FormulaireConnection(){
 //     }
 
     function ConfirmerMotDePasse(){
-        var passeWord = motDePasse;
-        var confPasseWord=confirmationMotDePasse;
-        if(passeWord == confPasseWord){
+        
+        if(motDePasse == confirmationMotDePasse){
             return( 
-                <>
-                    <p>ok</p>
-                </>
+                true
             );
         }
         else {
             return( 
-                <>
-                    <p>non indentique</p>
-                </>
+                false
             );
         }
     }
@@ -82,7 +77,7 @@ function FormulaireConnection(){
                     <Form.Control type="password" value={confirmationMotDePasse} required="required"
                         onChange={(event) => setConfirmationMotDePasse(event.target.value)} />
                 </Form.Group> 
-                <ConfirmerMotDePasse/>
+                
     
                 <Button variant="primary" onClick={envoyerFormulaireUtilisateur} >
                     Ajouter utilisateur
