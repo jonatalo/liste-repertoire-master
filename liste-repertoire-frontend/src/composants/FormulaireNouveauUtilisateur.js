@@ -48,11 +48,21 @@ function FormulaireConnection(){
 //     }
 
     function ConfirmerMotDePasse(){
-        if(motDePasse === confirmationMotDePasse){
-            return true;
+        var passeWord = motDePasse;
+        var confPasseWord=confirmationMotDePasse;
+        if(passeWord == confPasseWord){
+            return( 
+                <>
+                    <p>ok</p>
+                </>
+            );
         }
         else {
-            //return <Alert variant="Danger" >Les mots de passes sont différents</Alert>
+            return( 
+                <>
+                    <p>non indentique</p>
+                </>
+            );
         }
     }
     return (
@@ -77,6 +87,7 @@ function FormulaireConnection(){
                     <Form.Control type="password" value={confirmationMotDePasse} required="required"
                         onChange={(event) => setConfirmationMotDePasse(event.target.value)} />
                 </Form.Group> 
+                <ConfirmationMotDePasse/>
     
                 <Button variant="primary" onClick={envoyerFormulaireUtilisateur} >
                     Ajouter utilisateur
