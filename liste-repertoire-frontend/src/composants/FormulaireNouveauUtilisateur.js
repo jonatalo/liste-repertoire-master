@@ -44,11 +44,16 @@ function FormulaireConnection(){
 //     }
 
     function ConfirmerMotDePasse(){
-        if(motDePasse === confirmationMotDePasse){
-            return true;
+        
+        if(motDePasse == confirmationMotDePasse){
+            return( 
+                true
+            );
         }
         else {
-            //return <Alert variant="Danger" >Les mots de passes sont différents</Alert>
+            return( 
+                false
+            );
         }
     }
     return (
@@ -63,15 +68,16 @@ function FormulaireConnection(){
     
                 <Form.Group>
                     <Form.Label>Mot de passe</Form.Label>
-                    <Form.Control type="text" value={motDePasse} required="required"
+                    <Form.Control type="password" value={motDePasse} required="required"
                         onChange={(event) => setMotDePasse(event.target.value)} />
                 </Form.Group>
                 
                 <Form.Group>
                     <Form.Label>Confirmation mot de passe</Form.Label>
-                    <Form.Control type="text" value={confirmationMotDePasse} required="required"
+                    <Form.Control type="password" value={confirmationMotDePasse} required="required"
                         onChange={(event) => setConfirmationMotDePasse(event.target.value)} />
                 </Form.Group> 
+                
     
                 <Button variant="primary" onClick={envoyerFormulaireUtilisateur} >
                     Ajouter utilisateur
