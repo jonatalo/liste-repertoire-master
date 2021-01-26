@@ -6,22 +6,20 @@ import {
 import { Form } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import {UtiliseAuth} from '../context/auth'
+import Alert from 'react-bootstrap/Alert';
 
 function FormulaireConnection() {
     const [nomUtilisateur, setNomUtilisateur] = useState('');
     const [motPasse, setMotPasse] = useState('');
-    const {setAuthentification} =UtiliseAuth();
+    const {setAuthentification} = UtiliseAuth();
 
-    const envoyerUtilisateur = async () => {
+    const connectionUtilisateur = async () => {
+        const utilisateurjson = await fetch(`/api/utilisateur/${nomUtilisateur}`);
+        const utilisateur = await utilisateurjson.json();
         
-
-        await fetch(`/api/pieces/modifier/${nomUtilisateur}`, {
-            method: 'post',
-            body: JSON.stringify({ nomUtilisateur,motPasse }),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
+        if(motPasse !== utilisateur.motDePasse){
+            <Alert variant="Danger" >Mot de passe invalide!</Alert>
+        }
     };
 return(
     <>
@@ -37,14 +35,10 @@ return(
                 />
             </Form.Group>
             
-            <Button variant="success" onClick={envoyerUtilisateur}>
+            <Button variant="success" onClick={connectionUtilisateur}>
             Connection
-            </Button>
-            
-            
+            </Button>  
         </Form>
-        
-    
     </>
 );
     
