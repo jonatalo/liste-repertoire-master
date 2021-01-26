@@ -31,18 +31,18 @@ function FormulaireConnection(){
             return <Redirect to="/" />
         }
     }
-    function ConfirmerNomUtilisateur(){
-        {/*à voir*/}
-        const utilisateurjson = await fetch(`/api/utilisateur/${nomUtilisateur}`);
-        const utilisateur = await utilisateurjson.json();
-         {/*à voir ce qu'une requete null renvoie */}
-        if(utilisateur === null){
-            return true;
-        }
-        else{
-            return <Alert variant="Danger" >L'utilisateur existe déja</Alert>
-        }
-    }
+    // function ConfirmerNomUtilisateur(){
+    //     {/*à voir*/}
+    //     const utilisateurjson = await fetch(`/api/utilisateur/${nomUtilisateur}`);
+    //     const utilisateur = await utilisateurjson.json();
+    //      {/*à voir ce qu'une requete null renvoie */}
+    //     if(utilisateur === null){
+    //         return true;
+    //     }
+    //     else{
+    //         return <Alert variant="Danger" >L'utilisateur existe déja</Alert>
+    //     }
+    // }
 
     function ConfirmerMotDePasse(){
         if(motDePasse === confirmationMotDePasse){
