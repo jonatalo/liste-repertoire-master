@@ -5,6 +5,7 @@ import PageAjouter from './pages/PageAjouter';
 import PageModifier from './pages/PageModifier';
 import PageSupprimer from './pages/PageSupprimer';
 import PageFormulaireConnection from './pages/PageFormulaireConnection';
+import PageConnexionNouveauUtilisateur from './pages/PageConnexionNouveauUtilisateur';
 import Page404 from './pages/Page404';
 import PageEnvoyerDemande from './pages/PageEnvoyerDemande';
 import PageListeDemandes from './pages/PageListeDemandes';
@@ -32,6 +33,7 @@ function App() {
             <Route path="/" component={PageAccueil} exact />
             <Route path="/repertoire" component={PageRepertoire} />
             <Route path="/connection" component={PageFormulaireConnection} />
+            <Route path="/NouveauUtilisateur" component={PageConnexionNouveauUtilisateur}/>
             <RoutePrivee path="/admin" component={PageAdmin} />
             <RoutePrivee path="/demande-speciale" component={PageEnvoyerDemande} />
             <Route path="/liste-demandes" component={PageListeDemandes} />

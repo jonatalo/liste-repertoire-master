@@ -16,8 +16,8 @@ function PageFormulaireConnection()
             
             < FormulaireConnection />
             <Link to="/NouveauUtilisateur">
-                    <Button>Nouvelle Utilisateur</Button>    
-                </Link>
+                <Button>Nouvelle Utilisateur</Button>    
+            </Link>
         </>
     );
 }

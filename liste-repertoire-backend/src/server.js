@@ -35,18 +35,18 @@ app.get('/api/utilisateurs', (requete, reponse) => {
         reponse.status(200).json(listeUtilisateur);
     }, reponse).catch(
         () => reponse.status(500).send("Erreur lors de la requête")
-    );;
+    );
 });
 //clients
 app.get('/api/utilisateurs/:nomUtilisateur', (requete, reponse) => {
     const nomUtilisateur = requete.params.nomUtilisateur
-    
+    //vérification se fait
     utiliserDB(async (db) => {
         const utilisateur = await db.collection('utilisateurs').findOne({nom: nomUtilisateur});
         reponse.status(200).json(utilisateur);
     }, reponse).catch(
         () => reponse.status(500).send("Erreur lors de la requête")
-    );;
+    );
 });
 app.get('/api/pieces/:id', (requete, reponse) => {
     const id = requete.params.id;
