@@ -24,35 +24,35 @@ function FormulaireConnection(){
                 'Content-Type': 'application/json'
             }
         });
-        setRediriger(true);
+        //setRediriger(true);
     };
 
     function afficherRedirection() {
-        if (rediriger === true) {
-            {/*à voir ou l'on redirige*/}
-            return <Redirect to="/admin" />
-        }
+        // if (rediriger === true) {
+        //     {/*à voir ou l'on redirige*/}
+        //     return <Redirect to="/admin" />
+        // }
     }
-    function ConfirmerNomUtilisateur(){
-        {/*à voir*/}
-        const utilisateurjson = await fetch(`/api/utilisateur/${nomUtilisateur}`);
-        const utilisateur = await utilisateurjson.json();
-{/*à voir ce qu'une requete null renvoie */}
-        if(utilisateur === null){
-            return true;
-        }
-        else{
-            return <Alert variant="Danger" >L'utilisateur existe déja</Alert>
-        }
+//     function ConfirmerNomUtilisateur(){
+//         {/*à voir*/}
+//         const utilisateurjson = await fetch(`/api/utilisateur/${nomUtilisateur}`);
+//         const utilisateur = await utilisateurjson.json();
+// {/*à voir ce qu'une requete null renvoie */}
+//         if(utilisateur === null){
+//             return true;
+//         }
+//         else{
+//             return <Alert variant="Danger" >L'utilisateur existe déja</Alert>
+//         }
 
-    }
+//     }
 
     function ConfirmerMotDePasse(){
         if(motDePasse === confirmationMotDePasse){
             return true;
         }
         else {
-            return <Alert variant="Danger" >Les mots de passes sont différents</Alert>
+            //return <Alert variant="Danger" >Les mots de passes sont différents</Alert>
         }
     }
     return (
