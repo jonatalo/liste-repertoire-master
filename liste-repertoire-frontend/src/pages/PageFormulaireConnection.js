@@ -11,6 +11,9 @@ function PageFormulaireConnection()
 {
     return (
         <>
+            
+            <h1>Connection utilisateur</h1>
+            
             < FormulaireConnection />
             <Link to="/NouveauUtilisateur">
                 <Button>Nouvelle Utilisateur</Button>    

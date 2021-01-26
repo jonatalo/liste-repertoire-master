@@ -11,7 +11,7 @@ function FormulaireConnection(){
     const [nomUtilisateur, setNomUtilsateur] = useState('');
     const [motDePasse, setMotDePasse] = useState('');
     const [confirmationMotDePasse, setConfirmationMotDePasse] = useState('');
-    const [rediriger, setRediriger] = useState(false);
+
 
     const envoyerFormulaireUtilisateur = async () => {
         // Enlever les chaînes vides de l'array
