@@ -16,11 +16,11 @@ function ListePieces({ pieces, handleClick, listeDemandes,trieCategorie, trieArt
         const categories = Object.keys(dictionnaireCategories);
         if(trieCategorie == "Croisant")
         {
-            categories= categories.sort
+            categories= categories.sort();
         }
         else if (trieCategorie=="Decroisant")
         {
-            categories= categories.sort()
+            categories= categories.reverse();
         }
         if (listeDemandes !== undefined) {
             var listeIdDemandes = Object.keys(listeDemandes);
