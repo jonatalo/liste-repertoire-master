@@ -40,7 +40,7 @@ app.get('/api/utilisateurs', (requete, reponse) => {
 //clients
 app.get('/api/utilisateurs/:nomUtilisateur', (requete, reponse) => {
     const nomUtilisateur = requete.params.nomUtilisateur
-    
+
     utiliserDB(async (db) => {
         const utilisateur = await db.collection('utilisateurs').findOne({nom: nomUtilisateur});
         reponse.status(200).json(utilisateur);
@@ -59,7 +59,32 @@ app.get('/api/pieces/:id', (requete, reponse) => {
         () => reponse.status(500).send("Pièce non trouvée")
     );
 });
+app.get('/api/pieces/filtrer', (requete, reponse) => {
+    const {titre, artiste, categories} = requete.body;
+    
+    if(titre !== undefined){
+        titre = "";
+    }
+    if(artiste !== undefined){
+        artiste = "";
+    }
+    if(categories !== undefined){
+        categories = "";
+    }
+    utiliserDB(async (db) => {
+        const listePieces = await db.collection('pieces').find({
+            $and: [ 
+                {titre: new RegExp(titre, 'i')},
+                {artiste: new RegExp(artiste, 'i')},
+                {categories: new RegExp(categories, 'i')}
+            ]
+        }).toArray();
 
+        reponse.status(200).json(listePieces);      
+    }, reponse).catch(
+        () => reponse.status(500).send("Pièce non trouvée")
+    );
+});
 app.put('/api/pieces/ajouter', (requete, reponse) => {
     const {titre, artiste, categories} = requete.body;
 
