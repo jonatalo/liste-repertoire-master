@@ -20,7 +20,7 @@ function PageEnvoyerDemande() {
     const [CategorieTrie,setCategorieTrie]=useState("Rien");
     const [NomPieceTrie,setNomPieceTrie]=useState("Rien");
     const [NomArtisteTrie,setArtisteTrie]=useState("Rien");
-    var 
+
     const [titre, setTitre] = useState('');
     const [artiste, setArtiste] = useState('');
     const [categorie, setCategories] = useState('');
@@ -104,8 +104,8 @@ function PageEnvoyerDemande() {
                     <Form.Label>Votre nom: {nom}</Form.Label>
                 </Form.Group>
             </Form>
-            
-            <Button onClick={changerEtat(etat=CategorieTrie,setEtat=setCategorieTrie)}> Categorie  </Button>
+
+            <Button onClick={changerEtat(CategorieTrie,setCategorieTrie)}> Categorie  </Button>
             <ListePieces pieces={listePieces} handleClick={handleClickPiece} listeDemandes={listeDemandes} trieCategorie={CategorieTrie} />
 
             <Button onClick={envoyerDemande} >
