@@ -4,7 +4,7 @@ import {UtiliseAuth} from '../context/auth';
 function RoutePrivee({component: Component,...reste}){
     const {authentification} = UtiliseAuth();
     
-    
+
     return(
         <Route {...reste}
             render={(props) => {
@@ -13,13 +13,16 @@ function RoutePrivee({component: Component,...reste}){
                     return <Component {...props} />
                 }
                 else if (authentification == 1) {
-                    return (
-                        <>
-                            <Component {...props} />
-                            <Redirect to="/demande-speciale" />
-                            
-                        </>
-                    );
+                    if(window.location.pathname=="/admin"){
+                        return (
+                            <>
+                                <Redirect to="/demande-speciale" />
+                                
+                            </>
+                        );
+                    }
+                    return <Component {...props} />
+                    
                 } else {
                     return <Redirect to="/connection" />
                 }

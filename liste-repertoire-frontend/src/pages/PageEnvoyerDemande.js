@@ -19,6 +19,16 @@ function PageEnvoyerDemande() {
     const [categorie, setCategories] = useState('');
     const {nom} = UtiliseAuth();
    
+
+    useEffect(() => {
+        const chercherDonnees = async () => {
+            const resultat = await fetch(`/api/pieces`);
+            const body = await resultat.json().catch((error) => {console.log(error)});
+            setListePieces(body);
+        };
+        chercherDonnees();
+        console.log(window.location.pathname);
+    }, []);
     // useEffect(() => {
     //     const chercherDonnees = async () => {
     //         const resultat = await fetch(`/api/pieces`);
