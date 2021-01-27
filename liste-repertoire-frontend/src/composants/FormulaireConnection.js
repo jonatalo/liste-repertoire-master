@@ -35,7 +35,6 @@ function FormulaireConnection() {
         setRediriger(true);
     }
     function afficherRedirection() {
-        
         if (rediriger === true) {
             if (authentification == 1) {
                 return <Redirect to="/demande-speciale" />

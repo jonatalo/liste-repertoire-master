@@ -22,6 +22,7 @@ function PageEnvoyerDemande() {
             setListePieces(body);
         };
         chercherDonnees();
+        console.log(window.location.pathname);
     }, []);
 
     const envoyerDemande = async () => {
