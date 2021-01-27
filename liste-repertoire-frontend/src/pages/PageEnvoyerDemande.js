@@ -16,12 +16,12 @@ function PageEnvoyerDemande() {
 
     const [titre, setTitre] = useState('');
     const [artiste, setArtiste] = useState('');
-    const [categorie, setCategories] = useState('');
+    const [categories, setCategories] = useState('f');
     const {nom} = UtiliseAuth();
    
 
     useEffect(() => {
-        if(titre == '' && artiste == '' && categorie == ''){
+        if(titre == '' && artiste == '' && categories == ''){
             const chercherDonnees = async () => {
                 const resultat = await fetch(`/api/pieces`);
                 const body = await resultat.json().catch((error) => {console.log(error)});
@@ -30,15 +30,13 @@ function PageEnvoyerDemande() {
             chercherDonnees();
         }
         else{
-       
+            var filtrer = {
+                titre: titre,
+                artiste: artiste,
+                categories: categories
+            };
             const chercherDonnees = async () => {
-                const resultat = await fetch(`/api/pieces/filtrer`,{
-                    method: 'get',
-                    body: JSON.stringify({titre, artiste, categorie}),
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                });
+                const resultat = await fetch(`/api/pieces/${filtrer}`);
                 const body = await resultat.json().catch((error) => {console.log(error)});
                 setListePieces(body);
             };
