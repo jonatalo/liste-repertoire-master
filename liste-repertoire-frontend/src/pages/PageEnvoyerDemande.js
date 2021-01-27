@@ -13,16 +13,46 @@ function PageEnvoyerDemande() {
     const [listePieces, setListePieces] = useState([]);
     const [listeDemandes, setListeDemandes] = useState({});
     const [confirmation, setConfirmation] = useState(false);
+
+    const [titre, setTitre] = useState('');
+    const [artiste, setArtiste] = useState('');
+    const [categorie, setCategories] = useState('');
     const {nom} = UtiliseAuth();
    
-    useEffect(() => {
-        const chercherDonnees = async () => {
-            const resultat = await fetch(`/api/pieces`);
-            const body = await resultat.json().catch((error) => {console.log(error)});
-            setListePieces(body);
-        };
-        chercherDonnees();
-    }, []);
+    // useEffect(() => {
+    //     const chercherDonnees = async () => {
+    //         const resultat = await fetch(`/api/pieces`);
+    //         const body = await resultat.json().catch((error) => {console.log(error)});
+    //         setListePieces(body);
+    //     };
+    //     chercherDonnees();
+    // }, []);
+    const envoyerRecherche = async () => {
+        
+        if(titre == '' && artiste == '' && categorie == ''){
+                const chercherDonnees = async () => {
+                    const resultat = await fetch(`/api/pieces`);
+                    const body = await resultat.json().catch((error) => {console.log(error)});
+                    setListePieces(body);
+                };
+                chercherDonnees();
+        }
+        else{
+           
+                const chercherDonnees = async () => {
+                    const resultat = await fetch(`/api/pieces/filtrer`,{
+                        method: 'get',
+                        body: JSON.stringify({titre, artiste, categorie}),
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                    const body = await resultat.json().catch((error) => {console.log(error)});
+                    setListePieces(body);
+                };
+                chercherDonnees();
+        }
+    }
 
     const envoyerDemande = async () => {
         const pieces = Object.values(listeDemandes);
@@ -67,7 +97,6 @@ function PageEnvoyerDemande() {
                     <Form.Label>Votre nom: {nom}</Form.Label>
                 </Form.Group>
             </Form>
-
             <ListePieces pieces={listePieces} handleClick={handleClickPiece} listeDemandes={listeDemandes} />
 
             <Button onClick={envoyerDemande} >
