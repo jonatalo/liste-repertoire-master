@@ -18,7 +18,7 @@ function PageEnvoyerDemande() {
     const [listeDemandes, setListeDemandes] = useState({});
     const [confirmation, setConfirmation] = useState(false);
     const [CategorieTrie,setCategorieTrie]=useState("Rien");
-    const [NomPieceTrie,setNomPieceTrie]=useState("Rien");
+    const [PieceTrie,setPieceTrie]=useState("Rien");
     const [NomArtisteTrie,setArtisteTrie]=useState("Rien");
 
     const [titre, setTitre] = useState('');
@@ -86,16 +86,35 @@ function PageEnvoyerDemande() {
             return <Alert variant="success" >La demande a bien été envoyée.</Alert>
         }
     }
-    function changerEtat(etat,setEtat) {
-        if (etat == "Croisant") {
-          setEtat("Decroisant");
-         
+    function changerCategorieTrie() {
+        
+        if (CategorieTrie == "Croissant") {
+          setCategorieTrie("Decroissant");
         } 
         else {
-            setEtat("Croisant");
+            setCategorieTrie("Croissant");
         }
       }
 
+      function changerPieceTrie() {
+        
+        if (PieceTrie == "Croissant") {
+          setPieceTrie("Decroissant");
+        } 
+        else {
+            setPieceTrie("Croissant");
+        }
+      }
+      function changerNomArtisteTrie() {
+        
+        if (NomArtisteTrie == "Croissant") {
+          setNomArtisteTrie("Decroissant");
+        } 
+        else {
+            setNomArtisteTrie("Croissant");
+        }
+      }
+      //<Button onClick={changerEtat(CategorieTrie,setCategorieTrie)}> Categorie  </Button>
     return (
         <>
             <h1>Envoyer une demande spéciale</h1>
@@ -105,8 +124,9 @@ function PageEnvoyerDemande() {
                 </Form.Group>
             </Form>
 
-            <Button onClick={changerEtat(CategorieTrie,setCategorieTrie)}> Categorie  </Button>
-            <ListePieces pieces={listePieces} handleClick={handleClickPiece} listeDemandes={listeDemandes} trieCategorie={CategorieTrie} />
+            <Button onClick={changerCategorieTrie}> Categorie  </Button>
+            
+            <ListePieces pieces={listePieces} handleClick={handleClickPiece} listeDemandes={listeDemandes} trieCategorie={CategorieTrie} trieArtiste={NomArtisteTrie} trieTitre={PieceTrie} />
 
             <Button onClick={envoyerDemande} >
                 Envoyer la demande

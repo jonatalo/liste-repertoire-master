@@ -13,15 +13,17 @@ function ListePieces({ pieces, handleClick, listeDemandes,trieCategorie, trieArt
             })            
         });
 
-        const categories = Object.keys(dictionnaireCategories);
-        if(trieCategorie == "Croisant")
+        var categories = Object.keys(dictionnaireCategories);
+        if(trieCategorie == "Croissant")
         {
-            categories= categories.sort();
+            categories = categories.sort();
         }
-        else if (trieCategorie=="Decroisant")
+        else if (trieCategorie == "Decroissant")
         {
-            categories= categories.reverse();
+           categories = categories.sort();
+           categories = categories.reverse();
         }
+
         if (listeDemandes !== undefined) {
             var listeIdDemandes = Object.keys(listeDemandes);
         }        
