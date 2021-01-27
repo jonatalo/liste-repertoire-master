@@ -40,13 +40,11 @@ function ListePieces({ pieces, handleClick, listeDemandes,trieCategorie, trieArt
                                     piecesAssociees.map(piece => {
                                         if (handleClick !== undefined) {
                                             if (listeIdDemandes.includes(piece._id)) {
-                                                console.log(1)
                                                 return <li key={piece._id} onClick={() => handleClick(piece._id)} className="bg-info">
                                                             {piece.titre} - {piece.artiste}
                                                         </li>
                                             }
                                             else {
-                                                console.log(2)
                                                 return <li key={piece._id} onClick={() => handleClick(piece._id)} >
                                                             {piece.titre} - {piece.artiste}
                                                         </li>
