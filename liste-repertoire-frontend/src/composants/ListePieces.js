@@ -20,7 +20,7 @@ function ListePieces({ pieces, handleClick, listeDemandes,trieCategorie, trieArt
         }
         else if (trieCategorie == "Decroissant")
         {
-           categories = categories.sort();
+           categories = categories.sort();// sort une function lamda
            categories = categories.reverse();
         }
 
@@ -31,8 +31,17 @@ function ListePieces({ pieces, handleClick, listeDemandes,trieCategorie, trieArt
         return (
             <>
                 {categories.map((categorie) => {
-                    const piecesAssociees = pieces.filter((piece) => 
+                    var piecesAssociees = pieces.filter((piece) => 
                         piece.categories.indexOf(categorie) !== -1);
+                        if(trieArtiste == "Croissant")
+                        {
+                            piecesAssociees = piecesAssociees.sort();
+                        }
+                        else if (trieArtiste == "Decroissant")
+                        {
+                            piecesAssociees = piecesAssociees.sort();// sort une function lamda
+                            piecesAssociees = piecesAssociees.reverse();
+                        }
 
                     return (
                         <div key={categorie}>
