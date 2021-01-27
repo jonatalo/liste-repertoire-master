@@ -59,8 +59,8 @@ app.get('/api/pieces/:id', (requete, reponse) => {
         () => reponse.status(500).send("Pièce non trouvée")
     );
 });
-app.get('/api/pieces/filtrer', (requete, reponse) => {
-    const {titre, artiste, categories} = requete.body;
+app.get('/api/pieces/:filtrer', (requete, reponse) => {
+    const {titre, artiste, categories} = requete.params.filtrer;
     
     if(titre !== undefined){
         titre = "";
