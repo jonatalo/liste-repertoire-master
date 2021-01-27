@@ -19,7 +19,7 @@ function PageEnvoyerDemande() {
     const [confirmation, setConfirmation] = useState(false);
     const [CategorieTrie,setCategorieTrie]=useState("Rien");
     const [PieceTrie,setPieceTrie]=useState("Rien");
-    const [NomArtisteTrie,setArtisteTrie]=useState("Rien");
+    const [NomArtisteTrie,setNomArtisteTrie]=useState("Rien");
 
     const [titre, setTitre] = useState('');
     const [artiste, setArtiste] = useState('');
