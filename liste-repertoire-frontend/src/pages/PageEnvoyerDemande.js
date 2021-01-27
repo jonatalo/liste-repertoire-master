@@ -21,48 +21,31 @@ function PageEnvoyerDemande() {
    
 
     useEffect(() => {
-        const chercherDonnees = async () => {
-            const resultat = await fetch(`/api/pieces`);
-            const body = await resultat.json().catch((error) => {console.log(error)});
-            setListePieces(body);
-        };
-        chercherDonnees();
-        console.log(window.location.pathname);
-    }, []);
-    // useEffect(() => {
-    //     const chercherDonnees = async () => {
-    //         const resultat = await fetch(`/api/pieces`);
-    //         const body = await resultat.json().catch((error) => {console.log(error)});
-    //         setListePieces(body);
-    //     };
-    //     chercherDonnees();
-    // }, []);
-    const envoyerRecherche = async () => {
-        
         if(titre == '' && artiste == '' && categorie == ''){
-                const chercherDonnees = async () => {
-                    const resultat = await fetch(`/api/pieces`);
-                    const body = await resultat.json().catch((error) => {console.log(error)});
-                    setListePieces(body);
-                };
-                chercherDonnees();
+            const chercherDonnees = async () => {
+                const resultat = await fetch(`/api/pieces`);
+                const body = await resultat.json().catch((error) => {console.log(error)});
+                setListePieces(body);
+            };
+            chercherDonnees();
         }
         else{
-           
-                const chercherDonnees = async () => {
-                    const resultat = await fetch(`/api/pieces/filtrer`,{
-                        method: 'get',
-                        body: JSON.stringify({titre, artiste, categorie}),
-                        headers: {
-                            'Content-Type': 'application/json'
-                        }
-                    });
-                    const body = await resultat.json().catch((error) => {console.log(error)});
-                    setListePieces(body);
-                };
-                chercherDonnees();
+       
+            const chercherDonnees = async () => {
+                const resultat = await fetch(`/api/pieces/filtrer`,{
+                    method: 'get',
+                    body: JSON.stringify({titre, artiste, categorie}),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                const body = await resultat.json().catch((error) => {console.log(error)});
+                setListePieces(body);
+            };
+            chercherDonnees();
         }
-    }
+        console.log(window.location.pathname);
+    }, []);
 
     const envoyerDemande = async () => {
         const pieces = Object.values(listeDemandes);
