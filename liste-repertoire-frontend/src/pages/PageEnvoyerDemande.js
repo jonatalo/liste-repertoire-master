@@ -16,7 +16,9 @@ function PageEnvoyerDemande() {
     const [listePieces, setListePieces] = useState([]);
     const [listeDemandes, setListeDemandes] = useState({});
     const [confirmation, setConfirmation] = useState(false);
-   
+    const [CategorieTrie,setCategorieTrie]=useState("Rien");
+    const [NomPieceTrie,setNomPieceTrie]=useState("Rien");
+    const [NomArtisteTrie,setArtisteTrie]=useState("Rien");
     useEffect(() => {
         const chercherDonnees = async () => {
             const resultat = await fetch(`/api/pieces`);
@@ -61,6 +63,15 @@ function PageEnvoyerDemande() {
             return <Alert variant="success" >La demande a bien été envoyée.</Alert>
         }
     }
+    function changerEtat(etat,setEtat) {
+        if (etat == "Croisant") {
+          setEtat("Decroisant");
+         
+        } 
+        else {
+            setEtat("Croisant");
+        }
+      }
 
     return (
         <>
@@ -72,8 +83,8 @@ function PageEnvoyerDemande() {
                         onChange={(event) => setNom(event.target.value)} />
                 </Form.Group>
             </Form>
-
-            <ListePieces pieces={listePieces} handleClick={handleClickPiece} listeDemandes={listeDemandes} />
+            <Button onClick={changerEtat(etat=CategorieTrie,setEtat=setCategorieTrie)}> Categorie  </Button>
+            <ListePieces pieces={listePieces} handleClick={handleClickPiece} listeDemandes={listeDemandes} trieCategorie={CategorieTrie} />
 
             <Button onClick={envoyerDemande} >
                 Envoyer la demande

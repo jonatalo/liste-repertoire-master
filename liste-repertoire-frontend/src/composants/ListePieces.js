@@ -1,7 +1,7 @@
 import React from 'react';
 import Alert from 'react-bootstrap/Alert'
 
-function ListePieces({ pieces, handleClick, listeDemandes }) {
+function ListePieces({ pieces, handleClick, listeDemandes,trieCategorie, trieArtiste,trieTitre }) {
     if (pieces?.length) {
         var dictionnaireCategories = Object();
 
@@ -14,11 +14,18 @@ function ListePieces({ pieces, handleClick, listeDemandes }) {
         });
 
         const categories = Object.keys(dictionnaireCategories);
-
+        if(trieCategorie == "Croisant")
+        {
+            categories= categories.sort
+        }
+        else if (trieCategorie=="Decroisant")
+        {
+            categories= categories.sort()
+        }
         if (listeDemandes !== undefined) {
             var listeIdDemandes = Object.keys(listeDemandes);
         }        
-
+      
         return (
             <>
                 {categories.map((categorie) => {
