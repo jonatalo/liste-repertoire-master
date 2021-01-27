@@ -7,16 +7,17 @@ import { Form } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert'
 import ListePieces from '../composants/ListePieces';
-import { Redirect } from 'react-router-dom';
+import {UtiliseAuth} from '../context/auth'
 
 function PageEnvoyerDemande() {
-    const [nom, setNom] = useState('');
     const [listePieces, setListePieces] = useState([]);
     const [listeDemandes, setListeDemandes] = useState({});
     const [confirmation, setConfirmation] = useState(false);
+
     const [titre, setTitre] = useState('');
     const [artiste, setArtiste] = useState('');
     const [categorie, setCategories] = useState('');
+    const {nom} = UtiliseAuth();
    
     // useEffect(() => {
     //     const chercherDonnees = async () => {
@@ -63,7 +64,6 @@ function PageEnvoyerDemande() {
                 'Content-Type': 'application/json'
             }
         });
-        setNom('');
         setListeDemandes({});
         setConfirmation(true);
     };
@@ -94,9 +94,7 @@ function PageEnvoyerDemande() {
             <h1>Envoyer une demande spéciale</h1>
             <Form className="mb-1">
                 <Form.Group>
-                    <Form.Label>Votre nom</Form.Label>
-                    <Form.Control type="text" value={nom} 
-                        onChange={(event) => setNom(event.target.value)} />
+                    <Form.Label>Votre nom: {nom}</Form.Label>
                 </Form.Group>
             </Form>
             <ListePieces pieces={listePieces} handleClick={handleClickPiece} listeDemandes={listeDemandes} />

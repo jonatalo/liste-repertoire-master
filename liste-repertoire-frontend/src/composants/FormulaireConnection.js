@@ -13,6 +13,7 @@ function FormulaireConnection() {
     const [nomUtilisateur, setNomUtilisateur] = useState('');
     const [motPasse, setMotPasse] = useState('');
     const {authentification,setAuthentification} = UtiliseAuth();
+    const {setNom} = UtiliseAuth();
     const [rediriger, setRediriger] = useState(false);
 
     const connectionUtilisateur = async () => {
@@ -30,6 +31,7 @@ function FormulaireConnection() {
                 setAuthentification(1);
             }
         }
+        setNom(nomUtilisateur);
         setRediriger(true);
     }
     function afficherRedirection() {
