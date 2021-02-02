@@ -9,7 +9,7 @@ import { Table } from 'react-bootstrap';
 
 
 function ListePieceTest({ pieces }) {
-    const [CategorieTrie,setCategorieTrie]=useState("Rien");
+    const [CategorieTrie,setCategorieTrie]=useState("Croissant");
     const [PieceTrie,setPieceTrie]=useState("Rien");
     const [NomArtisteTrie,setNomArtisteTrie]=useState("Rien");
 
@@ -27,8 +27,21 @@ function ListePieceTest({ pieces }) {
        
 
 
-        const categories = Object.keys(dictionnaireCategories);
+        var categories = Object.keys(dictionnaireCategories);
         //ne pas oublier de modifier les path dans le server
+        if(CategorieTrie == "Croissant")
+        {
+            categories = categories.sort((categorie1, categorie2) => 
+            categorie1.toLowerCase().localeCompare(categorie2.toLowerCase()) 
+            );// sort une function lamda
+        }
+        else if (CategorieTrie == "Decroissant")
+        {
+           categories = categories.sort((categorie1, categorie2) => 
+            categorie1.toLowerCase().localeCompare(categorie2.toLowerCase()) * -1 
+            );// sort une function lamda
+
+        }
         return (
             <>
                 <Table class="table table-bordered">
@@ -43,8 +56,8 @@ function ListePieceTest({ pieces }) {
                                 <Button variant="success" className="m-1" size="sm" >&darr;</Button>
                             </th>
                             <th>Categorie
-                                <Button variant="success" className="m-1" size="sm" >&uarr;</Button>
-                                <Button variant="success" className="m-1" size="sm" >&darr;</Button>
+                            <Button variant="success" className="m-1" size="sm" onClick={() => setCategorieTrie("Croissant")} >&uarr;</Button>
+                                <Button variant="success" className="m-1" size="sm" onClick={() => setCategorieTrie("Decroissant")} >&darr;</Button>
                             </th>                            
                         </tr>
                     </thead>
@@ -57,7 +70,7 @@ function ListePieceTest({ pieces }) {
                             <>
                                 {
                                     piecesAssociees.map(piece => 
-                                    <tr key={piece._id}>
+                                    <tr>
                                     <td>{piece.titre}</td>
                                     <td>{piece.artiste}</td>
                                     <td>{categorie}</td>
