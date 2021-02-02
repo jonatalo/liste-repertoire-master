@@ -27,28 +27,12 @@ function PageEnvoyerDemande() {
     const {nom} = UtiliseAuth();
     
     useEffect(() => {
-        if(titre == '' && artiste == '' && categories == ''){
-            const chercherDonnees = async () => {
-                const resultat = await fetch(`/api/pieces`);
-                const body = await resultat.json().catch((error) => {console.log(error)});
-                setListePieces(body);
-            };
-            chercherDonnees();
-        }
-        else{
-            const filtrer = {
-                titre: titre,
-                artiste: artiste,
-                categories: categories
-            };
-            const chercherDonnees = async () => {
-                const resultat = await fetch(`/api/pieces/${filtrer}`);
-                const body = await resultat.json().catch((error) => {console.log(error)});
-                setListePieces(body);
-            };
-            chercherDonnees();
-        }
-        console.log(window.location.pathname);
+        const chercherDonnees = async () => {
+            const resultat = await fetch(`/api/pieces`);
+            const body = await resultat.json().catch((error) => {console.log(error)});
+            setListePieces(body);
+        };
+        chercherDonnees();
     }, []);
 
     const envoyerDemande = async () => {
