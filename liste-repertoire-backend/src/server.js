@@ -94,6 +94,7 @@ app.put('/api/pieces/:filtrer', (requete, reponse) => {
     const titre = requete.params.filtrer.titre;
     const artiste = requete.params.filtrer.artiste;
     const categories = requete.params.filtrer.categories;
+>>>>>>> ddf26b3453ec4720bc06cc0c29153d5f8bf0d77d
     
     if(titre !== undefined){
         titre = "";
@@ -101,15 +102,15 @@ app.put('/api/pieces/:filtrer', (requete, reponse) => {
     if(artiste !== undefined){
         artiste = "";
     }
-    if(categories !== undefined){
-        categories = "";
+    if(categorie !== undefined){
+        categorie = "";
     }
     utiliserDB(async (db) => {
         const listePieces = await db.collection('pieces').find({
             $and: [ 
                 {titre: new RegExp(titre, 'i')},
                 {artiste: new RegExp(artiste, 'i')},
-                {categories: new RegExp(categories, 'i')}
+                {categories: new RegExp(categorie, 'i')}
             ]
         }).toArray();
 
