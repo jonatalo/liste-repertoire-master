@@ -28,12 +28,14 @@ function PageEnvoyerDemande() {
     const {nom} = UtiliseAuth();
     
     useEffect(() => {
+
         const chercherDonnees = async () => {
             const resultat = await fetch(`/api/pieces`);
             const body = await resultat.json().catch((error) => {console.log(error)});
             setListePieces(body);
         };
         chercherDonnees();
+
     }, []);
 
     const envoyerDemande = async () => {
@@ -109,7 +111,7 @@ function PageEnvoyerDemande() {
             </Form>
 
             <Button onClick={changerCategorieTrie}> Categorie  </Button>
-            
+            <Button onClick={changerNomArtisteTrie}> Artiste  </Button>
             <ListePieces pieces={listePieces} handleClick={handleClickPiece} listeDemandes={listeDemandes} trieCategorie={CategorieTrie} trieArtiste={NomArtisteTrie} trieTitre={PieceTrie} />
 
             <Button onClick={envoyerDemande} >
