@@ -12,11 +12,10 @@ function PageTest() {
     const [listePieces, setListePieces] = useState([]);
     const [recherche, setRecherche] = useState('');
     const [listeDemandes, setListeDemandes] = useState({});
-
-    if(listePieces.length == 0 && recherche == ''){
+    
+    if( listePieces.length == 0 && recherche == ''){
         RecherDefault();
     }
-
     function RecherDefault(){
         const chercherDonnees = async () => {
             const resultat = await fetch(`/api/pieces`);
@@ -34,6 +33,9 @@ function PageTest() {
             };
             chercherDonnees();
         }
+        else{
+            RecherDefault();
+        }  
     }
     function RechercheParArtiste(){
         if(recherche !== ''){
@@ -44,6 +46,9 @@ function PageTest() {
             };
             chercherDonnees();
         }
+        else{
+            RecherDefault();
+        } 
     }
     function RechercheParCategorie(){
         if(recherche !== ''){
@@ -54,6 +59,9 @@ function PageTest() {
             };
             chercherDonnees();
         }
+        else{
+            RecherDefault();
+        }  
     }
     function handleClickPiece(id) {
         const nouvelleListeDemandes = {};
@@ -70,6 +78,9 @@ function PageTest() {
         setListeDemandes(nouvelleListeDemandes);
     }
       //mettre le text de recherche dans le haut de la page.
+
+      //                
+
     return (
         <>
             <div>
@@ -81,7 +92,7 @@ function PageTest() {
                             onChange={(event) => setRecherche(event.target.value)} />
                     </Form.Group>
                 </Form>
-                <Button variant="success" className="m-1" size="sm" onClick={RechercheParTitre}>Recherche par titre</Button>
+                <Button variant="success" className="m-1" size="sm" onClick={RechercheParTitre}>Recherche par titre</Button>                
                 <Button variant="success" className="m-1" size="sm" onClick={RechercheParArtiste}>Recherche par artiste</Button>
                 <Button variant="success" className="m-1" size="sm" onClick={RechercheParCategorie}>Recherche par categorie</Button>
                 <ListePieceTest pieces={listePieces} handleClick={handleClickPiece} listeDemandes={listeDemandes}/>
