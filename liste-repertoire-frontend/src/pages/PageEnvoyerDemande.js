@@ -20,6 +20,7 @@ function PageEnvoyerDemande() {
     const [CategorieTrie,setCategorieTrie]=useState("Rien");
     const [PieceTrie,setPieceTrie]=useState("Rien");
     const [NomArtisteTrie,setNomArtisteTrie]=useState("Rien");
+    const [estActive]=useState(true);
 
     const [titre, setTitre] = useState('');
     const [artiste, setArtiste] = useState('');
@@ -27,6 +28,11 @@ function PageEnvoyerDemande() {
     const {nom} = UtiliseAuth();
     
     useEffect(() => {
+        // const filtre={
+        //     titre:titre,
+        //     artiste:artiste,
+        //     categorie:categorie
+        // }
         if(titre == '' && artiste == '' && categories == ''){
             const chercherDonnees = async () => {
                 const resultat = await fetch(`/api/pieces`);
@@ -35,6 +41,7 @@ function PageEnvoyerDemande() {
             };
             chercherDonnees();
         }
+
         // else{
         //     const filtrer = {
         //         titre: titre,
@@ -49,6 +56,7 @@ function PageEnvoyerDemande() {
         //     chercherDonnees();
         // }
         
+
     }, []);
 
     const envoyerDemande = async () => {
@@ -56,7 +64,7 @@ function PageEnvoyerDemande() {
 
         await fetch(`/api/demandes/ajouter`, {
             method: 'put',
-            body: JSON.stringify({ nom, pieces }),
+            body: JSON.stringify({ nom, pieces ,estActive}),
             headers: {
                 'Content-Type': 'application/json'
             }
