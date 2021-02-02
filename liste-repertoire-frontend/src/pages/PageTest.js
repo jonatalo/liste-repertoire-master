@@ -11,6 +11,7 @@ import Button from 'react-bootstrap/Button';
 function PageTest() {
     const [listePieces, setListePieces] = useState([]);
     const [recherche, setRecherche] = useState('');
+    const [listeDemandes, setListeDemandes] = useState({});
 
     if(listePieces.length == 0 && recherche == ''){
         RecherDefault();
@@ -54,6 +55,20 @@ function PageTest() {
             chercherDonnees();
         }
     }
+    function handleClickPiece(id) {
+        const nouvelleListeDemandes = {};
+        Object.assign(nouvelleListeDemandes, listeDemandes);
+
+        if (listeDemandes[id] === undefined) {
+            const piece = listePieces.find((piece) => piece._id === id);            
+            nouvelleListeDemandes[id] = `${piece.titre} - ${piece.artiste}`;            
+        }
+        else {
+            delete nouvelleListeDemandes[id];
+        }
+
+        setListeDemandes(nouvelleListeDemandes);
+    }
       //mettre le text de recherche dans le haut de la page.
     return (
         <>
@@ -69,7 +84,7 @@ function PageTest() {
                 <Button variant="success" className="m-1" size="sm" onClick={RechercheParTitre}>Recherche par titre</Button>
                 <Button variant="success" className="m-1" size="sm" onClick={RechercheParArtiste}>Recherche par artiste</Button>
                 <Button variant="success" className="m-1" size="sm" onClick={RechercheParCategorie}>Recherche par categorie</Button>
-                <ListePieceTest pieces={listePieces} />
+                <ListePieceTest pieces={listePieces} handleClick={handleClickPiece} listeDemandes={listeDemandes}/>
             </div>
 
             <Button > Categorie  </Button>

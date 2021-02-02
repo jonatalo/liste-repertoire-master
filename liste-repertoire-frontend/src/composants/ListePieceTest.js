@@ -8,7 +8,7 @@ import Button from 'react-bootstrap/Button';
 import { Table } from 'react-bootstrap';
 
 
-function ListePieceTest({ pieces }) {
+function ListePieceTest({ pieces,  handleClick, listeDemandes }) {
     const [CategorieTrie,setCategorieTrie]=useState("Rien");
     const [PieceTrie,setPieceTrie]=useState("Rien");
     const [NomArtisteTrie,setNomArtisteTrie]=useState("Rien");
@@ -25,7 +25,9 @@ function ListePieceTest({ pieces }) {
             })            
         });
        
-
+        if (listeDemandes !== undefined) {
+            var listeIdDemandes = Object.keys(listeDemandes);
+        } 
 
         const categories = Object.keys(dictionnaireCategories);
         //ne pas oublier de modifier les path dans le server
@@ -56,12 +58,36 @@ function ListePieceTest({ pieces }) {
                         return (
                             <>
                                 {
-                                    piecesAssociees.map(piece => 
-                                    <tr key={piece._id}>
-                                    <td>{piece.titre}</td>
-                                    <td>{piece.artiste}</td>
-                                    <td>{categorie}</td>
-                                    </tr>)
+                                    piecesAssociees.map(piece => {
+                                        if (handleClick !== undefined) {
+                                            if (listeIdDemandes.includes(piece._id)) {
+                                                return <tr key={piece._id}>
+                                                        <td>{piece.titre}</td>
+                                                        <td>{piece.artiste}</td>
+                                                        <td>{categorie}</td>
+                                                        <Button variant="info" className="m-1" size="sm" onClick={() => handleClick(piece._id)}>Sélectionner</Button>
+                                                        </tr>
+                                            }
+                                            else {
+                                                return <tr key={piece._id}>
+                                                        <td>{piece.titre}</td>
+                                                        <td>{piece.artiste}</td>
+                                                        <td>{categorie}</td>
+                                                        <Button variant="success" className="m-1" size="sm" onClick={() => handleClick(piece._id)}>Ajouter</Button>
+                                                        </tr>
+                                            }
+                                            
+                                        }
+                                        else {
+                                            return <tr key={piece._id}>
+                                                    <td>{piece.titre}</td>
+                                                    <td>{piece.artiste}</td>
+                                                    <td>{categorie}</td>
+                                                    <Button variant="success" className="m-1" size="sm" >Ajouter</Button>
+                                                    </tr>
+                                        }
+                                    })
+                                    
                                 }
                            </>
                         )
