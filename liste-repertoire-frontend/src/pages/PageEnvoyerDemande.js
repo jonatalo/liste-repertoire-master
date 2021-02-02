@@ -20,6 +20,7 @@ function PageEnvoyerDemande() {
     const [CategorieTrie,setCategorieTrie]=useState("Rien");
     const [PieceTrie,setPieceTrie]=useState("Rien");
     const [NomArtisteTrie,setNomArtisteTrie]=useState("Rien");
+    const [estActive]=useState(true);
 
     const [titre, setTitre] = useState('');
     const [artiste, setArtiste] = useState('');
@@ -40,7 +41,7 @@ function PageEnvoyerDemande() {
 
         await fetch(`/api/demandes/ajouter`, {
             method: 'put',
-            body: JSON.stringify({ nom, pieces }),
+            body: JSON.stringify({ nom, pieces ,estActive}),
             headers: {
                 'Content-Type': 'application/json'
             }
