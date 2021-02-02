@@ -1,14 +1,22 @@
 import {
-    React
+    React,
+    useState,
+    useEffect
 } from 'react';
 import Alert from 'react-bootstrap/Alert'
 import Button from 'react-bootstrap/Button';
 import { Table } from 'react-bootstrap';
 
+
 function ListePieceTest({ pieces }) {
+    const [CategorieTrie,setCategorieTrie]=useState("Rien");
+    const [PieceTrie,setPieceTrie]=useState("Rien");
+    const [NomArtisteTrie,setNomArtisteTrie]=useState("Rien");
+
     if (pieces?.length) {
         var dictionnaireCategories = Object();
-
+        var dictionnairePiece = Object();
+        var dictionnaireArtiste = Object();
         pieces.forEach(piece => {
             piece.categories.forEach(categorie => {
                 if (dictionnaireCategories[categorie] === undefined) {
@@ -16,6 +24,7 @@ function ListePieceTest({ pieces }) {
                 }
             })            
         });
+       
 
 
         const categories = Object.keys(dictionnaireCategories);
@@ -55,6 +64,7 @@ function ListePieceTest({ pieces }) {
                                     </tr>)
                                 }
                             </>
+
                         )
                     })}
                     </tbody>

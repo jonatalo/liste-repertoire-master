@@ -20,14 +20,13 @@ function ListePieces({ pieces, handleClick, listeDemandes,trieCategorie, trieArt
         }
         else if (trieCategorie == "Decroissant")
         {
-           categories = categories.sort();
+           categories = categories.sort();// sort une function lamda
            categories = categories.reverse();
         }
 
         if (listeDemandes !== undefined) {
             var listeIdDemandes = Object.keys(listeDemandes);
-        }        
-      
+        }   
         return (
             <>
                 {categories.map((categorie) => {
@@ -73,4 +72,5 @@ function ListePieces({ pieces, handleClick, listeDemandes,trieCategorie, trieArt
     }
 }
 
-export default ListePieces;
+export default ListePieces;  
+      

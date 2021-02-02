@@ -12,10 +12,10 @@ function PageTest() {
     const [listePieces, setListePieces] = useState([]);
     const [recherche, setRecherche] = useState('');
 
-    
-    useEffect(() => {
+    if(listePieces.length == 0 && recherche == ''){
         RecherDefault();
-    }, []);
+    }
+
     function RecherDefault(){
         const chercherDonnees = async () => {
             const resultat = await fetch(`/api/pieces`);
@@ -33,7 +33,6 @@ function PageTest() {
             };
             chercherDonnees();
         }
-        RecherDefault();
     }
     function RechercheParArtiste(){
         if(recherche !== ''){
@@ -44,7 +43,6 @@ function PageTest() {
             };
             chercherDonnees();
         }
-        RecherDefault();
     }
     function RechercheParCategorie(){
         if(recherche !== ''){
@@ -55,7 +53,6 @@ function PageTest() {
             };
             chercherDonnees();
         }
-        RecherDefault();
     }
       //mettre le text de recherche dans le haut de la page.
     return (
