@@ -45,7 +45,7 @@ function ListePieceTest({ pieces }) {
                             piece.categories.indexOf(categorie) !== -1);
                             
                         return (
-                            <div key={categorie}>
+                            <>
                                 {
                                     piecesAssociees.map(piece => 
                                     <tr key={piece._id}>
@@ -54,7 +54,7 @@ function ListePieceTest({ pieces }) {
                                     <td>{categorie}</td>
                                     </tr>)
                                 }
-                            </div>
+                            </>
                         )
                     })}
                     </tbody>

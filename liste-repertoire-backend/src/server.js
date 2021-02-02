@@ -94,7 +94,6 @@ app.put('/api/pieces/:filtrer', (requete, reponse) => {
     const titre = requete.params.filtrer.titre;
     const artiste = requete.params.filtrer.artiste;
     const categories = requete.params.filtrer.categories;
->>>>>>> ddf26b3453ec4720bc06cc0c29153d5f8bf0d77d
     
     if(titre !== undefined){
         titre = "";
@@ -216,13 +215,15 @@ app.get('/api/demandes', (requete, reponse) => {
 });
 
 app.put('/api/demandes/ajouter', (requete, reponse) => {
-    const {nom, pieces} = requete.body;
+    const {estActive,nom, pieces , date} = requete.body;
 
     if (nom !== undefined && pieces !== undefined) {
         utiliserDB(async (db) => {
             await db.collection('demandes').insertOne({ 
+                estActive:estActive,
                 nom: nom,
-                pieces: pieces
+                pieces: pieces,
+                date:date
             });
             
             reponse.status(200).send("Demande ajoutée");

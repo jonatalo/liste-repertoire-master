@@ -21,6 +21,7 @@ function PageEnvoyerDemande() {
     const [PieceTrie,setPieceTrie]=useState("Rien");
     const [NomArtisteTrie,setNomArtisteTrie]=useState("Rien");
     const [estActive]=useState(true);
+    const [date]=useState(new Date());
 
     const [titre, setTitre] = useState('');
     const [artiste, setArtiste] = useState('');
@@ -28,42 +29,21 @@ function PageEnvoyerDemande() {
     const {nom} = UtiliseAuth();
     
     useEffect(() => {
-        // const filtre={
-        //     titre:titre,
-        //     artiste:artiste,
-        //     categorie:categorie
-        // }
-        if(titre == '' && artiste == '' && categories == ''){
             const chercherDonnees = async () => {
                 const resultat = await fetch(`/api/pieces`);
                 const body = await resultat.json().catch((error) => {console.log(error)});
                 setListePieces(body);
             };
             chercherDonnees();
-        }
-        else{
-            const filtrer = {
-                titre: titre,
-                artiste: artiste,
-                categories: categories
-            };
-            const chercherDonnees = async () => {
-
-                const resultat = await fetch(`/api/pieces/${filtrer}`);
-                const body = await resultat.json().catch((error) => {console.log(error)});
-                setListePieces(body);
-            };
-            chercherDonnees();
-        }
-        console.log(window.location.pathname);
-    }, []);
+        
+    } , []);
 
     const envoyerDemande = async () => {
         const pieces = Object.values(listeDemandes);
 
         await fetch(`/api/demandes/ajouter`, {
             method: 'put',
-            body: JSON.stringify({ nom, pieces ,estActive}),
+            body: JSON.stringify({ estActive,nom, pieces , date}),
             headers: {
                 'Content-Type': 'application/json'
             }
