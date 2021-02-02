@@ -21,6 +21,7 @@ import {
 } from 'react-router-dom';
 import { ContexteAuth } from './context/auth';
 import { useState } from 'react';
+import PageTest from './pages/PageTest';
 
 function App() {
   const [authentification,setAuthentification]=useState(0);
@@ -41,6 +42,7 @@ function App() {
             <Route path="/ajouter" component={PageAjouter} />
             <Route path="/modifier/:id" component={PageModifier} />
             <Route path="/supprimer/:id" component={PageSupprimer} />
+            <Route path="/test" component={PageTest} />
             <Route component={Page404} />
           </Switch>        
         </Container>

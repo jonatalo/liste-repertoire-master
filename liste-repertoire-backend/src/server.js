@@ -59,8 +59,41 @@ app.get('/api/pieces/:id', (requete, reponse) => {
         () => reponse.status(500).send("Pièce non trouvée")
     );
 });
-app.get('/api/pieces/:filtrer', (requete, reponse) => {
-    const {titre, artiste, categories} = requete.params.filtrer;
+app.get('/api/pieces/titre/:motRechercher', (requete, reponse) => {
+    const titre = requete.params.motRechercher;
+
+    utiliserDB(async (db) => {
+        const listePieces = await db.collection('pieces').find({titre: new RegExp(titre, 'i')}).toArray();
+        reponse.status(200).json(listePieces);      
+    }, reponse).catch(
+        () => reponse.status(500).send("Pièces non trouvée")
+    );
+});
+app.get('/api/pieces/artiste/:motRechercher', (requete, reponse) => {
+    const artiste = requete.params.motRechercher;
+
+    utiliserDB(async (db) => {
+        const listePieces = await db.collection('pieces').find({artiste: new RegExp(artiste, 'i')}).toArray();
+        reponse.status(200).json(listePieces);      
+    }, reponse).catch(
+        () => reponse.status(500).send("Pièces non trouvée")
+    );
+});
+app.get('/api/pieces/categorie/:motRechercher', (requete, reponse) => {
+    const categorie = requete.params.motRechercher;
+
+    utiliserDB(async (db) => {
+        const listePieces = await db.collection('pieces').find({categories: new RegExp(categorie, 'i')}).toArray();
+        reponse.status(200).json(listePieces);      
+    }, reponse).catch(
+        () => reponse.status(500).send("Pièces non trouvée")
+    );
+});
+/*
+app.put('/api/pieces/:filtrer', (requete, reponse) => {
+    const titre = requete.params.filtrer.titre;
+    const artiste = requete.params.filtrer.artiste;
+    const categories = requete.params.filtrer.categories;
     
     if(titre !== undefined){
         titre = "";
@@ -85,6 +118,7 @@ app.get('/api/pieces/:filtrer', (requete, reponse) => {
         () => reponse.status(500).send("Pièce non trouvée")
     );
 });
+*/
 app.put('/api/pieces/ajouter', (requete, reponse) => {
     const {titre, artiste, categories} = requete.body;
 

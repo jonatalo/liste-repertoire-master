@@ -24,6 +24,9 @@ function BarreNavigation() {
                     <LinkContainer to="/admin">
                         <Nav.Link >Admin</Nav.Link>
                     </LinkContainer>
+                    <LinkContainer to="/test">
+                        <Nav.Link >test</Nav.Link>
+                    </LinkContainer>
 
                 </Nav>
             </Navbar.Collapse>

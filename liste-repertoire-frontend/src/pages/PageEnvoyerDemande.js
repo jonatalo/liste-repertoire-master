@@ -25,6 +25,7 @@ function PageEnvoyerDemande() {
     const [artiste, setArtiste] = useState('');
     const [categories, setCategories] = useState('f');
     const {nom} = UtiliseAuth();
+    
     useEffect(() => {
         if(titre == '' && artiste == '' && categories == ''){
             const chercherDonnees = async () => {
@@ -35,7 +36,7 @@ function PageEnvoyerDemande() {
             chercherDonnees();
         }
         else{
-            var filtrer = {
+            const filtrer = {
                 titre: titre,
                 artiste: artiste,
                 categories: categories
