@@ -6,7 +6,8 @@ import {
 import Alert from 'react-bootstrap/Alert'
 import Button from 'react-bootstrap/Button';
 import { Table } from 'react-bootstrap';
-
+import {FaAngleUp } from "react-icons/fa";
+import {FaAngleDown } from "react-icons/fa";
 
 
 function ListePieceTest({ pieces }) {
@@ -59,25 +60,25 @@ function ListePieceTest({ pieces }) {
 
         }
 
-
+// voir la matier de useState pour faire les trie
 
         
         return (
-            <>
+            <> 
                 <Table class="table table-bordered">
                     <thead>
                         <tr>
                             <th>Titre
-                                <Button variant="success" className="m-1" size="sm" onClick={() => setPieceTrie("Croissant")} >&uarr;</Button>
-                                <Button variant="success" className="m-1" size="sm" onClick={() => setPieceTrie("Decroissant")} >&darr;</Button>
+                                <Button variant="success" className="m-1" size="sm" onClick={() => setPieceTrie("Croissant")} ><FaAngleUp /></Button>
+                                <Button variant="success" className="m-1" size="sm" onClick={() => setPieceTrie("Decroissant")} ><FaAngleDown/></Button>
                             </th>
                             <th>Artiste
-                                <Button variant="success" className="m-1" size="sm" onClick={() => setNomArtisteTrie("Croissant")}>&uarr;</Button>
-                                <Button variant="success" className="m-1" size="sm" onClick={() => setNomArtisteTrie("Decroissant")} >&darr;</Button>
+                                <Button variant="success" className="m-1" size="sm" onClick={() => setNomArtisteTrie("Croissant")}><FaAngleUp /></Button>
+                                <Button variant="success" className="m-1" size="sm" onClick={() => setNomArtisteTrie("Decroissant")} ><FaAngleDown/></Button>
                             </th>
                             <th>Categorie
-                            <Button variant="success" className="m-1" size="sm" onClick={() => setCategorieTrie("Croissant")} >&uarr;</Button>
-                                <Button variant="success" className="m-1" size="sm" onClick={() => setCategorieTrie("Decroissant")} >&darr;</Button>
+                                <Button variant="success" className="m-1" size="sm" onClick={() => setCategorieTrie("Croissant")} ><FaAngleUp /></Button>
+                                <Button variant="success" className="m-1" size="sm" onClick={() => setCategorieTrie("Decroissant")} ><FaAngleDown/></Button>
                             </th>                            
                         </tr>
                     </thead>
