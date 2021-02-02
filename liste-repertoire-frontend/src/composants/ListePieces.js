@@ -26,22 +26,12 @@ function ListePieces({ pieces, handleClick, listeDemandes,trieCategorie, trieArt
 
         if (listeDemandes !== undefined) {
             var listeIdDemandes = Object.keys(listeDemandes);
-        }        
-      
+        }   
         return (
             <>
                 {categories.map((categorie) => {
-                    var piecesAssociees = pieces.filter((piece) => 
+                    const piecesAssociees = pieces.filter((piece) => 
                         piece.categories.indexOf(categorie) !== -1);
-                        if(trieArtiste == "Croissant")
-                        {
-                            piecesAssociees = piecesAssociees.sort();
-                        }
-                        else if (trieArtiste == "Decroissant")
-                        {
-                            piecesAssociees = piecesAssociees.sort();// sort une function lamda
-                            piecesAssociees = piecesAssociees.reverse();
-                        }
 
                     return (
                         <div key={categorie}>
@@ -82,4 +72,5 @@ function ListePieces({ pieces, handleClick, listeDemandes,trieCategorie, trieArt
     }
 }
 
-export default ListePieces;
+export default ListePieces;  
+      
