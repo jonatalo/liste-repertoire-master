@@ -89,36 +89,6 @@ app.get('/api/pieces/categorie/:motRechercher', (requete, reponse) => {
         () => reponse.status(500).send("Pièces non trouvée")
     );
 });
-/*
-app.put('/api/pieces/:filtrer', (requete, reponse) => {
-    const titre = requete.params.filtrer.titre;
-    const artiste = requete.params.filtrer.artiste;
-    const categories = requete.params.filtrer.categories;
-    
-    if(titre !== undefined){
-        titre = "";
-    }
-    if(artiste !== undefined){
-        artiste = "";
-    }
-    if(categories !== undefined){
-        categories = "";
-    }
-    utiliserDB(async (db) => {
-        const listePieces = await db.collection('pieces').find({
-            $and: [ 
-                {titre: new RegExp(titre, 'i')},
-                {artiste: new RegExp(artiste, 'i')},
-                {categories: new RegExp(categories, 'i')}
-            ]
-        }).toArray();
-
-        reponse.status(200).json(listePieces);      
-    }, reponse).catch(
-        () => reponse.status(500).send("Pièce non trouvée")
-    );
-});
-*/
 app.put('/api/pieces/ajouter', (requete, reponse) => {
     const {titre, artiste, categories} = requete.body;
 
