@@ -59,8 +59,8 @@ app.get('/api/pieces/:id', (requete, reponse) => {
         () => reponse.status(500).send("Pièce non trouvée")
     );
 });
-app.get('/api/pieces/filtrer', (requete, reponse) => {
-    const {titre, artiste, categories} = requete.body;
+app.get('/api/pieces/:filtrer', (requete, reponse) => {
+    const {titre, artiste, categorie} = requete.params.filtrer;
     
     if(titre !== undefined){
         titre = "";
@@ -68,15 +68,15 @@ app.get('/api/pieces/filtrer', (requete, reponse) => {
     if(artiste !== undefined){
         artiste = "";
     }
-    if(categories !== undefined){
-        categories = "";
+    if(categorie !== undefined){
+        categorie = "";
     }
     utiliserDB(async (db) => {
         const listePieces = await db.collection('pieces').find({
             $and: [ 
                 {titre: new RegExp(titre, 'i')},
                 {artiste: new RegExp(artiste, 'i')},
-                {categories: new RegExp(categories, 'i')}
+                {categories: new RegExp(categorie, 'i')}
             ]
         }).toArray();
 
