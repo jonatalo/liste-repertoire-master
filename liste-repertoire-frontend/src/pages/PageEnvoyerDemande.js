@@ -33,7 +33,7 @@ function PageEnvoyerDemande() {
         //     artiste:artiste,
         //     categorie:categorie
         // }
-        if(titre == '' && artiste == '' && categorie == ''){
+        if(titre == '' && artiste == '' && categories == ''){
             const chercherDonnees = async () => {
                 const resultat = await fetch(`/api/pieces`);
                 const body = await resultat.json().catch((error) => {console.log(error)});
