@@ -41,28 +41,46 @@ function ListePieceTest({ pieces }) {
                     
     });
 
-        var artistes = Object.keys(dictionnaireArtistes);
-        var titres = Object.keys(dictionnairePieces);
-        var categories = Object.keys(dictionnaireCategories);
-        //ne pas oublier de modifier les path dans le server
         if(CategorieTrie == "Croissant")
         {
-            categories = categories.sort((categorie1, categorie2) => 
-            categorie1.toLowerCase().localeCompare(categorie2.toLowerCase()) 
-            );// sort une function lamda
-
+            
         }
         else if (CategorieTrie == "Decroissant")
         {
-           categories = categories.sort((categorie1, categorie2) => 
-            categorie1.toLowerCase().localeCompare(categorie2.toLowerCase()) * -1 
-            );// sort une function lamda
+           
 
         }
 
         // voir la matier de useState pour faire les trie
-
-        
+        if(NomArtisteTrie == "Croissant")
+        {
+            pieces =pieces.sort((pieceA, pieceB) => 
+                pieceA.artiste.toLowerCase().localeCompare(pieceB.artiste.toLowerCase()) 
+                );// sort une function lamda
+                setNomArtisteTrie("rien");
+           
+        }
+        else if (NomArtisteTrie == "Decroissant")
+        {
+            pieces =pieces.sort((pieceA, pieceB) => 
+                pieceA.artiste.toLowerCase().localeCompare(pieceB.artiste.toLowerCase())*-1 
+                );// sort une function lamda
+                setNomArtisteTrie("rien");
+        }
+        if(PieceTrie == "Croissant")
+        {
+            pieces =pieces.sort((pieceA, pieceB) => 
+                pieceA.titre.toLowerCase().localeCompare(pieceB.titre.toLowerCase()) 
+                );
+                setPieceTrie("Rien");
+        }
+        else if (PieceTrie == "Decroissant")
+        {
+            pieces =pieces.sort((pieceA, pieceB) => 
+                pieceA.titre.toLowerCase().localeCompare(pieceB.titre.toLowerCase())*-1 
+                );// sort une function lamda
+                setPieceTrie("Rien");
+        }
         return (
             <> 
                 <Table class="table table-bordered">
@@ -83,51 +101,30 @@ function ListePieceTest({ pieces }) {
                         </tr>
                     </thead>
                     <tbody>
-                        {categories.map((categorie) => {
-                        var piecesAssociees = pieces.filter((piece) => 
-                            piece.categories.indexOf(categorie) !== -1);
-                        if(NomArtisteTrie == "Croissant")
-                        {
-                            piecesAssociees =piecesAssociees.sort((categorie1, categorie2) => 
-                                categorie1.artiste.toLowerCase().localeCompare(categorie2.artiste.toLowerCase()) 
-                                );// sort une function lamda
-                           
-                        }
-                        else if (NomArtisteTrie == "Decroissant")
-                        {
-                            piecesAssociees = piecesAssociees.sort((categorie1, categorie2) => 
-                                categorie1.artiste.toLowerCase().localeCompare(categorie2.artiste.toLowerCase()) * -1 
-                                );// sort une function lamda
-                             
-                        }
-
-                            if(PieceTrie == "Croissant")
-                            {
-                                piecesAssociees =piecesAssociees.sort((categorie1, categorie2) => 
-                                categorie1.titre.toLowerCase().localeCompare(categorie2.titre.toLowerCase()) 
-                                );// sort une function lamda
                         
-                            }
-                            else if (PieceTrie == "Decroissant")
-                            {
-                                piecesAssociees = piecesAssociees.sort((categorie1, categorie2) => 
-                                categorie1.titre.toLowerCase().localeCompare(categorie2.titre.toLowerCase()) * -1 
-                                );// sort une function lamda
                         
-                            }
-                        
-                        return (
-                            <>
-                                {
-                                    piecesAssociees.map(piece => 
-                                    <tr>
-                                    <td>{piece.titre}</td>
-                                    <td>{piece.artiste}</td>
-                                    <td>{categorie}</td>
-                                    </tr>)
+                        { pieces.map(piece => {
+                                    
+                        return(
+                            <>  
+                                <tr>  
+                                <td>{piece.titre}</td>
+                                <td>{piece.artiste}</td>
+                                {piece.categories.map(categorie =>{
+                                    return(
+                                        <>
+                                        
+                                            <p>{categorie}</p>
+                                       
+                                        </>
+                                    );
+                                    }
+                                    )
                                 }
-                           </>
-                        )
+                                 </tr>
+                            </>
+                         );
+
                     })}
                     </tbody>
                 </Table>
