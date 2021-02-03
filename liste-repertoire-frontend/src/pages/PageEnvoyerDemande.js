@@ -110,8 +110,7 @@ function PageEnvoyerDemande() {
                 </Form.Group>
             </Form>
 
-            <Button onClick={changerCategorieTrie}> Categorie  </Button>
-            <Button onClick={changerNomArtisteTrie}> Artiste  </Button>
+            
             <ListePieces pieces={listePieces} handleClick={handleClickPiece} listeDemandes={listeDemandes} trieCategorie={CategorieTrie} trieArtiste={NomArtisteTrie} trieTitre={PieceTrie} />
 
             <Button onClick={envoyerDemande} >
