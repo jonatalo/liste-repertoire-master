@@ -20,7 +20,7 @@ function PageEnvoyerDemande() {
     const [CategorieTrie,setCategorieTrie]=useState("Rien");
     const [PieceTrie,setPieceTrie]=useState("Rien");
     const [NomArtisteTrie,setNomArtisteTrie]=useState("Rien");
-    const [estActive]=useState(true);
+    const [estActive]=useState(false);
     const [date]=useState(new Date());
 
     const [titre, setTitre] = useState('');
@@ -29,8 +29,6 @@ function PageEnvoyerDemande() {
     const {nom} = UtiliseAuth();
     
     useEffect(() => {
-
-
         const chercherDonnees = async () => {
             const resultat = await fetch(`/api/pieces`);
             const body = await resultat.json().catch((error) => {console.log(error)});
