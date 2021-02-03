@@ -12,7 +12,7 @@ function PageListeDemandes() {
 
     useEffect(() => {
         const chercherDonnees = async () => {
-            const resultat = await fetch(`/api/demandes`);///api/demandes/${nomUtilisateur}
+            const resultat = await fetch(`/api/demandes`);
             const body = await resultat.json().catch((error) => {console.log(error)});
             setListeDemandes(body);
         };
