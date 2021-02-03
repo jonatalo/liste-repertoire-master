@@ -193,7 +193,7 @@ app.get('/api/demandes/:nomUtilisateur', (requete, reponse) => {
         () => reponse.status(500).send("Erreur lors de la requête")
     );
 });
-app.post('/api/demandes/modifier/:id', (requete, reponse) => {
+app.post('/api/demandes/modifierDemande/:id', (requete, reponse) => {
     const {nomUtilisateur, pieces} = requete.body;
     const id = requete.params.id;
 

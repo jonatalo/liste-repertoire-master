@@ -12,7 +12,7 @@ function PageListeDemandes() {
 
     useEffect(() => {
         const chercherDonnees = async () => {
-            const resultat = await fetch(`/api/demandes`);
+            const resultat = await fetch(`/api/demandes`);///api/demandes/${nomUtilisateur}
             const body = await resultat.json().catch((error) => {console.log(error)});
             setListeDemandes(body);
         };
@@ -32,7 +32,7 @@ function PageListeDemandes() {
                             demande.pieces.map(piece => <li>{piece}</li>)
                         }
                         </ul>
-                        <Link to={`/modifier/${demande._id}`}>
+                        <Link to={`/modifierDemande/${demande._id}`}>
                             <Button variant="success" className="m-1" size="sm" >Modifier</Button>
                         </Link>
                     </ListGroup.Item>

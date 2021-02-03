@@ -94,15 +94,12 @@ function PageTest() {
                 <Button variant="success" className="m-1" size="sm" onClick={RechercheParCategorie}>Recherche par categorie</Button>
                 <ListePieceTest pieces={listePieces} handleClick={handleClickPiece} listeDemandes={listeDemandes}/>
             </div>
-
-            <Link to={`/liste-demandes-utilisateur`}>
-                <Button variant="success" className="m-1" size="sm" >Afficher demande spécial</Button>
-            </Link>
-        
-
             <Button >
                 Envoyer la demande
             </Button>
+            <Link to={`/liste-demandes-utilisateur`}>
+                <Button variant="success" className="m-1" size="sm" >Afficher demande spécial</Button>
+            </Link>
         </>
     );
 }
