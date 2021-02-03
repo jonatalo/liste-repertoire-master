@@ -9,6 +9,7 @@ import PageConnexionNouveauUtilisateur from './pages/PageConnexionNouveauUtilisa
 import Page404 from './pages/Page404';
 import PageEnvoyerDemande from './pages/PageEnvoyerDemande';
 import PageListeDemandes from './pages/PageListeDemandes';
+import PageListeDemandesUtilisateur from './pages/PageListeDemandesUtilisateur';
 import BarreNavigation from './composants/BarreNavigation';
 import RoutePrivee from './composants/RoutePrivee';
 import './App.css';
@@ -39,6 +40,7 @@ function App() {
             <RoutePrivee path="/admin" component={PageAdmin} />
             <RoutePrivee path="/demande-speciale" component={PageEnvoyerDemande} />
             <Route path="/liste-demandes" component={PageListeDemandes} />
+            <Route path="/liste-demandes-utilisateur" component={PageListeDemandesUtilisateur} />
             <Route path="/ajouter" component={PageAjouter} />
             <Route path="/modifier/:id" component={PageModifier} />
             <Route path="/supprimer/:id" component={PageSupprimer} />

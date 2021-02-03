@@ -6,6 +6,7 @@ import {
 import ListePieceTest from '../composants/ListePieceTest';
 import { Form } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
+import { Link } from 'react-router-dom';
 
 
 function PageTest() {
@@ -94,7 +95,9 @@ function PageTest() {
                 <ListePieceTest pieces={listePieces} handleClick={handleClickPiece} listeDemandes={listeDemandes}/>
             </div>
 
-            <Button > Categorie  </Button>
+            <Link to={`/liste-demandes-utilisateur`}>
+                <Button variant="success" className="m-1" size="sm" >Afficher demande spécial</Button>
+            </Link>
         
 
             <Button >

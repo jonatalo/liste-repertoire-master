@@ -183,7 +183,40 @@ app.get('/api/demandes', (requete, reponse) => {
         () => reponse.status(500).send("Erreur lors de la requête")
     );
 });
+app.get('/api/demandes/:nomUtilisateur', (requete, reponse) => {
+    const nom = requete.params.nomUtilisateur;
+    
+    utiliserDB(async (db) => {
+        const listeDemandes = await db.collection('demandes').find({nom: nomUtilisateur}).toArray();
+        reponse.status(200).json(listeDemandes);
+    }, reponse).catch(
+        () => reponse.status(500).send("Erreur lors de la requête")
+    );
+});
+app.post('/api/demandes/modifier/:id', (requete, reponse) => {
+    const {nomUtilisateur, pieces} = requete.body;
+    const id = requete.params.id;
 
+    if (nomUtilisateur !== undefined && pieces !== undefined) {
+        utiliserDB(async (db) => {
+            var objectId = ObjectID.createFromHexString(id);
+            await db.collection('demandes').updateOne({ _id: objectId }, {
+                '$set': {
+                    nom: nomUtilisateur,
+                    pieces: pieces
+                }
+            });
+            reponse.status(200).send("Demande modifiée");
+        }, reponse).catch(
+            () => reponse.status(500).send("Erreur : la demande n'a pas été modifiée")
+        );        
+    }
+    else {
+        reponse.status(500).send(`Certains paramètres ne sont pas définis :
+            - nom: ${nomUtilisateur}
+            - pieces: ${pieces}`);
+    }
+});
 app.put('/api/demandes/ajouter', (requete, reponse) => {
     const {nom, pieces} = requete.body;
 
@@ -205,4 +238,5 @@ app.put('/api/demandes/ajouter', (requete, reponse) => {
             - pieces: ${pieces}`);
     }
 });
+
 app.listen(8000, () => console.log("Serveur démarré sur le port 8000"));
