@@ -4,96 +4,125 @@ import {
     useEffect
 } from 'react';
 import Alert from 'react-bootstrap/Alert'
+import ListGroup from 'react-bootstrap/ListGroup';
+import { Form } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
-import { Table } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import ListePieceTest from '../composants/ListePieceTest';
 
 
-function ListePieceTest({ pieces,  handleClick, listeDemandes }) {
-    const [CategorieTrie,setCategorieTrie]=useState("Rien");
-    const [PieceTrie,setPieceTrie]=useState("Rien");
-    const [NomArtisteTrie,setNomArtisteTrie]=useState("Rien");
+function FormulaireModifierDemande({ id }) {
+    const [listeDemandeSpecial, setListeDemandeSpecial] = useState(['']);
+    const [listePieces, setListePieces] = useState([]);
+    const [recherche, setRecherche] = useState('');
+    const [listeDemandes, setListeDemandes] = useState({});
 
-    if (pieces?.length) {
-        var dictionnaireCategories = Object();
-        var dictionnairePiece = Object();
-        var dictionnaireArtiste = Object();
-        pieces.forEach(piece => {
-            piece.categories.forEach(categorie => {
-                if (dictionnaireCategories[categorie] === undefined) {
-                    dictionnaireCategories[categorie] = true;
-                }
-            })            
-        });
-       
-        if (listeDemandes !== undefined) {
-            var listeIdDemandes = Object.keys(listeDemandes);
+    useEffect(() => {
+        const chercherDonnees = async () => {
+            const resultat = await fetch(`/api/demandes/${id}`);
+            const body = await resultat.json().catch((error) => {console.log(error)});
+            setListeDemandeSpecial(body.pieces);
+        };
+        chercherDonnees();
+    }, [id]);
+    if( listePieces.length == 0 && recherche == ''){
+        RecherDefault();
+    }
+    function RecherDefault(){
+        const chercherDonnees = async () => {
+            const resultat = await fetch(`/api/pieces`);
+            const body = await resultat.json().catch((error) => {console.log(error)});
+            setListePieces(body);
+        };
+        chercherDonnees();
+    }
+    function RechercheParTitre(){
+        if(recherche !== ''){
+            const chercherDonnees = async () => {
+                const resultat = await fetch(`/api/pieces/titre/${recherche}`);
+                const body = await resultat.json().catch((error) => {console.log(error)});
+                setListePieces(body);
+            };
+            chercherDonnees();
+        }
+        else{
+            RecherDefault();
+        }  
+    }
+    function RechercheParArtiste(){
+        if(recherche !== ''){
+            const chercherDonnees = async () => {
+                const resultat = await fetch(`/api/pieces/artiste/${recherche}`);
+                const body = await resultat.json().catch((error) => {console.log(error)});
+                setListePieces(body);
+            };
+            chercherDonnees();
+        }
+        else{
+            RecherDefault();
         } 
+    }
+    function RechercheParCategorie(){
+        if(recherche !== ''){
+            const chercherDonnees = async () => {
+                const resultat = await fetch(`/api/pieces/categorie/${recherche}`);
+                const body = await resultat.json().catch((error) => {console.log(error)});
+                setListePieces(body);
+            };
+            chercherDonnees();
+        }
+        else{
+            RecherDefault();
+        }  
+    }
+    function handleClickPiece(id) {
+        const nouvelleListeDemandes = {};
+        Object.assign(nouvelleListeDemandes, listeDemandes);
 
-        const categories = Object.keys(dictionnaireCategories);
-        //ne pas oublier de modifier les path dans le server
+        if (listeDemandes[id] === undefined) {
+            const piece = listePieces.find((piece) => piece._id === id);            
+            nouvelleListeDemandes[id] = `${piece.titre} - ${piece.artiste}`;            
+        }
+        else {
+            delete nouvelleListeDemandes[id];
+        }
+
+        setListeDemandes(nouvelleListeDemandes);
+    }
+    if (listeDemandeSpecial != undefined) {
+
         return (
-            <>
-                <Table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Titre
-                                <Button variant="success" className="m-1" size="sm" >&uarr;</Button>
-                                <Button variant="success" className="m-1" size="sm" >&darr;</Button>
-                            </th>
-                            <th>Artiste
-                                <Button variant="success" className="m-1" size="sm" >&uarr;</Button>
-                                <Button variant="success" className="m-1" size="sm" >&darr;</Button>
-                            </th>
-                            <th>Categorie
-                                <Button variant="success" className="m-1" size="sm" >&uarr;</Button>
-                                <Button variant="success" className="m-1" size="sm" >&darr;</Button>
-                            </th>                            
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {categories.map((categorie) => {
-                        const piecesAssociees = pieces.filter((piece) => 
-                            piece.categories.indexOf(categorie) !== -1);
-                            
-                        return (
-                            <>
-                                {
-                                    piecesAssociees.map(piece => {
-                                        if (handleClick !== undefined) {
-                                            if (listeIdDemandes.includes(piece._id)) {
-                                                return <tr key={piece._id}>
-                                                        <td>{piece.titre}</td>
-                                                        <td>{piece.artiste}</td>
-                                                        <td>{categorie}</td>
-                                                        <Button variant="info" className="m-1" size="sm" onClick={() => handleClick(piece._id)}>Sélectionner</Button>
-                                                        </tr>
-                                            }
-                                            else {
-                                                return <tr key={piece._id}>
-                                                        <td>{piece.titre}</td>
-                                                        <td>{piece.artiste}</td>
-                                                        <td>{categorie}</td>
-                                                        <Button variant="success" className="m-1" size="sm" onClick={() => handleClick(piece._id)}>Ajouter</Button>
-                                                        </tr>
-                                            }
-                                            
-                                        }
-                                        else {
-                                            return <tr key={piece._id}>
-                                                    <td>{piece.titre}</td>
-                                                    <td>{piece.artiste}</td>
-                                                    <td>{categorie}</td>
-                                                    <Button variant="success" className="m-1" size="sm" >Ajouter</Button>
-                                                    </tr>
-                                        }
-                                    })
-                                    
-                                }
-                           </>
-                        )
-                    })}
-                    </tbody>
-                </Table>
+            <>  
+            <ListGroup>
+                <ul>
+                {
+                    listeDemandeSpecial.map(piece => 
+                        <li>{piece}
+                        <Link to={`/supprimer/${piece._id}`}>
+                            <Button variant="danger" className="m-1" size="sm" >Supprimer</Button>
+                        </Link>                                        
+                    </li>  
+                    )
+                }
+                </ul>
+            </ListGroup>
+            
+            <div>
+                <h1>Ajouter vos demandes spéciales</h1>
+                <Form className="mb-1">
+                    <Form.Group>
+                        <Form.Control type="text" value={recherche} placeholder="Entrer votre recherche ici" 
+                            onChange={(event) => setRecherche(event.target.value)} />
+                    </Form.Group>
+                </Form>
+                <Button variant="success" className="m-1" size="sm" onClick={RechercheParTitre}>Recherche par titre</Button>                
+                <Button variant="success" className="m-1" size="sm" onClick={RechercheParArtiste}>Recherche par artiste</Button>
+                <Button variant="success" className="m-1" size="sm" onClick={RechercheParCategorie}>Recherche par categorie</Button>
+                <ListePieceTest pieces={listePieces} handleClick={handleClickPiece} listeDemandes={listeDemandes}/>
+            </div>
+            <Button >
+                Envoyer la demande
+            </Button>   
             </>
         );
     }
@@ -102,4 +131,4 @@ function ListePieceTest({ pieces,  handleClick, listeDemandes }) {
     }
 }
 
-export default ListePieceTest;
+export default FormulaireModifierDemande;

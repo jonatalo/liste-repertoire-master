@@ -189,7 +189,7 @@ app.get('/api/demandes/:id', (requete, reponse) => {
 
     utiliserDB(async (db) => {
         var objectId = ObjectID.createFromHexString(id);
-        const listeDemandes = await db.collection('demandes').find({ _id: objectId }).toArray();
+        const listeDemandes = await db.collection('demandes').findOne({ _id: objectId });
         reponse.status(200).json(listeDemandes);
     }, reponse).catch(
         () => reponse.status(500).send("Erreur lors de la requête")

@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
 import ListGroup from 'react-bootstrap/ListGroup';
 
-function PageListeDemandes() {
+function PageListeDemandesUtilisateur() {
     const [listeDemandes, setListeDemandes] = useState([]);
 
     useEffect(() => {
@@ -44,4 +44,4 @@ function PageListeDemandes() {
     );
 }
 
-export default PageListeDemandes;
+export default PageListeDemandesUtilisateur;
