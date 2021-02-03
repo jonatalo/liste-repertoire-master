@@ -11,32 +11,67 @@ import { Redirect } from 'react-router-dom';
 import {FaAngleUp } from "react-icons/fa";
 import {FaAngleDown } from "react-icons/fa";
 import {UtiliseAuth} from '../context/auth'
+import { Link } from 'react-router-dom';
 
 
 function PageEnvoyerDemande() {
     const [listePieces, setListePieces] = useState([]);
     const [listeDemandes, setListeDemandes] = useState({});
     const [confirmation, setConfirmation] = useState(false);
-    const [CategorieTrie,setCategorieTrie]=useState("Rien");
-    const [PieceTrie,setPieceTrie]=useState("Rien");
-    const [NomArtisteTrie,setNomArtisteTrie]=useState("Rien");
-    const [estActive]=useState(true);
-
-    const [titre, setTitre] = useState('');
-    const [artiste, setArtiste] = useState('');
-    const [categories, setCategories] = useState('f');
     const {nom} = UtiliseAuth();
+    const [estActive]=useState(true);
+    const [recherche, setRecherche] = useState('');
     
-    useEffect(() => {
-
+    if( listePieces.length == 0 && recherche == ''){
+        RecherDefault();
+    }
+    function RecherDefault(){
         const chercherDonnees = async () => {
             const resultat = await fetch(`/api/pieces`);
             const body = await resultat.json().catch((error) => {console.log(error)});
             setListePieces(body);
         };
         chercherDonnees();
-
-    }, []);
+    }
+    function RechercheParTitre(){
+        if(recherche !== ''){
+            const chercherDonnees = async () => {
+                const resultat = await fetch(`/api/pieces/titre/${recherche}`);
+                const body = await resultat.json().catch((error) => {console.log(error)});
+                setListePieces(body);
+            };
+            chercherDonnees();
+        }
+        else{
+            RecherDefault();
+        }  
+    }
+    function RechercheParArtiste(){
+        if(recherche !== ''){
+            const chercherDonnees = async () => {
+                const resultat = await fetch(`/api/pieces/artiste/${recherche}`);
+                const body = await resultat.json().catch((error) => {console.log(error)});
+                setListePieces(body);
+            };
+            chercherDonnees();
+        }
+        else{
+            RecherDefault();
+        } 
+    }
+    function RechercheParCategorie(){
+        if(recherche !== ''){
+            const chercherDonnees = async () => {
+                const resultat = await fetch(`/api/pieces/categorie/${recherche}`);
+                const body = await resultat.json().catch((error) => {console.log(error)});
+                setListePieces(body);
+            };
+            chercherDonnees();
+        }
+        else{
+            RecherDefault();
+        }  
+    }
 
     const envoyerDemande = async () => {
         const pieces = Object.values(listeDemandes);
@@ -72,52 +107,27 @@ function PageEnvoyerDemande() {
             return <Alert variant="success" >La demande a bien été envoyée.</Alert>
         }
     }
-    function changerCategorieTrie() {
-        
-        if (CategorieTrie == "Croissant") {
-          setCategorieTrie("Decroissant");
-        } 
-        else {
-            setCategorieTrie("Croissant");
-        }
-      }
-
-      function changerPieceTrie() {
-        
-        if (PieceTrie == "Croissant") {
-          setPieceTrie("Decroissant");
-        } 
-        else {
-            setPieceTrie("Croissant");
-        }
-      }
-      function changerNomArtisteTrie() {
-        
-        if (NomArtisteTrie == "Croissant") {
-          setNomArtisteTrie("Decroissant");
-        } 
-        else {
-            setNomArtisteTrie("Croissant");
-        }
-      }
-      //<Button onClick={changerEtat(CategorieTrie,setCategorieTrie)}> Categorie  </Button>
     return (
         <>
             <h1>Envoyer une demande spéciale</h1>
             <Form className="mb-1">
                 <Form.Group>
                     <Form.Label>Votre nom: {nom}</Form.Label>
+                    <Form.Control type="text" value={recherche} placeholder="Entrer votre recherche ici" 
+                            onChange={(event) => setRecherche(event.target.value)} />
                 </Form.Group>
             </Form>
-
-            <Button onClick={changerCategorieTrie}> Categorie  </Button>
-            <Button onClick={changerNomArtisteTrie}> Artiste  </Button>
-            <ListePieces pieces={listePieces} handleClick={handleClickPiece} listeDemandes={listeDemandes} trieCategorie={CategorieTrie} trieArtiste={NomArtisteTrie} trieTitre={PieceTrie} />
+            <Button variant="success" className="m-1" size="sm" onClick={RechercheParTitre}>Recherche par titre</Button>                
+            <Button variant="success" className="m-1" size="sm" onClick={RechercheParArtiste}>Recherche par artiste</Button>
+            <Button variant="success" className="m-1" size="sm" onClick={RechercheParCategorie}>Recherche par categorie</Button>
+            <ListePieces pieces={listePieces} handleClick={handleClickPiece} listeDemandes={listeDemandes}/>
 
             <Button onClick={envoyerDemande} >
                 Envoyer la demande
             </Button>
-
+            <Link to={`/liste-demandes-utilisateur`}>
+                <Button variant="success" className="m-1" size="sm" >Afficher demande spécial</Button>
+            </Link>
             {afficherConfirmation()}
         </>
     );
