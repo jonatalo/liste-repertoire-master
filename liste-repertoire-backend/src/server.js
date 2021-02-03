@@ -183,6 +183,18 @@ app.get('/api/demandes', (requete, reponse) => {
         () => reponse.status(500).send("Erreur lors de la requête")
     );
 });
+
+app.get('/api/demandes/:id', (requete, reponse) => {
+    const id = requete.params.id;
+
+    utiliserDB(async (db) => {
+        var objectId = ObjectID.createFromHexString(id);
+        const listeDemandes = await db.collection('demandes').find({ _id: objectId }).toArray();
+        reponse.status(200).json(listeDemandes);
+    }, reponse).catch(
+        () => reponse.status(500).send("Erreur lors de la requête")
+    );
+});
 app.get('/api/demandes/:nomUtilisateur', (requete, reponse) => {
     const nom = requete.params.nomUtilisateur;
     
