@@ -3,7 +3,8 @@ import {
     useState,
     useEffect
 } from 'react';
-
+import Button from 'react-bootstrap/Button';
+import { Link } from 'react-router-dom';
 import ListGroup from 'react-bootstrap/ListGroup';
 
 function PageListeDemandes() {
@@ -31,7 +32,9 @@ function PageListeDemandes() {
                             demande.pieces.map(piece => <li>{piece}</li>)
                         }
                         </ul>
-                        
+                        <Link to={`/modifier/${demande._id}`}>
+                            <Button variant="success" className="m-1" size="sm" >Modifier</Button>
+                        </Link>
                     </ListGroup.Item>
                 )
             }

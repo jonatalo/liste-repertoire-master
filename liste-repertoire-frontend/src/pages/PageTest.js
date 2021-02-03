@@ -76,11 +76,7 @@ function PageTest() {
         }
 
         setListeDemandes(nouvelleListeDemandes);
-    }
-      //mettre le text de recherche dans le haut de la page.
-
-      //                
-
+    }             
     return (
         <>
             <div>
