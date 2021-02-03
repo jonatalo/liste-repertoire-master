@@ -15,7 +15,7 @@ function ListePiecesAdmin({ pieces }) {
             })            
         });
 
-        const categories = Object.keys(dictionnaireCategories);
+        var categories = Object.keys(dictionnaireCategories);
 
         return (
             <>
