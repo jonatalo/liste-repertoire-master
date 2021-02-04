@@ -6,9 +6,11 @@ import {
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
 import ListGroup from 'react-bootstrap/ListGroup';
+import {UtiliseAuth} from '../context/auth'
 
-function PageListeDemandes() {
+function PageListeDemandesUtilisateur() {
     const [listeDemandes, setListeDemandes] = useState([]);
+    const {nom} = UtiliseAuth();
 
     useEffect(() => {
         const chercherDonnees = async () => {
@@ -32,8 +34,11 @@ function PageListeDemandes() {
                             demande.pieces.map(piece => <li>{piece}</li>)
                         }
                         </ul>
-                        <Link to={`/modifier/${demande._id}`}>
+                        <Link to={`/modifierDemande/${demande._id}`}>
                             <Button variant="success" className="m-1" size="sm" >Modifier</Button>
+                        </Link>
+                        <Link to={`/supprimerDemande/${demande._id}`}>
+                            <Button variant="danger" className="m-1" size="sm" >Supprimer</Button>
                         </Link>
                     </ListGroup.Item>
                 )
@@ -44,4 +49,4 @@ function PageListeDemandes() {
     );
 }
 
-export default PageListeDemandes;
+export default PageListeDemandesUtilisateur;

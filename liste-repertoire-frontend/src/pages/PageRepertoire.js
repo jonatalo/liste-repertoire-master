@@ -17,10 +17,11 @@ function PageRepertoire() {
         };
         chercherDonnees();
     }, []);
-
+//un nouveau components pour le répertoire est nécessaire
     return (
         <>
             <h1>Liste du répertoire</h1>
+            
             <ListePieces pieces={listePieces} />
         </>
     );
