@@ -35,6 +35,9 @@ function PageListeDemandes() {
                         <Link to={`/modifier/${demande._id}`}>
                             <Button variant="success" className="m-1" size="sm" >Modifier</Button>
                         </Link>
+                        <Link to={`/supprimerDemande/${demande._id}`}>
+                            <Button variant="danger" className="m-1" size="sm" >Supprimer</Button>
+                        </Link>
                     </ListGroup.Item>
                 )
             }

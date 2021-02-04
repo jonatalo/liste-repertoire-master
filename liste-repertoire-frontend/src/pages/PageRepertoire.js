@@ -4,7 +4,7 @@ import {
     useEffect
 } from 'react';
 
-import ListePieces from '../composants/ListePieces';
+import ListePieceRepertoire from '../composants/ListePieceRepertoire';
 
 function PageRepertoire() {
     const [listePieces, setListePieces] = useState([]);
@@ -22,7 +22,7 @@ function PageRepertoire() {
         <>
             <h1>Liste du répertoire</h1>
             
-            <ListePieces pieces={listePieces} />
+            <ListePieceRepertoire pieces={listePieces} />
         </>
     );
 }
