@@ -30,10 +30,11 @@ function FormulaireModifierDemande({ id }) {
             setNomUtilisateur(body.nom);
         };
         chercherDonnees();
-        
+
     }, [id]);
     if( listePieces.length == 0 && recherche == ''){
         RecherDefault();
+        AjouterDemandeExistante();
     }
     const envoyerFormulaire = async () => {
         await fetch(`/api/demandes/modifierDemande/${id}`, {
@@ -45,11 +46,12 @@ function FormulaireModifierDemande({ id }) {
         });
         setRediriger(true);
     };
-    function SuppressionDemande(id){
-        if(listeDemandeSpecial[id] != undefined){
-            delete listeDemandeSpecial[id];
-            envoyerFormulaire();
-        } 
+    function AjouterDemandeExistante(){
+        const nouvelleListeDemandes = {};
+
+        nouvelleListeDemandes = listePieces.find(piece => piece._id === listeDemandeSpecial._id);
+
+        setListeDemandes(nouvelleListeDemandes);
     }
     function RecherDefault(){
         const chercherDonnees = async () => {
@@ -109,7 +111,6 @@ function FormulaireModifierDemande({ id }) {
         else {
             delete nouvelleListeDemandes[id];
         }
-
         setListeDemandes(nouvelleListeDemandes);
     }
     function afficherRedirection() {
@@ -126,9 +127,7 @@ function FormulaireModifierDemande({ id }) {
                 <ul>
                 {
                     listeDemandeSpecial.map(piece => 
-                    <li>{piece}
-                        <Button variant="danger" className="m-1" size="sm" onClick={SuppressionDemande}>Supprimer</Button>                                       
-                    </li>  
+                    <li>{piece}</li>  
                     )
                 }
                 </ul>
