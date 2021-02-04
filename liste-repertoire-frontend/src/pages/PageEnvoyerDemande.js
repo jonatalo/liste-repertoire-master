@@ -113,7 +113,7 @@ function PageEnvoyerDemande() {
             <h1>Envoyer une demande spéciale</h1>
             <Form className="mb-1">
                 <Form.Group>
-                    <Form.Label>Votre nom: {nom}</Form.Label>
+                    <Form.Label>Bonjour : {nom}</Form.Label>
                     <Form.Control type="text" value={recherche} placeholder="Entrer votre recherche ici" 
                             onChange={(event) => setRecherche(event.target.value)} />
                 </Form.Group>

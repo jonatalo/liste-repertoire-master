@@ -3,7 +3,7 @@ import {
     useState,
     useEffect
 } from 'react';
-import ListePieceTest from '../composants/ListePieceTest';
+import ListePieces from '../composants/ListePieces';
 import { Form } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
@@ -80,7 +80,7 @@ function PageRepertoire() {
     return (
         <>
             <div>
-                <h1>Envoyer une demande spéciale</h1>
+                <h1>Liste du répertoire</h1>
                 <Form className="mb-1">
                     <Form.Group>
                         <Form.Control type="text" value={recherche} placeholder="Entrer votre recherche ici" 
@@ -91,7 +91,7 @@ function PageRepertoire() {
                 <Button variant="success" className="m-1" size="sm" onClick={RechercheParTitre}>Recherche par titre</Button>
                 <Button variant="success" className="m-1" size="sm" onClick={RechercheParArtiste}>Recherche par artiste</Button>
                 <Button variant="success" className="m-1" size="sm" onClick={RechercheParCategorie}>Recherche par categorie</Button>
-                <ListePieceTest pieces={listePieces} handleClick={handleClickPiece} listeDemandes={listeDemandes}/>
+                <ListePieces pieces={listePieces} handleClick={handleClickPiece} listeDemandes={listeDemandes}/>
 
             </div>
         </>
