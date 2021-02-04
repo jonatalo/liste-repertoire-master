@@ -183,15 +183,33 @@ app.get('/api/demandes', (requete, reponse) => {
 });
 app.get('/api/demandes/:id', (requete, reponse) => {
     const id = requete.params.id;
-
     utiliserDB(async (db) => {
         var objectId = ObjectID.createFromHexString(id);
         const infoDemande = await db.collection('demandes').findOne({ _id: objectId });
         reponse.status(200).json(infoDemande);      
+
     }, reponse).catch(
         () => reponse.status(500).send("Erreur lors de la requête")
     );
 });
+//à modifier
+app.get('/api/demandes/:nom', (requete, reponse) => {
+    const nom = requete.params.id;
+
+    if(nom !== undefined){
+        utiliserDB(async (db) => {
+            const listeDemandes = await db.collection('demandes').find({ nom: nom }).toArray();
+            reponse.status(200).json(listeDemandes);
+        }, reponse).catch(
+            () => reponse.status(500).send("Erreur lors de la requête")
+        );
+    }
+    else {
+        reponse.status(500).send(`Certains paramètres ne sont pas définis :
+            - nom: ${nomUtilisateur}`);
+    }
+});
+
 app.put('/api/demandes/ajouter', (requete, reponse) => {
     const {estActive,nom, pieces , date} = requete.body;
 
@@ -215,6 +233,7 @@ app.put('/api/demandes/ajouter', (requete, reponse) => {
             - pieces: ${pieces}`);
     }
 });
+
 app.post('/api/demandes/modifier/:id', (requete, reponse) => {
     const {estActive, nom, pieces , date} = requete.body;
     const id = requete.params.id;
@@ -243,6 +262,20 @@ app.post('/api/demandes/modifier/:id', (requete, reponse) => {
             - pieces: ${pieces}
             - date: ${date}`);
     }
+});
+
+
+app.delete('/api/demandes/supprimer/:id', (requete, reponse) => {
+    const id = requete.params.id;
+
+    utiliserDB(async (db) => {
+        var objectId = ObjectID.createFromHexString(id);
+        const resultat = await db.collection('demandes').deleteOne({ _id: objectId });
+        
+        reponse.status(200).send(`${resultat.deletedCount} demande supprimée`);
+    }, reponse).catch(
+        () => reponse.status(500).send("Erreur : la demande n'a pas été supprimée")
+    );
 });
 
 app.listen(8000, () => console.log("Serveur démarré sur le port 8000"));

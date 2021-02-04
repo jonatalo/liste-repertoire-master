@@ -1,7 +1,9 @@
 import React from 'react';
 import Alert from 'react-bootstrap/Alert'
+import Button from 'react-bootstrap/Button';
+import { Table } from 'react-bootstrap';
 
-function ListePieces({ pieces, handleClick, listeDemandes,trieCategorie, trieArtiste,trieTitre }) {
+function ListePieces({ pieces, handleClick, listeDemandes }) {
     if (pieces?.length) {
         var dictionnaireCategories = Object();
 
@@ -14,56 +16,66 @@ function ListePieces({ pieces, handleClick, listeDemandes,trieCategorie, trieArt
         });
 
         var categories = Object.keys(dictionnaireCategories);
-        if(trieCategorie == "Croissant")
-        {
-            categories = categories.sort();
-        }
-        else if (trieCategorie == "Decroissant")
-        {
-           categories = categories.sort();// sort une function lamda
-           categories = categories.reverse();
-        }
 
         if (listeDemandes !== undefined) {
             var listeIdDemandes = Object.keys(listeDemandes);
         }   
         return (
             <>
-                {categories.map((categorie) => {
-                    const piecesAssociees = pieces.filter((piece) => 
-                        piece.categories.indexOf(categorie) !== -1);
-
-                    return (
-                        <div key={categorie}>
-                            <h4>{categorie}</h4>
-                            <ul>
+                <Table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Titre
+                                <Button variant="success" className="m-1" size="sm" >&uarr;</Button>
+                                <Button variant="success" className="m-1" size="sm" >&darr;</Button>
+                            </th>
+                            <th>Artiste
+                                <Button variant="success" className="m-1" size="sm" >&uarr;</Button>
+                                <Button variant="success" className="m-1" size="sm" >&darr;</Button>
+                            </th>
+                            <th>Categorie
+                                <Button variant="success" className="m-1" size="sm" >&uarr;</Button>
+                                <Button variant="success" className="m-1" size="sm" >&darr;</Button>
+                            </th>                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {categories.map((categorie) => {
+                        const piecesAssociees = pieces.filter((piece) => 
+                            piece.categories.indexOf(categorie) !== -1);
+                            
+                        return (
+                            <>
                                 {
                                     piecesAssociees.map(piece => {
                                         if (handleClick !== undefined) {
                                             if (listeIdDemandes.includes(piece._id)) {
-                                                return <li key={piece._id} onClick={() => handleClick(piece._id)} className="bg-info">
-                                                            {piece.titre} - {piece.artiste}
-                                                        </li>
+                                                return <tr key={piece._id}>
+                                                        <td>{piece.titre}</td>
+                                                        <td>{piece.artiste}</td>
+                                                        <td>{categorie}</td>
+                                                        <Button variant="info" className="m-1" size="sm" onClick={() => handleClick(piece._id)}>Sélectionner</Button>
+                                                        </tr>
                                             }
                                             else {
-                                                return <li key={piece._id} onClick={() => handleClick(piece._id)} >
-                                                            {piece.titre} - {piece.artiste}
-                                                        </li>
+                                                return <tr key={piece._id}>
+                                                        <td>{piece.titre}</td>
+                                                        <td>{piece.artiste}</td>
+                                                        <td>{categorie}</td>
+                                                        <Button variant="success" className="m-1" size="sm" onClick={() => handleClick(piece._id)}>Ajouter</Button>
+                                                        </tr>
                                             }
                                             
                                         }
-                                        else {
-                                            return <li key={piece._id} >
-                                                        {piece.titre} - {piece.artiste}
-                                                    </li>
-                                        }
-                                    })
                                         
+                                    })
+                                    
                                 }
-                            </ul>
-                        </div>
-                    )
-                })}
+                           </>
+                        )
+                    })}
+                    </tbody>
+                </Table>
             </>
         );
     }

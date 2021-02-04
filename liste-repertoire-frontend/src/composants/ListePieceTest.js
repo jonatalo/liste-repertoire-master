@@ -9,63 +9,117 @@ import { Table } from 'react-bootstrap';
 import {FaAngleUp } from "react-icons/fa";
 import {FaAngleDown } from "react-icons/fa";
 
+function DiviserParCategorie(pieceMusicales){
+    const pieceConstruteur = {_id:"", tite:"",artiste:"",categories:""};
+        var pieceMusicaleCategorie=[];
+        pieceMusicales.forEach(piece =>{
+            
+ 
+            if(piece.categories.length == 1)
+            {
+                var pieceMusical =Object.create(pieceConstruteur);
+                pieceMusical._id =piece._id;
+                pieceMusical.titre = piece.titre;
+                pieceMusical.artiste = piece.artiste;
+                pieceMusical.categories=piece.categories[0];
+                pieceMusicaleCategorie.push(pieceMusical);
+            }
+            else if(piece.categories.length > 1)
+            {
+               
+                var categories=[];
+                
+                piece.categories.forEach(categorie=>{
+                    categories.push(categorie);
+                    
+                });
+                for (let index = 0; index < categories.length; index++) {
+                    var pieceMusical =Object.create(pieceConstruteur);
+                    pieceMusical._id =piece._id;
+                    pieceMusical.titre = piece.titre;
+                    pieceMusical.artiste = piece.artiste;                   
+                    pieceMusical.categories=categories[index];                
+                    pieceMusicaleCategorie.push(pieceMusical);
+                }
+            }
+            
+        })
+        return pieceMusicaleCategorie;
 
-function ListePieceTest({ pieces }) {
+}
+
+
+function ListePieceTest({ pieces,  handleClick, listeDemandes }) {
     const [CategorieTrie,setCategorieTrie]=useState("Rien");
     const [PieceTrie,setPieceTrie]=useState("Rien");
     const [NomArtisteTrie,setNomArtisteTrie]=useState("Rien");
+    if (listeDemandes !== undefined) {
+        var listeIdDemandes = Object.keys(listeDemandes);
+    } 
 
-    if (pieces?.length) {
-        var dictionnaireCategories = Object();
-        var dictionnairePieces = Object();
-        var dictionnaireArtistes = Object();
-        pieces.forEach(piece => {
-            piece.categories.forEach(categorie => {
-                if (dictionnaireCategories[categorie] === undefined) {
-                    dictionnaireCategories[categorie] = true;
-                }
-            })            
-        });
-        pieces.forEach(piece => {
-            
-                if (dictionnaireArtistes[piece.artiste] === undefined) {
-                    dictionnaireArtistes[piece.artiste] = true;
-                }
-                        
-        });
-        pieces.forEach(piece => {
-            
-            if (dictionnairePieces[piece.titre] === undefined) {
-                dictionnairePieces[piece.titre] = true;
-            }
-                    
-    });
-
-        var artistes = Object.keys(dictionnaireArtistes);
-        var titres = Object.keys(dictionnairePieces);
-        var categories = Object.keys(dictionnaireCategories);
-        //ne pas oublier de modifier les path dans le server
+     if (pieces?.length) {
+         var pieceMusicales=pieces;
         if(CategorieTrie == "Croissant")
         {
-            categories = categories.sort((categorie1, categorie2) => 
-            categorie1.toLowerCase().localeCompare(categorie2.toLowerCase()) 
-            );// sort une function lamda
-
-        }
-        else if (CategorieTrie == "Decroissant")
+            var pieceMusicales=pieces;
+            pieceMusicales = DiviserParCategorie(pieceMusicales);            
+            pieceMusicales = pieceMusicales.sort((pieceA, pieceB) => 
+                pieceA.categories.toLowerCase().localeCompare(pieceB.categories.toLowerCase())
+            );
+            
+         }
+         else if (CategorieTrie == "Decroissant")
+         {
+            var pieceMusicales=pieces;
+            pieceMusicales = DiviserParCategorie(pieceMusicales);            
+            pieceMusicales = pieceMusicales.sort((pieceA, pieceB) => 
+                pieceA.categories.toLowerCase().localeCompare(pieceB.categories.toLowerCase())*-1 
+            );
+            
+         }
+        if(NomArtisteTrie == "Croissant")
         {
-           categories = categories.sort((categorie1, categorie2) => 
-            categorie1.toLowerCase().localeCompare(categorie2.toLowerCase()) * -1 
-            );// sort une function lamda
-
+            setCategorieTrie("Rien")
+            var pieceMusicales=pieces;
+            pieceMusicales = pieceMusicales.sort((pieceA, pieceB) => 
+                pieceA.artiste.toLowerCase().localeCompare(pieceB.artiste.toLowerCase()) 
+                );
+                setNomArtisteTrie("rien");
+           
         }
-
-        // voir la matier de useState pour faire les trie
-
-        
+        else if (NomArtisteTrie == "Decroissant")
+        {   
+            
+            setCategorieTrie("Rien")
+            var pieceMusicales=pieces;
+            pieceMusicales = (pieceMusicales.sort((pieceA, pieceB) => 
+                pieceA.artiste.toLowerCase().localeCompare(pieceB.artiste.toLowerCase())*-1 
+                ));
+                setNomArtisteTrie("rien");
+        }
+        if(PieceTrie == "Croissant")
+        {
+            setCategorieTrie("Rien")
+            var pieceMusicales=pieces;
+            pieceMusicales = pieceMusicales.sort((pieceA, pieceB) => 
+                pieceA.titre.toLowerCase().localeCompare(pieceB.titre.toLowerCase()) 
+                );
+                setPieceTrie("Rien");
+        }
+        else if (PieceTrie == "Decroissant")
+        {
+            setCategorieTrie("Rien")
+            var pieceMusicales=pieces;
+            console.log(pieceMusicales)
+            pieceMusicales = pieces;
+            pieceMusicales= pieceMusicales.sort((pieceA, pieceB) => 
+                pieceA.titre.toLowerCase().localeCompare(pieceB.titre.toLowerCase())*-1 
+                );// sort une function lamda
+                setPieceTrie("Rien");
+        }
         return (
             <> 
-                <Table class="table table-bordered">
+                <Table className="table table-bordered">
                     <thead>
                         <tr>
                             <th>Titre
@@ -83,53 +137,103 @@ function ListePieceTest({ pieces }) {
                         </tr>
                     </thead>
                     <tbody>
-                        {categories.map((categorie) => {
-                        var piecesAssociees = pieces.filter((piece) => 
-                            piece.categories.indexOf(categorie) !== -1);
-                        if(NomArtisteTrie == "Croissant")
-                        {
-                            piecesAssociees =piecesAssociees.sort((categorie1, categorie2) => 
-                                categorie1.artiste.toLowerCase().localeCompare(categorie2.artiste.toLowerCase()) 
-                                );// sort une function lamda
-                           
-                        }
-                        else if (NomArtisteTrie == "Decroissant")
-                        {
-                            piecesAssociees = piecesAssociees.sort((categorie1, categorie2) => 
-                                categorie1.artiste.toLowerCase().localeCompare(categorie2.artiste.toLowerCase()) * -1 
-                                );// sort une function lamda
-                             
-                        }
 
-                            if(PieceTrie == "Croissant")
-                            {
-                                piecesAssociees =piecesAssociees.sort((categorie1, categorie2) => 
-                                categorie1.titre.toLowerCase().localeCompare(categorie2.titre.toLowerCase()) 
-                                );// sort une function lamda
+                    {pieceMusicales.map(piece => {
                         
-                            }
-                            else if (PieceTrie == "Decroissant")
-                            {
-                                piecesAssociees = piecesAssociees.sort((categorie1, categorie2) => 
-                                categorie1.titre.toLowerCase().localeCompare(categorie2.titre.toLowerCase()) * -1 
-                                );// sort une function lamda
-                        
-                            }
-                        
-                        return (
-                            <>
-                                {
-                                    piecesAssociees.map(piece => 
-                                    <tr>
-                                    <td>{piece.titre}</td>
-                                    <td>{piece.artiste}</td>
-                                    <td>{categorie}</td>
-                                    </tr>)
+                        console.log(handleClick)
+                        if (handleClick != undefined) {
+                                if(typeof (piece.categories)!="string"){
+                                    if (listeIdDemandes.includes(piece._id)) {
+                                    return(
+                                    <>  
+                                        <tr>  
+                                        <td>{piece.titre}</td>
+                                        <td>{piece.artiste}</td>
+                                        {piece.categories.map(categorie =>{
+                                            return(
+                                                <>
+                                                
+                                                    <p>{categorie}</p>
+                                               
+                                                </>
+                                            );
+                                            }
+                                            
+                                            )
+                                        }
+                                        <td>
+                                        <Button variant="info" className="m-1" size="sm" onClick={() => handleClick(piece._id)}>Sélectionner</Button>
+                                        </td>
+                                         </tr>
+                                    </>
+                                 );
+                                } 
+                                    else{
+                                    return(
+                                            <>  
+                                                <tr>  
+                                                <td>{piece.titre}</td>
+                                                <td>{piece.artiste}</td>
+                                                {piece.categories.map(categorie =>{
+                                                    return(
+                                                        <>
+
+                                                            <p>{categorie}</p>
+                                                    
+                                                        </>
+                                                    );
+                                                    }
+
+                                                    )
+                                                }
+                                                <td>
+                                                 <Button variant="success" className="m-1" size="sm" onClick={() => handleClick(piece._id)}>Ajouter</Button> 
+                                                </td>
+                                                 </tr>
+                                            </>
+                                         );
+                                        } 
+
+                                    }                                      
+                            else{   
+                                if (listeIdDemandes.includes(piece._id)) {                  
+                                return(
+                                    <>  
+                                        <tr>  
+                                        <td>{piece.titre}</td>
+                                        <td>{piece.artiste}</td>
+                                        <td>{piece.categories}</td>
+                                        <Button variant="info" className="m-1" size="sm" onClick={() => handleClick(piece._id)}>Sélectionner</Button>
+                                         </tr>
+                                    </>
+                                    );
                                 }
+<<<<<<< HEAD
                             </>
 
                         )
                     })}
+=======
+                                    
+                                else{
+                                    return(
+                                            <>  
+                                                <tr>  
+                                                <td>{piece.titre}</td>
+                                                <td>{piece.artiste}</td>
+                                                <td>{piece.categories}</td>
+                                                <Button variant="success" className="m-1" size="sm" onClick={() => handleClick(piece._id)}>Ajouter</Button>
+                                                 </tr>
+                                            </>
+                                    );
+                                    }  
+                            } 
+                        } 
+                    }
+                )
+                }  
+                                     
+>>>>>>> aa45dfa2ec8a208f572d6a7333e8630556ce526c
                     </tbody>
                 </Table>
             </>
@@ -138,6 +242,7 @@ function ListePieceTest({ pieces }) {
     else {
         return <Alert variant={"info"} >Il n'y a pas de pièces dans le répertoire.</Alert>;
     }
+    
 }
 
 export default ListePieceTest;
