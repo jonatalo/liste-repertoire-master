@@ -8,6 +8,9 @@ import InputGroup from 'react-bootstrap/InputGroup'
 import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
 import {UtiliseAuth} from '../context/auth'
+import { Table } from 'react-bootstrap';
+import {FaAngleUp } from "react-icons/fa";
+import {FaAngleDown } from "react-icons/fa";
 
 function PageListeDemandes() {
     const [listeDemandes, setListeDemandes] = useState([]);
@@ -15,7 +18,10 @@ function PageListeDemandes() {
     const [date,setDate]=useState();
     const [pieces, setPieces] = useState([]);
     const {nom} = UtiliseAuth();
-
+    const [NomDuDemandeurTrie, setNomDudemandeurTrie ]= useState("Rien");
+    const [DateTrie, setDateTrie ]= useState("Rien");
+    
+    
     useEffect(() => {
         const chercherDonnees = async () => {
             const resultat = await fetch(`/api/demandes`);
@@ -52,30 +58,88 @@ function PageListeDemandes() {
         modifierActif();
     
     };
+    var listeDemandeSpecial = listeDemandes;
+    if(NomDuDemandeurTrie == "Croissant"){
+
+        listeDemandeSpecial = listeDemandes;
+        listeDemandeSpecial= listeDemandeSpecial.sort((demandeA, demandeB) => 
+        demandeA.nom.toLowerCase().localeCompare(demandeB.nom.toLowerCase()) 
+        );
+            setNomDudemandeurTrie("Rien");
+    }
+    else if (NomDuDemandeurTrie == "Decroissant"){
+        
+       
+        listeDemandeSpecial = listeDemandes;
+        listeDemandeSpecial= listeDemandeSpecial.sort((demandeA, demandeB) => 
+            demandeA.nom.toLowerCase().localeCompare(demandeB.nom.toLowerCase())*-1 
+            );
+            setNomDudemandeurTrie("Rien");
+    }
+    if(DateTrie == "Croissant"){
+       
+        listeDemandeSpecial = listeDemandes;
+       listeDemandeSpecial= listeDemandeSpecial.sort((demandeA, demandeB) => 
+            demandeA.date.toLowerCase().localeCompare(demandeB.date.toLowerCase())
+            );
+            setDateTrie("Rien");
+    }
+    else if (DateTrie == "Decroissant"){
+        
+        listeDemandeSpecial = listeDemandes;
+       listeDemandeSpecial= listeDemandeSpecial.sort((demandeA, demandeB) => 
+            demandeA.date.toLowerCase().localeCompare(demandeB.date.toLowerCase())*-1
+            );
+            setDateTrie("Rien");
+    }
 
     return (
         <>
             <h1>Demandes spéciales</h1>
-            <ListGroup>
-            {
-                listeDemandes.map(demande => 
-                    <ListGroup.Item key={demande._id}>
-                        <InputGroup>
-                            <InputGroup.Prepend>
-                                <InputGroup.Checkbox aria-label="estActive" checked={demande.estActive} onChange={() => ChangerEtat({demande})} />
-                                <InputGroup.Text>Actif</InputGroup.Text>
-                            </InputGroup.Prepend>
-                        </InputGroup>
-                        <h4>{demande.nom}  {demande.date}</h4>
-                        <ul>
-                        {
-                            demande.pieces.map(piece => <li key={piece.nom}>{piece}</li>)
+        
+                <Table className="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Nom du Demandeur
+                                <Button variant="success" className="m-1" size="sm" onClick={() => setNomDudemandeurTrie("Croissant")} ><FaAngleUp /></Button>
+                                <Button variant="success" className="m-1" size="sm" onClick={() => setNomDudemandeurTrie("Decroissant")} ><FaAngleDown/></Button>
+                            </th>
+                            <th>Date
+                                <Button variant="success" className="m-1" size="sm" onClick={() => setDateTrie("Croissant")}><FaAngleUp /></Button>
+                                <Button variant="success" className="m-1" size="sm" onClick={() => setDateTrie("Decroissant")} ><FaAngleDown/></Button>
+                            </th>
+                            <th>Piece</th>     
+                            <th>Actif</th>                        
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {listeDemandeSpecial.map(demande => {
+                                return(
+
+                                <tr key={demande._id}>
+                                    <td>{demande.nom}</td>
+                                    <td>{demande.date}</td>
+                                    <td>
+                                       {demande.pieces.map(piece =>{
+                                           {console.log(piece)}
+                                           return(
+                                               <p key={piece.nom}>{piece}</p>
+                                           )
+                                       } )}
+                                    </td>
+                                    <td>
+                                    <input type="checkbox" aria-label="estActive" checked={demande.estActive} onChange={() => ChangerEtat({demande})} />
+
+                                    </td>
+
+                                </tr>
+                                );
+                            }
+                          )
                         }
-                        </ul>
-                    </ListGroup.Item>
-                )
-            }
-            </ListGroup>
+                    </tbody>
+                </Table>
+            
             
         </>
     );
