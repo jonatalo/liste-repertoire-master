@@ -1,7 +1,6 @@
 import {
     React,
-    useState,
-    useEffect
+    useState
 } from 'react';
 import Alert from 'react-bootstrap/Alert'
 import Button from 'react-bootstrap/Button';
@@ -117,6 +116,7 @@ function ListePieceTest({ pieces,  handleClick, listeDemandes }) {
                 );// sort une function lamda
                 setPieceTrie("Rien");
         }
+        
         return (
             <> 
                 <Table className="table table-bordered">
@@ -226,7 +226,7 @@ function ListePieceTest({ pieces,  handleClick, listeDemandes }) {
                     }
                 )
                 }  
-                
+
                     </tbody>
                 </Table>
             </>

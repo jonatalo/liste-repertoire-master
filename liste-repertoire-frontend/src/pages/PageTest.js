@@ -1,7 +1,6 @@
 import {
     React,
     useState,
-    useEffect
 } from 'react';
 import ListePieceTest from '../composants/ListePieceTest';
 import { Form } from 'react-bootstrap';
