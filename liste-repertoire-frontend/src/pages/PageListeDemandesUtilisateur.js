@@ -6,9 +6,11 @@ import {
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
 import ListGroup from 'react-bootstrap/ListGroup';
+import {UtiliseAuth} from '../context/auth'
 
 function PageListeDemandesUtilisateur() {
     const [listeDemandes, setListeDemandes] = useState([]);
+    const {nom} = UtiliseAuth();
 
     useEffect(() => {
         const chercherDonnees = async () => {
@@ -34,6 +36,9 @@ function PageListeDemandesUtilisateur() {
                         </ul>
                         <Link to={`/modifierDemande/${demande._id}`}>
                             <Button variant="success" className="m-1" size="sm" >Modifier</Button>
+                        </Link>
+                        <Link to={`/supprimerDemande/${demande._id}`}>
+                            <Button variant="danger" className="m-1" size="sm" >Supprimer</Button>
                         </Link>
                     </ListGroup.Item>
                 )

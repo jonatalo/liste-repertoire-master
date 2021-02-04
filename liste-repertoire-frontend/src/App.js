@@ -11,6 +11,7 @@ import PageEnvoyerDemande from './pages/PageEnvoyerDemande';
 import PageListeDemandes from './pages/PageListeDemandes';
 import PageListeDemandesUtilisateur from './pages/PageListeDemandesUtilisateur';
 import PageModifierDemande from './pages/PageModifierDemande';
+import PageSupprimerDemande from './pages/PageSupprimerDemande';
 import BarreNavigation from './composants/BarreNavigation';
 import RoutePrivee from './composants/RoutePrivee';
 import './App.css';
@@ -46,6 +47,7 @@ function App() {
             <Route path="/modifier/:id" component={PageModifier} />
             <Route path="/modifierDemande/:id" component={PageModifierDemande} />
             <Route path="/supprimer/:id" component={PageSupprimer} />
+            <Route path="/supprimerDemande/:id" component={PageSupprimerDemande} />
             <Route path="/test" component={PageTest} />
             <Route component={Page404} />
           </Switch>        
