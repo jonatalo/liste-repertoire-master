@@ -15,7 +15,7 @@ function FormulaireModifierDemande({ id }) {
     const [listeDemandeSpecial, setListeDemandeSpecial] = useState(['']);
     const [listePieces, setListePieces] = useState([]);
     const [recherche, setRecherche] = useState('');
-    const [listeDemandes, setListeDemandes] = useState([]);
+    const [listeDemandes, setListeDemandes] = useState({});
     const [rediriger, setRediriger] = useState(false);
 
     useEffect(() => {
@@ -31,13 +31,15 @@ function FormulaireModifierDemande({ id }) {
         RecherDefault();
     }
     const envoyerFormulaire = async () => {
+        const pieces = Object.values(listeDemandes);
         await fetch(`/api/demandes/modifier/${id}`, {
             method: 'post',
-            body: JSON.stringify({ pieces:listeDemandes }),
+            body: JSON.stringify({ pieces: pieces }),
             headers: {
                 'Content-Type': 'application/json'
             }
         });
+        setListeDemandes({});
         setRediriger(true);
     };
     function SuppressionDemande(id){

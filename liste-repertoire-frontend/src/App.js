@@ -24,7 +24,6 @@ import {
 } from 'react-router-dom';
 import { ContexteAuth } from './context/auth';
 import { useState } from 'react';
-import PageTest from './pages/PageTest';
 
 function App() {
   const [authentification,setAuthentification]=useState(0);

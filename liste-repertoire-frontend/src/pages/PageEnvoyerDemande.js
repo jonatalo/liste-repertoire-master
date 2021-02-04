@@ -76,7 +76,6 @@ function PageEnvoyerDemande() {
 
     const envoyerDemande = async () => {
         const pieces = Object.values(listeDemandes);
-
         await fetch(`/api/demandes/ajouter`, {
             method: 'put',
             body: JSON.stringify({ estActive,nom, pieces , date}),
