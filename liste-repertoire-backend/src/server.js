@@ -192,9 +192,8 @@ app.get('/api/demandes/:id', (requete, reponse) => {
         () => reponse.status(500).send("Erreur lors de la requête")
     );
 });
-//à modifier
-app.get('/api/demandes/:nom', (requete, reponse) => {
-    const nom = requete.params.id;
+app.get('/api/demandes/parNom/:nom', (requete, reponse) => {
+    const nom = requete.params.nom;
 
     if(nom !== undefined){
         utiliserDB(async (db) => {
@@ -204,12 +203,7 @@ app.get('/api/demandes/:nom', (requete, reponse) => {
             () => reponse.status(500).send("Erreur lors de la requête")
         );
     }
-    else {
-        reponse.status(500).send(`Certains paramètres ne sont pas définis :
-            - nom: ${nomUtilisateur}`);
-    }
 });
-
 app.put('/api/demandes/ajouter', (requete, reponse) => {
     const {estActive,nom, pieces , date} = requete.body;
 
@@ -233,7 +227,6 @@ app.put('/api/demandes/ajouter', (requete, reponse) => {
             - pieces: ${pieces}`);
     }
 });
-
 app.post('/api/demandes/modifier/:id', (requete, reponse) => {
     const {estActive, nom, pieces , date} = requete.body;
     const id = requete.params.id;
@@ -263,8 +256,6 @@ app.post('/api/demandes/modifier/:id', (requete, reponse) => {
             - date: ${date}`);
     }
 });
-
-
 app.delete('/api/demandes/supprimer/:id', (requete, reponse) => {
     const id = requete.params.id;
 

@@ -1,7 +1,6 @@
 import {
     React,
-    useState,
-    useEffect
+    useState
 } from 'react';
 import Alert from 'react-bootstrap/Alert'
 import Button from 'react-bootstrap/Button';
@@ -226,7 +225,7 @@ function ListePieceTest({ pieces,  handleClick, listeDemandes }) {
                     }
                 )
                 }  
-                
+
                     </tbody>
                 </Table>
             </>
