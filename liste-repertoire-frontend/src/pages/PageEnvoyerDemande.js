@@ -18,9 +18,7 @@ function PageEnvoyerDemande() {
     const [listePieces, setListePieces] = useState([]);
     const [listeDemandes, setListeDemandes] = useState({});
     const [confirmation, setConfirmation] = useState(false);
-    const [estActive]=useState(false);
     const [date]=useState(new Date());
-
     const {nom} = UtiliseAuth();
     const [estActive]=useState(true);
     const [recherche, setRecherche] = useState('');

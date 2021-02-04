@@ -208,12 +208,6 @@ function ListePieceTest({ pieces,  handleClick, listeDemandes }) {
                                     </>
                                     );
                                 }
-<<<<<<< HEAD
-                            </>
-
-                        )
-                    })}
-=======
                                     
                                 else{
                                     return(
@@ -232,8 +226,7 @@ function ListePieceTest({ pieces,  handleClick, listeDemandes }) {
                     }
                 )
                 }  
-                                     
->>>>>>> aa45dfa2ec8a208f572d6a7333e8630556ce526c
+                
                     </tbody>
                 </Table>
             </>
