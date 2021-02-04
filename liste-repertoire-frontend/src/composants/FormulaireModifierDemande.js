@@ -9,24 +9,47 @@ import { Form } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
 import ListePieceTest from '../composants/ListePieceTest';
+import { Redirect } from 'react-router-dom';
 
 
 function FormulaireModifierDemande({ id }) {
     const [listeDemandeSpecial, setListeDemandeSpecial] = useState(['']);
+    const [nomUtilisateur, setNomUtilisateur] = useState("");
+
     const [listePieces, setListePieces] = useState([]);
+
     const [recherche, setRecherche] = useState('');
     const [listeDemandes, setListeDemandes] = useState({});
+    const [rediriger, setRediriger] = useState(false);
 
     useEffect(() => {
         const chercherDonnees = async () => {
             const resultat = await fetch(`/api/demandes/${id}`);
             const body = await resultat.json().catch((error) => {console.log(error)});
             setListeDemandeSpecial(body.pieces);
+            setNomUtilisateur(body.nom);
         };
         chercherDonnees();
+        
     }, [id]);
     if( listePieces.length == 0 && recherche == ''){
         RecherDefault();
+    }
+    const envoyerFormulaire = async () => {
+        await fetch(`/api/demandes/modifierDemande/${id}`, {
+            method: 'post',
+            body: JSON.stringify({ listeDemandes }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        setRediriger(true);
+    };
+    function SuppressionDemande(id){
+        if(listeDemandeSpecial[id] != undefined){
+            delete listeDemandeSpecial[id];
+            envoyerFormulaire();
+        } 
     }
     function RecherDefault(){
         const chercherDonnees = async () => {
@@ -89,18 +112,22 @@ function FormulaireModifierDemande({ id }) {
 
         setListeDemandes(nouvelleListeDemandes);
     }
+    function afficherRedirection() {
+        if (rediriger === true) {
+            return <Redirect to="/repertoire" />
+        }
+    }
     if (listeDemandeSpecial != undefined) {
 
         return (
             <>  
+            {afficherRedirection()}
             <ListGroup>
                 <ul>
                 {
                     listeDemandeSpecial.map(piece => 
-                        <li>{piece}
-                        <Link to={`/supprimer/${piece._id}`}>
-                            <Button variant="danger" className="m-1" size="sm" >Supprimer</Button>
-                        </Link>                                        
+                    <li>{piece}
+                        <Button variant="danger" className="m-1" size="sm" onClick={SuppressionDemande}>Supprimer</Button>                                       
                     </li>  
                     )
                 }
@@ -120,8 +147,8 @@ function FormulaireModifierDemande({ id }) {
                 <Button variant="success" className="m-1" size="sm" onClick={RechercheParCategorie}>Recherche par categorie</Button>
                 <ListePieceTest pieces={listePieces} handleClick={handleClickPiece} listeDemandes={listeDemandes}/>
             </div>
-            <Button >
-                Envoyer la demande
+            <Button onClick={envoyerFormulaire}>
+                Envoyer la modification
             </Button>   
             </>
         );

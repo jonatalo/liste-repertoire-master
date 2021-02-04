@@ -213,15 +213,14 @@ app.get('/api/demandes/:nom', (requete, reponse) => {
     }
 });
 app.post('/api/demandes/modifierDemande/:id', (requete, reponse) => {
-    const {nomUtilisateur, pieces} = requete.body;
+    const { pieces} = requete.body;
     const id = requete.params.id;
 
-    if (nomUtilisateur !== undefined && pieces !== undefined) {
+    if (pieces !== undefined) {
         utiliserDB(async (db) => {
             var objectId = ObjectID.createFromHexString(id);
             await db.collection('demandes').updateOne({ _id: objectId }, {
                 '$set': {
-                    nom: nomUtilisateur,
                     pieces: pieces
                 }
             });
