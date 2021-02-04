@@ -54,31 +54,6 @@ function ListePieceTest({ pieces }) {
     
      if (pieces?.length) {
          var pieceMusicales=pieces;
-    //     var dictionnaireCategories = Object();
-    //     var dictionnairePieces = Object();
-    //     var dictionnaireArtistes = Object();
-    //     pieces.forEach(piece => {
-    //         piece.categories.forEach(categorie => {
-    //             if (dictionnaireCategories[categorie] === undefined) {
-    //                 dictionnaireCategories[categorie] = true;
-    //             }
-    //         })            
-    //     });
-    //     pieces.forEach(piece => {
-            
-    //             if (dictionnaireArtistes[piece.artiste] === undefined) {
-    //                 dictionnaireArtistes[piece.artiste] = true;
-    //             }
-                        
-    //     });
-    //     pieces.forEach(piece => {
-            
-    //         if (dictionnairePieces[piece.titre] === undefined) {
-    //             dictionnairePieces[piece.titre] = true;
-    //         }
-                    
-    // });
-   
 
         if(CategorieTrie == "Croissant")
         {
@@ -99,9 +74,6 @@ function ListePieceTest({ pieces }) {
             
          }
 
-       
-
-        // voir la matier de useState pour faire les trie
         if(NomArtisteTrie == "Croissant")
         {
             setCategorieTrie("Rien")
@@ -207,7 +179,7 @@ function ListePieceTest({ pieces }) {
     else {
         return <Alert variant={"info"} >Il n'y a pas de pièces dans le répertoire.</Alert>;
     }
-    setCategorieTrie("Rien");
+    
 }
 
 export default ListePieceTest;
