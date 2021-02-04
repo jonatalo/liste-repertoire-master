@@ -7,7 +7,6 @@ import Alert from 'react-bootstrap/Alert'
 import ListGroup from 'react-bootstrap/ListGroup';
 import { Form } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
-import { Link } from 'react-router-dom';
 import ListePieceTest from '../composants/ListePieceTest';
 import { Redirect } from 'react-router-dom';
 
@@ -31,7 +30,7 @@ function FormulaireModifierDemande({ id }) {
             setListeDemandeSpecial(body.pieces);
             setNomUtilisateur(body.nom);
             setEstActive(body.estActive);
-            setDate(body.date)
+            setDate(body.date);
         };
         chercherDonnees();
 
@@ -52,7 +51,7 @@ function FormulaireModifierDemande({ id }) {
         const envoyerNouvelleDemande = async () => {
             await fetch(`/api/demandes/modifier/${id}`, {
                 method: 'post',
-                body: JSON.stringify({  estActive:estActive, nom:nomUtilisateur, pieces:nouvelleListeDemande , date:date }),
+                body: JSON.stringify({ pieces:nouvelleListeDemande }),
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -60,6 +59,12 @@ function FormulaireModifierDemande({ id }) {
             setRediriger(true);
         };
         envoyerNouvelleDemande();
+
+    function SuppressionDemande(id){
+        if(listeDemandeSpecial[id] != undefined){
+            delete listeDemandeSpecial[id];
+            envoyerFormulaire();
+        } 
     }
     function RecherDefault(){
         const chercherDonneesRecherche = async () => {
@@ -123,7 +128,7 @@ function FormulaireModifierDemande({ id }) {
     }
     function afficherRedirection() {
         if (rediriger === true) {
-            return <Redirect to="/repertoire" />
+            return <Redirect to="/liste-demandes-utilisateur" />
         }
     }
     if (listeDemandeSpecial != undefined) {
@@ -142,7 +147,7 @@ function FormulaireModifierDemande({ id }) {
             </ListGroup>
             
             <div>
-                <h1>Ajouter vos demandes spéciales</h1>
+                <h1>Les pieces du répertoire</h1>
                 <Form className="mb-1">
                     <Form.Group>
                         <Form.Control type="text" value={recherche} placeholder="Entrer votre recherche ici" 
