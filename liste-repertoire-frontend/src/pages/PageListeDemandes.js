@@ -12,7 +12,7 @@ import {UtiliseAuth} from '../context/auth'
 
 function PageListeDemandes() {
     const [listeDemandes, setListeDemandes] = useState([]);
-    const [estActive,setEstActive]=useState(false);
+    const [demandePresente,setDemandePresente]=useState();
     const [date,setDate]=useState();
     const [pieces, setPieces] = useState([]);
     const {nom} = UtiliseAuth();
@@ -23,27 +23,34 @@ function PageListeDemandes() {
             const body = await resultat.json().catch((error) => {console.log(error)});
             setListeDemandes(body);
         };
+        
         chercherDonnees();
         
     }, []);
-     function chercherDonneeUnique(id) {
-        const resultat =  fetch(`/api/demandes/${id}`);
-        const body =  resultat.json().catch((error) => {console.log(error)});
-        setEstActive(body.estActive);
-        setDate(body.date);
-        setPieces(body.pieces);
+    async function chercherDonneeUnique(demandeTraiterID) {
+        const resultat = await fetch(`/api/demandes/${demandeTraiterID}`);
+        const body =  await resultat.json();
+        setDemandePresente(body);
     
     };
 
-     function ChangerEtat(id){
-        chercherDonneeUnique(id);
-        fetch(`/api/demande/modifier/${id}`, {
-            method: 'post',
-            body: JSON.stringify({ estActive,nom, pieces , date}),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
+    async function ChangerEtat({demande}){
+        const constDemande={_id:"",estActive:"",nom:"",pieces:[],date:""};
+        var demandeTraiter=Object.create(constDemande);
+        demandeTraiter=demande;
+        demandeTraiter.estActive= !demandeTraiter.estActive;
+        chercherDonneeUnique(demandeTraiter._id);
+
+        const modifierActif=async ()=>{
+            await fetch(`/api/demandes/modifier/${demandeTraiter._id}`, {
+                method: 'post',
+                body: JSON.stringify({ estActive:demandeTraiter.estActive, nom:demandeTraiter.nom, pieces:demandeTraiter.pieces , date:demandeTraiter.date}),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            } );
+        }
+        modifierActif();
     
     };
 
@@ -56,18 +63,16 @@ function PageListeDemandes() {
                     <ListGroup.Item key={demande._id}>
                         <InputGroup>
                             <InputGroup.Prepend>
-                                <InputGroup.Checkbox aria-label="estActive" checked={demande.estActive} />
-                                <InputGroup.Text>test</InputGroup.Text>
+                                <InputGroup.Checkbox aria-label="estActive" checked={demande.estActive} onChange={() => ChangerEtat({demande})} />
+                                <InputGroup.Text>Actif</InputGroup.Text>
                             </InputGroup.Prepend>
                         </InputGroup>
                         <h4>{demande.nom}</h4>
                         <ul>
                         {
-                            demande.pieces.map(piece => <li>{piece}</li>)
+                            demande.pieces.map(piece => <li key={piece.nom}>{piece}</li>)
                         }
                         </ul>
-                        
-                        <Button onClick={() => ChangerEtat(demande._id)}> Rendre Actif/Inatif  </Button>
                         
                     </ListGroup.Item>
                 )

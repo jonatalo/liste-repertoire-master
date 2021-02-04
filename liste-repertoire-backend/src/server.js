@@ -28,26 +28,6 @@ app.get('/api/pieces', (requete, reponse) => {
         () => reponse.status(500).send("Erreur lors de la requête")
     );
 });
-// liste de clients
-app.get('/api/utilisateurs', (requete, reponse) => {
-    utiliserDB(async (db) => {
-        const listeUtilisateur = await db.collection('utilisateurs').find().toArray();
-        reponse.status(200).json(listeUtilisateur);
-    }, reponse).catch(
-        () => reponse.status(500).send("Erreur lors de la requête")
-    );
-});
-//clients
-app.get('/api/utilisateurs/:nomUtilisateur', (requete, reponse) => {
-    const nomUtilisateur = requete.params.nomUtilisateur
-
-    utiliserDB(async (db) => {
-        const utilisateur = await db.collection('utilisateurs').findOne({nom: nomUtilisateur});
-        reponse.status(200).json(utilisateur);
-    }, reponse).catch(
-        () => reponse.status(500).send("Erreur lors de la requête")
-    );
-});
 app.get('/api/pieces/:id', (requete, reponse) => {
     const id = requete.params.id;
 
@@ -89,7 +69,6 @@ app.get('/api/pieces/categorie/:motRechercher', (requete, reponse) => {
         () => reponse.status(500).send("Pièces non trouvée")
     );
 });
-
 app.put('/api/pieces/ajouter', (requete, reponse) => {
     const {titre, artiste, categories} = requete.body;
 
@@ -111,28 +90,6 @@ app.put('/api/pieces/ajouter', (requete, reponse) => {
             - titre: ${titre}
             - artiste: ${artiste}
             - categories: ${categories}`);
-    }
-});
-//Ajouter Clients
-app.put('/api/utilisateurs/ajouter', (requete, reponse) => {
-    const {nomUtilisateur, motDePasse} = requete.body;
-
-    if (nomUtilisateur !== undefined && motDePasse !== undefined) {
-        utiliserDB(async (db) => {
-            await db.collection('utilisateurs').insertOne({ 
-                nom:nomUtilisateur,
-                motDePasse: motDePasse
-            });
-            
-            reponse.status(200).send("Utilisateur ajoutée");
-        }, reponse).catch(
-            () => reponse.status(500).send("Erreur : l'utilisateur n'a pas été ajoutée")
-        );;        
-    }
-    else {
-        reponse.status(500).send(`Certains paramètres ne sont pas définis :
-            - nom: ${nomUtilisateur}
-            - motDePasse: ${motDePasse}`);
     }
 });
 app.post('/api/pieces/modifier/:id', (requete, reponse) => {
@@ -162,7 +119,6 @@ app.post('/api/pieces/modifier/:id', (requete, reponse) => {
             - categories: ${categories}`);
     }
 });
-
 app.delete('/api/pieces/supprimer/:id', (requete, reponse) => {
     const id = requete.params.id;
 
@@ -175,6 +131,47 @@ app.delete('/api/pieces/supprimer/:id', (requete, reponse) => {
         () => reponse.status(500).send("Erreur : la pièce n'a pas été supprimée")
     );    
 });
+
+app.get('/api/utilisateurs', (requete, reponse) => {
+    utiliserDB(async (db) => {
+        const listeUtilisateur = await db.collection('utilisateurs').find().toArray();
+        reponse.status(200).json(listeUtilisateur);
+    }, reponse).catch(
+        () => reponse.status(500).send("Erreur lors de la requête")
+    );
+});
+app.get('/api/utilisateurs/:nomUtilisateur', (requete, reponse) => {
+    const nomUtilisateur = requete.params.nomUtilisateur
+
+    utiliserDB(async (db) => {
+        const utilisateur = await db.collection('utilisateurs').findOne({nom: nomUtilisateur});
+        reponse.status(200).json(utilisateur);
+    }, reponse).catch(
+        () => reponse.status(500).send("Erreur lors de la requête")
+    );
+});
+app.put('/api/utilisateurs/ajouter', (requete, reponse) => {
+    const {nomUtilisateur, motDePasse} = requete.body;
+
+    if (nomUtilisateur !== undefined && motDePasse !== undefined) {
+        utiliserDB(async (db) => {
+            await db.collection('utilisateurs').insertOne({ 
+                nom:nomUtilisateur,
+                motDePasse: motDePasse
+            });
+            
+            reponse.status(200).send("Utilisateur ajoutée");
+        }, reponse).catch(
+            () => reponse.status(500).send("Erreur : l'utilisateur n'a pas été ajoutée")
+        );;        
+    }
+    else {
+        reponse.status(500).send(`Certains paramètres ne sont pas définis :
+            - nom: ${nomUtilisateur}
+            - motDePasse: ${motDePasse}`);
+    }
+});
+
 
 app.get('/api/demandes', (requete, reponse) => {
     utiliserDB(async (db) => {
@@ -195,7 +192,6 @@ app.get('/api/demandes/:id', (requete, reponse) => {
         () => reponse.status(500).send("Erreur lors de la requête")
     );
 });
-
 app.put('/api/demandes/ajouter', (requete, reponse) => {
     const {estActive,nom, pieces , date} = requete.body;
 
@@ -219,4 +215,34 @@ app.put('/api/demandes/ajouter', (requete, reponse) => {
             - pieces: ${pieces}`);
     }
 });
+app.post('/api/demandes/modifier/:id', (requete, reponse) => {
+    const {estActive, nom, pieces , date} = requete.body;
+    const id = requete.params.id;
+
+    if (estActive !== undefined && nom !== undefined && pieces !== undefined && date !== undefined) {
+        utiliserDB(async (db) => {
+            var objectId = ObjectID.createFromHexString(id);
+            await db.collection('demandes').updateOne({ _id: objectId }, {
+                '$set': {
+                    estActive: estActive,
+                    nom: nom,
+                    pieces: pieces,
+                    date: date
+                }
+            });
+            
+            reponse.status(200).send("Pièce modifiée");
+        }, reponse).catch(
+            () => reponse.status(500).send("Erreur : la pièce n'a pas été modifiée")
+        );        
+    }
+    else {
+        reponse.status(500).send(`Certains paramètres ne sont pas définis :
+            - estActive: ${estActive}
+            - nom: ${nom}
+            - pieces: ${pieces}
+            - date: ${date}`);
+    }
+});
+
 app.listen(8000, () => console.log("Serveur démarré sur le port 8000"));
