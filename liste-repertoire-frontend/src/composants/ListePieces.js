@@ -38,7 +38,7 @@ function DiviserParCategorie(pieceMusicales){
             }
             
         })
-        return pieceMusicaleCategorie;
+    return pieceMusicaleCategorie;
 
 }
 function ListePieces({ pieces, handleClick, listeDemandes }) {
