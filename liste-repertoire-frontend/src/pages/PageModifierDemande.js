@@ -7,9 +7,9 @@ function PageModifierDemande({ match }) {
     const id = match.params.id;
     return (
         <>
-            <h1>Modifier</h1>
+            <h1>Modifier la demande {id}</h1>
             <FormulaireModifierDemande id={id} />
-            <Link to="/repertoire">
+            <Link to="/liste-demandes-utilisateur">
                 <Button variant={'danger'} >Annuler</Button>    
             </Link>
         </>

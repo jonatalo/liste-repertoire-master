@@ -6,7 +6,6 @@ import {
 
 import InputGroup from 'react-bootstrap/InputGroup'
 import ListGroup from 'react-bootstrap/ListGroup';
-import Button from 'react-bootstrap/Button';
 import {UtiliseAuth} from '../context/auth'
 
 function PageListeDemandes() {
@@ -43,7 +42,7 @@ function PageListeDemandes() {
         const modifierActif=async ()=>{
             await fetch(`/api/demandes/modifier/${demandeTraiter._id}`, {
                 method: 'post',
-                body: JSON.stringify({ estActive:demandeTraiter.estActive, nom:demandeTraiter.nom, pieces:demandeTraiter.pieces , date:demandeTraiter.date}),
+                body: JSON.stringify({ estActive:demandeTraiter.estActive,pieces:demandeTraiter.pieces}),
                 headers: {
                     'Content-Type': 'application/json'
                 }

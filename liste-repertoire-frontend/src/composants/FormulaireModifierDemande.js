@@ -7,14 +7,12 @@ import Alert from 'react-bootstrap/Alert'
 import ListGroup from 'react-bootstrap/ListGroup';
 import { Form } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
-import { Link } from 'react-router-dom';
 import ListePieceTest from '../composants/ListePieceTest';
 import { Redirect } from 'react-router-dom';
 
 
 function FormulaireModifierDemande({ id }) {
     const [listeDemandeSpecial, setListeDemandeSpecial] = useState(['']);
-    const [nomUtilisateur, setNomUtilisateur] = useState("");
 
     const [listePieces, setListePieces] = useState([]);
 
@@ -27,7 +25,6 @@ function FormulaireModifierDemande({ id }) {
             const resultat = await fetch(`/api/demandes/${id}`);
             const body = await resultat.json().catch((error) => {console.log(error)});
             setListeDemandeSpecial(body.pieces);
-            setNomUtilisateur(body.nom);
         };
         chercherDonnees();
         
@@ -36,9 +33,9 @@ function FormulaireModifierDemande({ id }) {
         RecherDefault();
     }
     const envoyerFormulaire = async () => {
-        await fetch(`/api/demandes/modifierDemande/${id}`, {
+        await fetch(`/api/demandes/modifier/${id}`, {
             method: 'post',
-            body: JSON.stringify({ listeDemandes }),
+            body: JSON.stringify({ pieces:listeDemandes }),
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -114,7 +111,7 @@ function FormulaireModifierDemande({ id }) {
     }
     function afficherRedirection() {
         if (rediriger === true) {
-            return <Redirect to="/repertoire" />
+            return <Redirect to="/liste-demandes-utilisateur" />
         }
     }
     if (listeDemandeSpecial != undefined) {
@@ -135,7 +132,7 @@ function FormulaireModifierDemande({ id }) {
             </ListGroup>
             
             <div>
-                <h1>Ajouter vos demandes spéciales</h1>
+                <h1>Les pieces du répertoire</h1>
                 <Form className="mb-1">
                     <Form.Group>
                         <Form.Control type="text" value={recherche} placeholder="Entrer votre recherche ici" 

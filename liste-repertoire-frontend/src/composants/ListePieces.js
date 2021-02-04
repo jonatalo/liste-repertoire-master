@@ -13,9 +13,7 @@ function DiviserParCategorie(pieceMusicales){
         var pieceMusicaleCategorie=[];
         pieceMusicales.forEach(piece =>{
             
- 
-            if(piece.categories.length == 1)
-            {
+            if(piece.categories.length == 1) {
                 var pieceMusical =Object.create(pieceConstruteur);
                 pieceMusical._id =piece._id;
                 pieceMusical.titre = piece.titre;
@@ -23,14 +21,11 @@ function DiviserParCategorie(pieceMusicales){
                 pieceMusical.categories=piece.categories[0];
                 pieceMusicaleCategorie.push(pieceMusical);
             }
-            else if(piece.categories.length > 1)
-            {
-               
+            else if(piece.categories.length > 1){
                 var categories=[];
                 
                 piece.categories.forEach(categorie=>{
                     categories.push(categorie);
-                    
                 });
                 for (let index = 0; index < categories.length; index++) {
                     var pieceMusical =Object.create(pieceConstruteur);
@@ -55,9 +50,8 @@ function ListePieces({ pieces, handleClick, listeDemandes }) {
     } 
 
      if (pieces?.length) {
-         var pieceMusicales=pieces;
-        if(CategorieTrie == "Croissant")
-        {
+        var pieceMusicales=pieces;
+        if(CategorieTrie == "Croissant"){
             var pieceMusicales=pieces;
             pieceMusicales = DiviserParCategorie(pieceMusicales);            
             pieceMusicales = pieceMusicales.sort((pieceA, pieceB) => 
@@ -65,8 +59,7 @@ function ListePieces({ pieces, handleClick, listeDemandes }) {
             );
             
          }
-         else if (CategorieTrie == "Decroissant")
-         {
+         else if (CategorieTrie == "Decroissant"){
             var pieceMusicales=pieces;
             pieceMusicales = DiviserParCategorie(pieceMusicales);            
             pieceMusicales = pieceMusicales.sort((pieceA, pieceB) => 
@@ -74,8 +67,7 @@ function ListePieces({ pieces, handleClick, listeDemandes }) {
             );
             
          }
-        if(NomArtisteTrie == "Croissant")
-        {
+        if(NomArtisteTrie == "Croissant"){
             setCategorieTrie("Rien")
             var pieceMusicales=pieces;
             pieceMusicales = pieceMusicales.sort((pieceA, pieceB) => 
@@ -84,8 +76,7 @@ function ListePieces({ pieces, handleClick, listeDemandes }) {
                 setNomArtisteTrie("rien");
            
         }
-        else if (NomArtisteTrie == "Decroissant")
-        {   
+        else if (NomArtisteTrie == "Decroissant") {   
             
             setCategorieTrie("Rien")
             var pieceMusicales=pieces;
@@ -94,8 +85,7 @@ function ListePieces({ pieces, handleClick, listeDemandes }) {
                 ));
                 setNomArtisteTrie("rien");
         }
-        if(PieceTrie == "Croissant")
-        {
+        if(PieceTrie == "Croissant"){
             setCategorieTrie("Rien")
             var pieceMusicales=pieces;
             pieceMusicales = pieceMusicales.sort((pieceA, pieceB) => 
@@ -103,8 +93,7 @@ function ListePieces({ pieces, handleClick, listeDemandes }) {
                 );
                 setPieceTrie("Rien");
         }
-        else if (PieceTrie == "Decroissant")
-        {
+        else if (PieceTrie == "Decroissant"){
             setCategorieTrie("Rien")
             var pieceMusicales=pieces;
             console.log(pieceMusicales)
@@ -144,17 +133,18 @@ function ListePieces({ pieces, handleClick, listeDemandes }) {
                                             <tr>  
                                                 <td>{piece.titre}</td>
                                                 <td>{piece.artiste}</td>
-                                                {piece.categories.map(categorie =>{
-                                                    return(
-                                                        <>
-                                                            <p>{categorie}</p>
-                                                        </>
-                                                    );
-                                                })}
+                                                <td>
+                                                    {piece.categories.map(categorie =>{
+                                                        return(
+                                                            <>
+                                                                <p>{categorie}</p>
+                                                            </>
+                                                        );
+                                                    })}
+                                                </td>
                                             </tr>
                                         </>
                                     ); 
-                                            
                                 }                                      
                                 else{                 
                                     return(

@@ -228,16 +228,31 @@ app.put('/api/demandes/ajouter', (requete, reponse) => {
     }
 });
 app.post('/api/demandes/modifier/:id', (requete, reponse) => {
-    const {estActive, nom, pieces , date} = requete.body;
+    const estActive= requete.body.estActive;
+    const pieces= requete.body.pieces;
+    const date=new Date();
     const id = requete.params.id;
 
-    if (estActive !== undefined && nom !== undefined && pieces !== undefined && date !== undefined) {
+    if (estActive !== undefined ) {
         utiliserDB(async (db) => {
             var objectId = ObjectID.createFromHexString(id);
             await db.collection('demandes').updateOne({ _id: objectId }, {
                 '$set': {
                     estActive: estActive,
-                    nom: nom,
+                    date: date
+                }
+            });
+            
+            reponse.status(200).send("Pièce modifiée");
+        }, reponse).catch(
+            () => reponse.status(500).send("Erreur : la pièce n'a pas été modifiée")
+        );        
+    }
+    else if (pieces !== undefined) {
+        utiliserDB(async (db) => {
+            var objectId = ObjectID.createFromHexString(id);
+            await db.collection('demandes').updateOne({ _id: objectId }, {
+                '$set': {
                     pieces: pieces,
                     date: date
                 }
@@ -251,9 +266,8 @@ app.post('/api/demandes/modifier/:id', (requete, reponse) => {
     else {
         reponse.status(500).send(`Certains paramètres ne sont pas définis :
             - estActive: ${estActive}
-            - nom: ${nom}
-            - pieces: ${pieces}
-            - date: ${date}`);
+            - pieces: ${pieces}`
+        );
     }
 });
 app.delete('/api/demandes/supprimer/:id', (requete, reponse) => {
