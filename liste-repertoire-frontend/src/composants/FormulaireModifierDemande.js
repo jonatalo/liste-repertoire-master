@@ -122,11 +122,7 @@ function FormulaireModifierDemande({ id }) {
             <ListGroup>
                 <ul>
                 {
-                    listeDemandeSpecial.map(piece => 
-                    <li>{piece}
-                        <Button variant="danger" className="m-1" size="sm" onClick={SuppressionDemande}>Supprimer</Button>                                       
-                    </li>  
-                    )
+                    listeDemandeSpecial.map(piece => <li>{piece}</li> )
                 }
                 </ul>
             </ListGroup>

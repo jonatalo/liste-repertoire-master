@@ -108,7 +108,6 @@ function ListePiecesDemande({ pieces,  handleClick, listeDemandes }) {
         {
             setCategorieTrie("Rien")
             var pieceMusicales=pieces;
-            console.log(pieceMusicales)
             pieceMusicales = pieces;
             pieceMusicales= pieceMusicales.sort((pieceA, pieceB) => 
                 pieceA.titre.toLowerCase().localeCompare(pieceB.titre.toLowerCase())*-1 
@@ -154,10 +153,10 @@ function ListePiecesDemande({ pieces,  handleClick, listeDemandes }) {
                                                 );
                                             })}
                                         </td>
-                                        <td>
-                                        <Button variant="info" className="m-1" size="sm" onClick={() => handleClick(piece._id)}>Sélectionner</Button>
-                                        </td>
-                                         </tr>
+                                            <td>
+                                                <Button variant="info" className="m-1" size="sm" onClick={() => handleClick(piece._id)}>Sélectionner</Button>
+                                            </td>
+                                        </tr>
                                     </>
                                  );
                                 } 
@@ -181,9 +180,9 @@ function ListePiecesDemande({ pieces,  handleClick, listeDemandes }) {
                                                         </td>
                                                      </tr>
                                                 </>
-                                            );
-                                        } 
-                                    }                                      
+                                        );
+                                    } 
+                                }                                      
                             else{   
                                 if (listeIdDemandes.includes(piece._id)) {                  
                                     return(

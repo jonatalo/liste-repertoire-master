@@ -96,7 +96,6 @@ function ListePieces({ pieces, handleClick, listeDemandes }) {
         else if (PieceTrie == "Decroissant"){
             setCategorieTrie("Rien")
             var pieceMusicales=pieces;
-            console.log(pieceMusicales)
             pieceMusicales = pieces;
             pieceMusicales= pieceMusicales.sort((pieceA, pieceB) => 
                 pieceA.titre.toLowerCase().localeCompare(pieceB.titre.toLowerCase())*-1 
