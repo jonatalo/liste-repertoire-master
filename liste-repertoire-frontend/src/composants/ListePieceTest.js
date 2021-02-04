@@ -137,7 +137,6 @@ function ListePieceTest({ pieces,  handleClick, listeDemandes }) {
                         </tr>
                     </thead>
                     <tbody>
-
                     {pieceMusicales.map(piece => {
                         
                         console.log(handleClick)

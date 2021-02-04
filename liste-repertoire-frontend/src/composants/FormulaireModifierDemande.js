@@ -15,12 +15,15 @@ import { Redirect } from 'react-router-dom';
 function FormulaireModifierDemande({ id }) {
     const [listeDemandeSpecial, setListeDemandeSpecial] = useState(['']);
     const [nomUtilisateur, setNomUtilisateur] = useState("");
+    const [estActive, setEstActive] = useState(true);
+    const [date, setDate] = useState(new Date());
 
     const [listePieces, setListePieces] = useState([]);
 
     const [recherche, setRecherche] = useState('');
     const [listeDemandes, setListeDemandes] = useState({});
     const [rediriger, setRediriger] = useState(false);
+    const [confirmation, setConfirmation] = useState(false);
 
     useEffect(() => {
         const chercherDonnees = async () => {
@@ -28,47 +31,54 @@ function FormulaireModifierDemande({ id }) {
             const body = await resultat.json().catch((error) => {console.log(error)});
             setListeDemandeSpecial(body.pieces);
             setNomUtilisateur(body.nom);
+            setEstActive(body.estActive);
+            setDate(body.date)
         };
         chercherDonnees();
 
     }, [id]);
     if( listePieces.length == 0 && recherche == ''){
         RecherDefault();
-        AjouterDemandeExistante();
+
     }
-    const envoyerFormulaire = async () => {
-        await fetch(`/api/demandes/modifierDemande/${id}`, {
-            method: 'post',
-            body: JSON.stringify({ listeDemandes }),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-        setRediriger(true);
-    };
-    function AjouterDemandeExistante(){
-        const nouvelleListeDemandes = {};
+    function envoyerFormulaireModification(){
+        var nouvelleListeDemande = [];
 
-        nouvelleListeDemandes = listePieces.find(piece => piece._id === listeDemandeSpecial._id);
-
-        setListeDemandes(nouvelleListeDemandes);
+        if(listeDemandes !== undefined){
+            nouvelleListeDemande = listeDemandes;
+        }
+        else{
+            nouvelleListeDemande = listeDemandeSpecial;
+        }
+        const envoyerFormulaire = async () => {
+            await fetch(`/api/demandes/modifier/${id}`, {
+                method: 'post',
+                body: JSON.stringify({  estActive:estActive, nom:nomUtilisateur, pieces:nouvelleListeDemande , date:date }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            setRediriger(true);
+            setConfirmation(true);
+        };
+        envoyerFormulaire();
     }
     function RecherDefault(){
-        const chercherDonnees = async () => {
+        const chercherDonneesRecherche = async () => {
             const resultat = await fetch(`/api/pieces`);
             const body = await resultat.json().catch((error) => {console.log(error)});
             setListePieces(body);
         };
-        chercherDonnees();
+        chercherDonneesRecherche();
     }
     function RechercheParTitre(){
         if(recherche !== ''){
-            const chercherDonnees = async () => {
+            const chercherDonneesTitre = async () => {
                 const resultat = await fetch(`/api/pieces/titre/${recherche}`);
                 const body = await resultat.json().catch((error) => {console.log(error)});
                 setListePieces(body);
             };
-            chercherDonnees();
+            chercherDonneesTitre();
         }
         else{
             RecherDefault();
@@ -76,12 +86,12 @@ function FormulaireModifierDemande({ id }) {
     }
     function RechercheParArtiste(){
         if(recherche !== ''){
-            const chercherDonnees = async () => {
+            const chercherDonneesArtiste = async () => {
                 const resultat = await fetch(`/api/pieces/artiste/${recherche}`);
                 const body = await resultat.json().catch((error) => {console.log(error)});
                 setListePieces(body);
             };
-            chercherDonnees();
+            chercherDonneesArtiste();
         }
         else{
             RecherDefault();
@@ -89,12 +99,12 @@ function FormulaireModifierDemande({ id }) {
     }
     function RechercheParCategorie(){
         if(recherche !== ''){
-            const chercherDonnees = async () => {
+            const chercherDonneesCategorie = async () => {
                 const resultat = await fetch(`/api/pieces/categorie/${recherche}`);
                 const body = await resultat.json().catch((error) => {console.log(error)});
                 setListePieces(body);
             };
-            chercherDonnees();
+            chercherDonneesCategorie();
         }
         else{
             RecherDefault();
@@ -116,6 +126,11 @@ function FormulaireModifierDemande({ id }) {
     function afficherRedirection() {
         if (rediriger === true) {
             return <Redirect to="/repertoire" />
+        }
+    }
+    function afficherConfirmation() {
+        if (confirmation === true) {
+            return <Alert variant="success" >La demande a bien été envoyée.</Alert>
         }
     }
     if (listeDemandeSpecial != undefined) {
@@ -146,9 +161,8 @@ function FormulaireModifierDemande({ id }) {
                 <Button variant="success" className="m-1" size="sm" onClick={RechercheParCategorie}>Recherche par categorie</Button>
                 <ListePieceTest pieces={listePieces} handleClick={handleClickPiece} listeDemandes={listeDemandes}/>
             </div>
-            <Button onClick={envoyerFormulaire}>
-                Envoyer la modification
-            </Button>   
+            <Button onClick={envoyerFormulaireModification}>Envoyer la modification</Button> 
+            {afficherConfirmation()}  
             </>
         );
     }
