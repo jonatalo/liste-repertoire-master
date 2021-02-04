@@ -23,7 +23,6 @@ function FormulaireModifierDemande({ id }) {
     const [recherche, setRecherche] = useState('');
     const [listeDemandes, setListeDemandes] = useState({});
     const [rediriger, setRediriger] = useState(false);
-    const [confirmation, setConfirmation] = useState(false);
 
     useEffect(() => {
         const chercherDonnees = async () => {
@@ -50,7 +49,7 @@ function FormulaireModifierDemande({ id }) {
         else{
             nouvelleListeDemande = listeDemandeSpecial;
         }
-        const envoyerFormulaire = async () => {
+        const envoyerNouvelleDemande = async () => {
             await fetch(`/api/demandes/modifier/${id}`, {
                 method: 'post',
                 body: JSON.stringify({  estActive:estActive, nom:nomUtilisateur, pieces:nouvelleListeDemande , date:date }),
@@ -59,9 +58,8 @@ function FormulaireModifierDemande({ id }) {
                 }
             });
             setRediriger(true);
-            setConfirmation(true);
         };
-        envoyerFormulaire();
+        envoyerNouvelleDemande();
     }
     function RecherDefault(){
         const chercherDonneesRecherche = async () => {
@@ -128,11 +126,6 @@ function FormulaireModifierDemande({ id }) {
             return <Redirect to="/repertoire" />
         }
     }
-    function afficherConfirmation() {
-        if (confirmation === true) {
-            return <Alert variant="success" >La demande a bien été envoyée.</Alert>
-        }
-    }
     if (listeDemandeSpecial != undefined) {
 
         return (
@@ -162,7 +155,6 @@ function FormulaireModifierDemande({ id }) {
                 <ListePieceTest pieces={listePieces} handleClick={handleClickPiece} listeDemandes={listeDemandes}/>
             </div>
             <Button onClick={envoyerFormulaireModification}>Envoyer la modification</Button> 
-            {afficherConfirmation()}  
             </>
         );
     }
