@@ -6,7 +6,7 @@ import {
 import { Form } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert'
-import ListePieces from '../composants/ListePieces';
+import ListePiecesDemande from '../composants/ListePiecesDemande';
 import {FaAngleUp } from "react-icons/fa";
 import {FaAngleDown } from "react-icons/fa";
 import {UtiliseAuth} from '../context/auth'
@@ -121,7 +121,7 @@ function PageEnvoyerDemande() {
             <Button variant="success" className="m-1" size="sm" onClick={RechercheParTitre}>Recherche par titre</Button>                
             <Button variant="success" className="m-1" size="sm" onClick={RechercheParArtiste}>Recherche par artiste</Button>
             <Button variant="success" className="m-1" size="sm" onClick={RechercheParCategorie}>Recherche par categorie</Button>
-            <ListePieces pieces={listePieces} handleClick={handleClickPiece} listeDemandes={listeDemandes}/>
+            <ListePiecesDemande pieces={listePieces} handleClick={handleClickPiece} listeDemandes={listeDemandes}/>
 
             <Button onClick={envoyerDemande} >
                 Envoyer la demande

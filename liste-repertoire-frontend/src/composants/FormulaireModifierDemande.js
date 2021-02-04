@@ -7,17 +7,15 @@ import Alert from 'react-bootstrap/Alert'
 import ListGroup from 'react-bootstrap/ListGroup';
 import { Form } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
-import ListePieceTest from '../composants/ListePieceTest';
+import ListePiecesDemande from '../composants/ListePiecesDemande';
 import { Redirect } from 'react-router-dom';
 
 
 function FormulaireModifierDemande({ id }) {
     const [listeDemandeSpecial, setListeDemandeSpecial] = useState(['']);
-
     const [listePieces, setListePieces] = useState([]);
-
     const [recherche, setRecherche] = useState('');
-    const [listeDemandes, setListeDemandes] = useState({});
+    const [listeDemandes, setListeDemandes] = useState([]);
     const [rediriger, setRediriger] = useState(false);
 
     useEffect(() => {
@@ -142,7 +140,7 @@ function FormulaireModifierDemande({ id }) {
                 <Button variant="success" className="m-1" size="sm" onClick={RechercheParTitre}>Recherche par titre</Button>                
                 <Button variant="success" className="m-1" size="sm" onClick={RechercheParArtiste}>Recherche par artiste</Button>
                 <Button variant="success" className="m-1" size="sm" onClick={RechercheParCategorie}>Recherche par categorie</Button>
-                <ListePieceTest pieces={listePieces} handleClick={handleClickPiece} listeDemandes={listeDemandes}/>
+                <ListePiecesDemande pieces={listePieces} handleClick={handleClickPiece} listeDemandes={listeDemandes}/>
             </div>
             <Button onClick={envoyerFormulaire}>
                 Envoyer la modification

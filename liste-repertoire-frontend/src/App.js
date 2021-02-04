@@ -48,7 +48,6 @@ function App() {
             <Route path="/modifierDemande/:id" component={PageModifierDemande} />
             <Route path="/supprimer/:id" component={PageSupprimer} />
             <Route path="/supprimerDemande/:id" component={PageSupprimerDemande} />
-            <Route path="/test" component={PageTest} />
             <Route component={Page404} />
           </Switch>        
         </Container>
