@@ -135,9 +135,9 @@ function ListePieceTest({ pieces }) {
                     </thead>
                     <tbody>
                         
-                    {console.log(pieceMusicales)}
+                   
                         {pieceMusicales.map(piece => {
-                            {console.log(pieceMusicales)}
+                           
                            if(typeof (piece.categories)!="string"){    
                         return(
                             <>  
