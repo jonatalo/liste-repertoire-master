@@ -66,7 +66,7 @@ function PageListeDemandes() {
                                 <InputGroup.Text>Actif</InputGroup.Text>
                             </InputGroup.Prepend>
                         </InputGroup>
-                        <h4>{demande.nom}</h4>
+                        <h4>{demande.nom}  {demande.date}</h4>
                         <ul>
                         {
                             demande.pieces.map(piece => <li key={piece.nom}>{piece}</li>)

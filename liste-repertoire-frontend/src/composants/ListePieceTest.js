@@ -116,6 +116,7 @@ function ListePieceTest({ pieces,  handleClick, listeDemandes }) {
                 );// sort une function lamda
                 setPieceTrie("Rien");
         }
+        
         return (
             <> 
                 <Table className="table table-bordered">

@@ -7,7 +7,6 @@ import { Form } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert'
 import ListePieces from '../composants/ListePieces';
-import { Redirect } from 'react-router-dom';
 import {FaAngleUp } from "react-icons/fa";
 import {FaAngleDown } from "react-icons/fa";
 import {UtiliseAuth} from '../context/auth'
