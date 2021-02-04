@@ -67,14 +67,7 @@ function ListePieces({ pieces, handleClick, listeDemandes }) {
                                             }
                                             
                                         }
-                                        else {
-                                            return <tr key={piece._id}>
-                                                    <td>{piece.titre}</td>
-                                                    <td>{piece.artiste}</td>
-                                                    <td>{categorie}</td>
-                                                    <Button variant="success" className="m-1" size="sm" >Ajouter</Button>
-                                                    </tr>
-                                        }
+                                        
                                     })
                                     
                                 }

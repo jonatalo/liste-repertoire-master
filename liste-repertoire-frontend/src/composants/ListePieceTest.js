@@ -53,7 +53,10 @@ function ListePieceTest({ pieces,  handleClick, listeDemandes }) {
     const [CategorieTrie,setCategorieTrie]=useState("Rien");
     const [PieceTrie,setPieceTrie]=useState("Rien");
     const [NomArtisteTrie,setNomArtisteTrie]=useState("Rien");
-    
+    if (listeDemandes !== undefined) {
+        var listeIdDemandes = Object.keys(listeDemandes);
+    } 
+
      if (pieces?.length) {
          var pieceMusicales=pieces;
         if(CategorieTrie == "Croissant")
@@ -137,10 +140,11 @@ function ListePieceTest({ pieces,  handleClick, listeDemandes }) {
 
                     {pieceMusicales.map(piece => {
                         
-                            if(typeof (piece.categories)!="string"){
-                                console.log(handleClick)
-                                if (handleClick != undefined) {
-                                return(
+                        console.log(handleClick)
+                        if (handleClick != undefined) {
+                                if(typeof (piece.categories)!="string"){
+                                    if (listeIdDemandes.includes(piece._id)) {
+                                    return(
                                     <>  
                                         <tr>  
                                         <td>{piece.titre}</td>
@@ -157,38 +161,42 @@ function ListePieceTest({ pieces,  handleClick, listeDemandes }) {
                                             
                                             )
                                         }
+                                        <td>
                                         <Button variant="info" className="m-1" size="sm" onClick={() => handleClick(piece._id)}>Sélectionner</Button>
+                                        </td>
                                          </tr>
                                     </>
                                  );
                                 } 
-                                else{
+                                    else{
                                     return(
-                                        <>  
-                                            <tr>  
-                                            <td>{piece.titre}</td>
-                                            <td>{piece.artiste}</td>
-                                            {piece.categories.map(categorie =>{
-                                                return(
-                                                    <>
+                                            <>  
+                                                <tr>  
+                                                <td>{piece.titre}</td>
+                                                <td>{piece.artiste}</td>
+                                                {piece.categories.map(categorie =>{
+                                                    return(
+                                                        <>
+
+                                                            <p>{categorie}</p>
                                                     
-                                                        <p>{categorie}</p>
-                                                   
-                                                    </>
-                                                );
+                                                        </>
+                                                    );
+                                                    }
+
+                                                    )
                                                 }
-                                                
-                                                )
-                                            }
-                                             <Button variant="success" className="m-1" size="sm" onClick={() => handleClick(piece._id)}>Ajouter</Button> 
-                                             </tr>
-                                        </>
-                                     );
-                                    } 
-                                    
-                                }                                      
+                                                <td>
+                                                 <Button variant="success" className="m-1" size="sm" onClick={() => handleClick(piece._id)}>Ajouter</Button> 
+                                                </td>
+                                                 </tr>
+                                            </>
+                                         );
+                                        } 
+
+                                    }                                      
                             else{   
-                                if (handleClick != undefined){                    
+                                if (listeIdDemandes.includes(piece._id)) {                  
                                 return(
                                     <>  
                                         <tr>  
@@ -201,8 +209,8 @@ function ListePieceTest({ pieces,  handleClick, listeDemandes }) {
                                     );
                                 }
                                     
-                                    else{
-                                        return(
+                                else{
+                                    return(
                                             <>  
                                                 <tr>  
                                                 <td>{piece.titre}</td>
@@ -212,8 +220,13 @@ function ListePieceTest({ pieces,  handleClick, listeDemandes }) {
                                                  </tr>
                                             </>
                                     );
-                                    }      
-                                     }})}
+                                    }  
+                            } 
+                        } 
+                    }
+                )
+                }  
+                                     
                     </tbody>
                 </Table>
             </>
