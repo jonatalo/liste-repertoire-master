@@ -122,7 +122,7 @@ function FormulaireModifierDemande({ id }) {
             <ListGroup>
                 <ul>
                 {
-                    listeDemandeSpecial.map(piece => <li>{piece}</li> )
+                    listeDemandeSpecial.map(piece => <li>{piece}</li>)
                 }
                 </ul>
             </ListGroup>
