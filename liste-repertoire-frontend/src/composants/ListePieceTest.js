@@ -47,14 +47,13 @@ function DiviserParCategorie(pieceMusicales){
 }
 
 
-function ListePieceTest({ pieces }) {
+function ListePieceTest({ pieces,  handleClick, listeDemandes }) {
     const [CategorieTrie,setCategorieTrie]=useState("Rien");
     const [PieceTrie,setPieceTrie]=useState("Rien");
     const [NomArtisteTrie,setNomArtisteTrie]=useState("Rien");
     
      if (pieces?.length) {
          var pieceMusicales=pieces;
-
         if(CategorieTrie == "Croissant")
         {
             var pieceMusicales=pieces;
@@ -73,7 +72,6 @@ function ListePieceTest({ pieces }) {
             );
             
          }
-
         if(NomArtisteTrie == "Croissant")
         {
             setCategorieTrie("Rien")
@@ -134,10 +132,48 @@ function ListePieceTest({ pieces }) {
                         </tr>
                     </thead>
                     <tbody>
-                        
-                    {console.log(pieceMusicales)}
+                    {pieceMusicales.map(piece => {
+                        if(typeof (piece.categories)!="string"){
+                        return (
+                            <>
+                                {
+                                    piecesAssociees.map(piece => {
+                                        if (handleClick !== undefined) {
+                                            if (listeIdDemandes.includes(piece._id)) {
+                                                return <tr key={piece._id}>
+                                                        <td>{piece.titre}</td>
+                                                        <td>{piece.artiste}</td>
+                                                        <td>{categorie}</td>
+                                                        <Button variant="info" className="m-1" size="sm" onClick={() => handleClick(piece._id)}>Sélectionner</Button>
+                                                        </tr>
+                                            }
+                                            else {
+                                                return <tr key={piece._id}>
+                                                        <td>{piece.titre}</td>
+                                                        <td>{piece.artiste}</td>
+                                                        <td>{categorie}</td>
+                                                        <Button variant="success" className="m-1" size="sm" onClick={() => handleClick(piece._id)}>Ajouter</Button>
+                                                        </tr>
+                                            }
+                                            
+                                        }
+                                        else {
+                                            return <tr key={piece._id}>
+                                                    <td>{piece.titre}</td>
+                                                    <td>{piece.artiste}</td>
+                                                    <td>{categorie}</td>
+                                                    <Button variant="success" className="m-1" size="sm" >Ajouter</Button>
+                                                    </tr>
+                                        }
+                                    })
+                                    
+                                }
+                           </>
+                        )
+                    }
+                    } 
+
                         {pieceMusicales.map(piece => {
-                            {console.log(pieceMusicales)}
                            if(typeof (piece.categories)!="string"){    
                         return(
                             <>  
