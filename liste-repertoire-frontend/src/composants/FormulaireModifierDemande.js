@@ -7,18 +7,13 @@ import Alert from 'react-bootstrap/Alert'
 import ListGroup from 'react-bootstrap/ListGroup';
 import { Form } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
-import ListePieceTest from '../composants/ListePieceTest';
+import ListePiecesDemande from '../composants/ListePiecesDemande';
 import { Redirect } from 'react-router-dom';
 
 
 function FormulaireModifierDemande({ id }) {
     const [listeDemandeSpecial, setListeDemandeSpecial] = useState(['']);
-    const [nomUtilisateur, setNomUtilisateur] = useState("");
-    const [estActive, setEstActive] = useState(true);
-    const [date, setDate] = useState(new Date());
-
     const [listePieces, setListePieces] = useState([]);
-
     const [recherche, setRecherche] = useState('');
     const [listeDemandes, setListeDemandes] = useState({});
     const [rediriger, setRediriger] = useState(false);
@@ -28,9 +23,6 @@ function FormulaireModifierDemande({ id }) {
             const resultat = await fetch(`/api/demandes/${id}`);
             const body = await resultat.json().catch((error) => {console.log(error)});
             setListeDemandeSpecial(body.pieces);
-            setNomUtilisateur(body.nom);
-            setEstActive(body.estActive);
-            setDate(body.date);
         };
         chercherDonnees();
 
@@ -39,27 +31,18 @@ function FormulaireModifierDemande({ id }) {
         RecherDefault();
 
     }
-    function envoyerFormulaireModification(){
-        var nouvelleListeDemande = [];
-
-        if(listeDemandes !== undefined){
-            nouvelleListeDemande = listeDemandes;
-        }
-        else{
-            nouvelleListeDemande = listeDemandeSpecial;
-        }
-        const envoyerNouvelleDemande = async () => {
-            await fetch(`/api/demandes/modifier/${id}`, {
-                method: 'post',
-                body: JSON.stringify({ pieces:nouvelleListeDemande }),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-            setRediriger(true);
-        };
-        envoyerNouvelleDemande();
-
+    const envoyerFormulaire = async () => {
+        const pieces = Object.values(listeDemandes);
+        await fetch(`/api/demandes/modifier/${id}`, {
+            method: 'post',
+            body: JSON.stringify({ pieces: pieces }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        setListeDemandes({});
+        setRediriger(true);
+    };
     function SuppressionDemande(id){
         if(listeDemandeSpecial[id] != undefined){
             delete listeDemandeSpecial[id];
@@ -157,9 +140,9 @@ function FormulaireModifierDemande({ id }) {
                 <Button variant="success" className="m-1" size="sm" onClick={RechercheParTitre}>Recherche par titre</Button>                
                 <Button variant="success" className="m-1" size="sm" onClick={RechercheParArtiste}>Recherche par artiste</Button>
                 <Button variant="success" className="m-1" size="sm" onClick={RechercheParCategorie}>Recherche par categorie</Button>
-                <ListePieceTest pieces={listePieces} handleClick={handleClickPiece} listeDemandes={listeDemandes}/>
+                <ListePiecesDemande pieces={listePieces} handleClick={handleClickPiece} listeDemandes={listeDemandes}/>
             </div>
-            <Button onClick={envoyerFormulaireModification}>Envoyer la modification</Button> 
+            <Button onClick={envoyerFormulaire}>Envoyer la modification</Button> 
             </>
         );
     }
