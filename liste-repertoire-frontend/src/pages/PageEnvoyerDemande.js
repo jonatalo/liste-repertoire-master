@@ -18,10 +18,12 @@ function PageEnvoyerDemande() {
     const [listePieces, setListePieces] = useState([]);
     const [listeDemandes, setListeDemandes] = useState({});
     const [confirmation, setConfirmation] = useState(false);
+    const [date]=useState(new Date());
     const {nom} = UtiliseAuth();
     const [estActive]=useState(true);
     const [recherche, setRecherche] = useState('');
     
+
     if( listePieces.length == 0 && recherche == ''){
         RecherDefault();
     }
@@ -78,7 +80,7 @@ function PageEnvoyerDemande() {
 
         await fetch(`/api/demandes/ajouter`, {
             method: 'put',
-            body: JSON.stringify({ nom, pieces ,estActive}),
+            body: JSON.stringify({ estActive,nom, pieces , date}),
             headers: {
                 'Content-Type': 'application/json'
             }

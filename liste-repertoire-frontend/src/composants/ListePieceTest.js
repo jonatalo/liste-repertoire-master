@@ -226,7 +226,7 @@ function ListePieceTest({ pieces,  handleClick, listeDemandes }) {
                     }
                 )
                 }  
-                                     
+                
                     </tbody>
                 </Table>
             </>
