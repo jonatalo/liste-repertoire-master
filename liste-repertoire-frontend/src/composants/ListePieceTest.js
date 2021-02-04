@@ -10,7 +10,7 @@ import {FaAngleUp } from "react-icons/fa";
 import {FaAngleDown } from "react-icons/fa";
 
 function DiviserParCategorie(pieceMusicales){
-    const pieceConstruteur = {tite:"",artiste:"",categories:""};
+    const pieceConstruteur = {_id:"", tite:"",artiste:"",categories:""};
         var pieceMusicaleCategorie=[];
         pieceMusicales.forEach(piece =>{
             
@@ -18,6 +18,7 @@ function DiviserParCategorie(pieceMusicales){
             if(piece.categories.length == 1)
             {
                 var pieceMusical =Object.create(pieceConstruteur);
+                pieceMusical._id =piece._id;
                 pieceMusical.titre = piece.titre;
                 pieceMusical.artiste = piece.artiste;
                 pieceMusical.categories=piece.categories[0];
@@ -34,6 +35,7 @@ function DiviserParCategorie(pieceMusicales){
                 });
                 for (let index = 0; index < categories.length; index++) {
                     var pieceMusical =Object.create(pieceConstruteur);
+                    pieceMusical._id =piece._id;
                     pieceMusical.titre = piece.titre;
                     pieceMusical.artiste = piece.artiste;                   
                     pieceMusical.categories=categories[index];                
@@ -51,7 +53,10 @@ function ListePieceTest({ pieces,  handleClick, listeDemandes }) {
     const [CategorieTrie,setCategorieTrie]=useState("Rien");
     const [PieceTrie,setPieceTrie]=useState("Rien");
     const [NomArtisteTrie,setNomArtisteTrie]=useState("Rien");
-    
+    if (listeDemandes !== undefined) {
+        var listeIdDemandes = Object.keys(listeDemandes);
+    } 
+
      if (pieces?.length) {
          var pieceMusicales=pieces;
         if(CategorieTrie == "Croissant")
@@ -132,81 +137,96 @@ function ListePieceTest({ pieces,  handleClick, listeDemandes }) {
                         </tr>
                     </thead>
                     <tbody>
+
                     {pieceMusicales.map(piece => {
-                        if(typeof (piece.categories)!="string"){
-                        return (
-                            <>
-                                {
-                                    piecesAssociees.map(piece => {
-                                        if (handleClick !== undefined) {
-                                            if (listeIdDemandes.includes(piece._id)) {
-                                                return <tr key={piece._id}>
-                                                        <td>{piece.titre}</td>
-                                                        <td>{piece.artiste}</td>
-                                                        <td>{categorie}</td>
-                                                        <Button variant="info" className="m-1" size="sm" onClick={() => handleClick(piece._id)}>Sélectionner</Button>
-                                                        </tr>
-                                            }
-                                            else {
-                                                return <tr key={piece._id}>
-                                                        <td>{piece.titre}</td>
-                                                        <td>{piece.artiste}</td>
-                                                        <td>{categorie}</td>
-                                                        <Button variant="success" className="m-1" size="sm" onClick={() => handleClick(piece._id)}>Ajouter</Button>
-                                                        </tr>
+                        
+                        console.log(handleClick)
+                        if (handleClick != undefined) {
+                                if(typeof (piece.categories)!="string"){
+                                    if (listeIdDemandes.includes(piece._id)) {
+                                    return(
+                                    <>  
+                                        <tr>  
+                                        <td>{piece.titre}</td>
+                                        <td>{piece.artiste}</td>
+                                        {piece.categories.map(categorie =>{
+                                            return(
+                                                <>
+                                                
+                                                    <p>{categorie}</p>
+                                               
+                                                </>
+                                            );
                                             }
                                             
+                                            )
                                         }
-                                        else {
-                                            return <tr key={piece._id}>
-                                                    <td>{piece.titre}</td>
-                                                    <td>{piece.artiste}</td>
-                                                    <td>{categorie}</td>
-                                                    <Button variant="success" className="m-1" size="sm" >Ajouter</Button>
-                                                    </tr>
-                                        }
-                                    })
-                                    
-                                }
-                           </>
-                        )
-                    }
-                    } 
-
-                        {pieceMusicales.map(piece => {
-                           if(typeof (piece.categories)!="string"){    
-                        return(
-                            <>  
-                                <tr>  
-                                <td>{piece.titre}</td>
-                                <td>{piece.artiste}</td>
-                                {piece.categories.map(categorie =>{
+                                        <td>
+                                        <Button variant="info" className="m-1" size="sm" onClick={() => handleClick(piece._id)}>Sélectionner</Button>
+                                        </td>
+                                         </tr>
+                                    </>
+                                 );
+                                } 
+                                    else{
                                     return(
-                                        <>
-                                        
-                                            <p>{categorie}</p>
-                                       
-                                        </>
+                                            <>  
+                                                <tr>  
+                                                <td>{piece.titre}</td>
+                                                <td>{piece.artiste}</td>
+                                                {piece.categories.map(categorie =>{
+                                                    return(
+                                                        <>
+
+                                                            <p>{categorie}</p>
+                                                    
+                                                        </>
+                                                    );
+                                                    }
+
+                                                    )
+                                                }
+                                                <td>
+                                                 <Button variant="success" className="m-1" size="sm" onClick={() => handleClick(piece._id)}>Ajouter</Button> 
+                                                </td>
+                                                 </tr>
+                                            </>
+                                         );
+                                        } 
+
+                                    }                                      
+                            else{   
+                                if (listeIdDemandes.includes(piece._id)) {                  
+                                return(
+                                    <>  
+                                        <tr>  
+                                        <td>{piece.titre}</td>
+                                        <td>{piece.artiste}</td>
+                                        <td>{piece.categories}</td>
+                                        <Button variant="info" className="m-1" size="sm" onClick={() => handleClick(piece._id)}>Sélectionner</Button>
+                                         </tr>
+                                    </>
                                     );
-                                    }
-                                    )
                                 }
-                                 </tr>
-                            </>
-                         );
-                        }
-                        else
-                        {
-                            return(
-                                <>  
-                                    <tr>  
-                                    <td>{piece.titre}</td>
-                                    <td>{piece.artiste}</td>
-                                    <td>{piece.categories}</td>
-                                     </tr>
-                                </>
-                        );
-                    }})}
+                                    
+                                else{
+                                    return(
+                                            <>  
+                                                <tr>  
+                                                <td>{piece.titre}</td>
+                                                <td>{piece.artiste}</td>
+                                                <td>{piece.categories}</td>
+                                                <Button variant="success" className="m-1" size="sm" onClick={() => handleClick(piece._id)}>Ajouter</Button>
+                                                 </tr>
+                                            </>
+                                    );
+                                    }  
+                            } 
+                        } 
+                    }
+                )
+                }  
+                                     
                     </tbody>
                 </Table>
             </>
