@@ -1,0 +1,78 @@
+import {
+    React,
+    useState
+} from 'react';
+
+import { Form } from 'react-bootstrap';
+import Button from 'react-bootstrap/Button';
+import { Redirect } from 'react-router-dom';
+
+function FormulaireNouveauUtilisateur(){
+    const [nomUtilisateur, setNomUtilsateur] = useState('');
+    const [motDePasse, setMotDePasse] = useState('');
+    const [confirmationMotDePasse, setConfirmationMotDePasse] = useState('');
+    const [rediriger, setRediriger] = useState(false);
+
+    const envoyerFormulaireUtilisateur = async () => {
+        const utilisateurjson = await fetch(`/api/utilisateurs/${nomUtilisateur}`);
+        const utilisateur = await utilisateurjson.json();
+
+        if(ConfirmerMotDePasse() && utilisateur == null){
+            await fetch(`/api/utilisateurs/ajouter`, {
+                method: 'put',
+                body: JSON.stringify({ nomUtilisateur, motDePasse }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            setRediriger(true);
+        }
+    }
+
+    function afficherRedirection() {
+        if (rediriger === true) {
+            return <Redirect to="/" />
+        }
+    }
+
+    function ConfirmerMotDePasse(){
+        
+        if(motDePasse == confirmationMotDePasse && motDePasse !== ''){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    return (
+        <>
+            {afficherRedirection()}
+            <Form className="mb-1">
+                <Form.Group>
+                    <Form.Label>Nom utilisateur</Form.Label>
+                    <Form.Control type="text" value={nomUtilisateur} required="required"
+                        onChange={(event) => setNomUtilsateur(event.target.value)} />
+                </Form.Group>
+    
+                <Form.Group>
+                    <Form.Label>Mot de passe </Form.Label>
+                    <Form.Control type="password" value={motDePasse} required="required" 
+                        onChange={(event) => setMotDePasse(event.target.value)} />
+                </Form.Group>
+                
+                <Form.Group>
+                    <Form.Label>Confirmation mot de passe</Form.Label>
+                    <Form.Control type="password" value={confirmationMotDePasse} required="required" minLength="8"maxLength="16"
+                        onChange={(event) => setConfirmationMotDePasse(event.target.value)} />
+                </Form.Group> 
+                
+    
+                <Button variant="primary" onClick={envoyerFormulaireUtilisateur} >
+                    Ajouter utilisateur
+                </Button>
+            </Form>
+        </>
+        );
+}
+
+export default FormulaireNouveauUtilisateur;

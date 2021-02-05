@@ -3,18 +3,50 @@ import {
     useState,
     useEffect
 } from 'react';
-import ListePieces from '../composants/ListePieces';
+import Alert from 'react-bootstrap/Alert'
+import ListGroup from 'react-bootstrap/ListGroup';
 import { Form } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
-import { Link } from 'react-router-dom';
+import ListePiecesDemande from '../composants/ListePiecesDemande';
+import { Redirect } from 'react-router-dom';
 
-function PageRepertoire() {
+
+function FormulaireModifierDemande({ id }) {
+    const [listeDemandeSpecial, setListeDemandeSpecial] = useState(['']);
     const [listePieces, setListePieces] = useState([]);
     const [recherche, setRecherche] = useState('');
     const [listeDemandes, setListeDemandes] = useState({});
-    
+    const [rediriger, setRediriger] = useState(false);
+
+    useEffect(() => {
+        const chercherDonnees = async () => {
+            const resultat = await fetch(`/api/demandes/${id}`);
+            const body = await resultat.json().catch((error) => {console.log(error)});
+            setListeDemandeSpecial(body.pieces);
+        };
+        chercherDonnees();
+        
+    }, [id]);
     if( listePieces.length == 0 && recherche == ''){
         RecherDefault();
+    }
+    const envoyerFormulaire = async () => {
+        const pieces = Object.values(listeDemandes);
+        await fetch(`/api/demandes/modifier/${id}`, {
+            method: 'post',
+            body: JSON.stringify({ pieces: pieces }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        setListeDemandes({});
+        setRediriger(true);
+    };
+    function SuppressionDemande(id){
+        if(listeDemandeSpecial[id] != undefined){
+            delete listeDemandeSpecial[id];
+            envoyerFormulaire();
+        } 
     }
     function RecherDefault(){
         const chercherDonnees = async () => {
@@ -76,26 +108,47 @@ function PageRepertoire() {
         }
 
         setListeDemandes(nouvelleListeDemandes);
-    }             
-    return (
-        <>
+    }
+    function afficherRedirection() {
+        if (rediriger === true) {
+            return <Redirect to="/liste-demandes-utilisateur" />
+        }
+    }
+    if (listeDemandeSpecial != undefined) {
+
+        return (
+            <>  
+            {afficherRedirection()}
+            <ListGroup>
+                <ul>
+                {
+                    listeDemandeSpecial.map(piece => <li>{piece}</li>)
+                }
+                </ul>
+            </ListGroup>
+            
             <div>
-                <h1>Liste du répertoire</h1>
+                <h1>Les pieces du répertoire</h1>
                 <Form className="mb-1">
                     <Form.Group>
                         <Form.Control type="text" value={recherche} placeholder="Entrer votre recherche ici" 
                             onChange={(event) => setRecherche(event.target.value)} />
                     </Form.Group>
                 </Form>
-
-                <Button variant="success" className="m-1" size="sm" onClick={RechercheParTitre}>Recherche par titre</Button>
+                <Button variant="success" className="m-1" size="sm" onClick={RechercheParTitre}>Recherche par titre</Button>                
                 <Button variant="success" className="m-1" size="sm" onClick={RechercheParArtiste}>Recherche par artiste</Button>
                 <Button variant="success" className="m-1" size="sm" onClick={RechercheParCategorie}>Recherche par categorie</Button>
-                <ListePieces pieces={listePieces} handleClick={handleClickPiece} listeDemandes={listeDemandes}/>
-
+                <ListePiecesDemande pieces={listePieces} handleClick={handleClickPiece} listeDemandes={listeDemandes}/>
             </div>
-        </>
-    );
+            <Button onClick={envoyerFormulaire}>
+                Envoyer la modification
+            </Button>   
+            </>
+        );
+    }
+    else {
+        return <Alert variant={"info"} >Il n'y a pas de pièces dans le répertoire.</Alert>;
+    }
 }
 
-export default PageRepertoire;
+export default FormulaireModifierDemande;

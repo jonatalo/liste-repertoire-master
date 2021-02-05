@@ -27,10 +27,10 @@ function ListePiecesRepertoire({ pieces }) {
                                     piecesAssociees.map(piece => 
                                     <li key={piece._id}>{piece.titre} - {piece.artiste}
                                         <Link to={`/modifier/${piece._id}`}>
-                                            <Button variant="success" className="m-1" size="sm" >Ajouter à la liste</Button>
+                                            <Button variant="outline-success" className="m-1" size="sm" >Ajouter à la liste</Button>
                                         </Link>
                                         <Link to={`/supprimer/${piece._id}`}>
-                                            <Button variant="danger" className="m-1" size="sm" >Supprimer de la liste</Button>
+                                            <Button variant="outline-danger" className="m-1" size="sm" >Supprimer de la liste</Button>
                                         </Link>                                        
                                     </li>)
                                 }

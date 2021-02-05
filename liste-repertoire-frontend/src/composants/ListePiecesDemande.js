@@ -1,13 +1,13 @@
 import {
     React,
     useState
-} from 'react'
+} from 'react';
 import Alert from 'react-bootstrap/Alert'
 import Button from 'react-bootstrap/Button';
-import { Link } from 'react-router-dom';
 import { Table } from 'react-bootstrap';
 import {FaAngleUp } from "react-icons/fa";
 import {FaAngleDown } from "react-icons/fa";
+
 function DiviserParCategorie(pieceMusicales){
     const pieceConstruteur = {_id:"", tite:"",artiste:"",categories:""};
         var pieceMusicaleCategorie=[];
@@ -46,15 +46,19 @@ function DiviserParCategorie(pieceMusicales){
 
 }
 
-function ListePiecesAdmin({ pieces }) {
+
+function ListePiecesDemande({ pieces,  handleClick, listeDemandes }) {
     const [CategorieTrie,setCategorieTrie]=useState("Rien");
     const [PieceTrie,setPieceTrie]=useState("Rien");
     const [NomArtisteTrie,setNomArtisteTrie]=useState("Rien");
-
+    if (listeDemandes !== undefined) {
+        var listeIdDemandes = Object.keys(listeDemandes);
+    } 
 
      if (pieces?.length) {
-        var pieceMusicales=pieces;
-        if(CategorieTrie == "Croissant"){
+         var pieceMusicales=pieces;
+        if(CategorieTrie == "Croissant")
+        {
             var pieceMusicales=pieces;
             pieceMusicales = DiviserParCategorie(pieceMusicales);            
             pieceMusicales = pieceMusicales.sort((pieceA, pieceB) => 
@@ -62,7 +66,8 @@ function ListePiecesAdmin({ pieces }) {
             );
             
          }
-         else if (CategorieTrie == "Decroissant"){
+         else if (CategorieTrie == "Decroissant")
+         {
             var pieceMusicales=pieces;
             pieceMusicales = DiviserParCategorie(pieceMusicales);            
             pieceMusicales = pieceMusicales.sort((pieceA, pieceB) => 
@@ -70,7 +75,8 @@ function ListePiecesAdmin({ pieces }) {
             );
             
          }
-        if(NomArtisteTrie == "Croissant"){
+        if(NomArtisteTrie == "Croissant")
+        {
             setCategorieTrie("Rien")
             var pieceMusicales=pieces;
             pieceMusicales = pieceMusicales.sort((pieceA, pieceB) => 
@@ -79,7 +85,8 @@ function ListePiecesAdmin({ pieces }) {
                 setNomArtisteTrie("rien");
            
         }
-        else if (NomArtisteTrie == "Decroissant") {   
+        else if (NomArtisteTrie == "Decroissant")
+        {   
             
             setCategorieTrie("Rien")
             var pieceMusicales=pieces;
@@ -88,7 +95,8 @@ function ListePiecesAdmin({ pieces }) {
                 ));
                 setNomArtisteTrie("rien");
         }
-        if(PieceTrie == "Croissant"){
+        if(PieceTrie == "Croissant")
+        {
             setCategorieTrie("Rien")
             var pieceMusicales=pieces;
             pieceMusicales = pieceMusicales.sort((pieceA, pieceB) => 
@@ -96,9 +104,11 @@ function ListePiecesAdmin({ pieces }) {
                 );
                 setPieceTrie("Rien");
         }
-        else if (PieceTrie == "Decroissant"){
+        else if (PieceTrie == "Decroissant")
+        {
             setCategorieTrie("Rien")
             var pieceMusicales=pieces;
+            console.log(pieceMusicales)
             pieceMusicales = pieces;
             pieceMusicales= pieceMusicales.sort((pieceA, pieceB) => 
                 pieceA.titre.toLowerCase().localeCompare(pieceB.titre.toLowerCase())*-1 
@@ -122,48 +132,60 @@ function ListePiecesAdmin({ pieces }) {
                             <th>Categorie
                                 <Button variant="outline-secondary" className="m-1" size="sm" onClick={() => setCategorieTrie("Croissant")} ><FaAngleUp /></Button>
                                 <Button variant="outline-secondary" className="m-1" size="sm" onClick={() => setCategorieTrie("Decroissant")} ><FaAngleDown/></Button>
-                            </th> 
-                            <th>
-                                Modifier
-                            </th>     
-                            <th>
-                                Suprimer
-                            </th>                        
+                            </th>                            
                         </tr>
                     </thead>
                     <tbody>
 
-                        {pieceMusicales.map(piece => {
-                            if(typeof (piece.categories)!="string"){
+                    {pieceMusicales.map(piece => {
+                        if (handleClick != undefined) {
+                                if(typeof (piece.categories)!="string"){
+                                    if (listeIdDemandes.includes(piece._id)) {
                                     return(
-                                        <>  
-                                            <tr>  
-                                                <td>{piece.titre}</td>
-                                                <td>{piece.artiste}</td>
-                                                <td>
-                                                    {piece.categories.map(categorie =>{
-                                                        return(
-                                                            <>
-                                                                <p>{categorie}</p>
-                                                            </>
-                                                        );
-                                                    })}
-                                                </td>
-                                                <td>
-                                                <Link to={`/modifier/${piece._id}`}>
-                                                    <Button variant="outline-success" className="m-1" size="sm" >Modifier</Button>
-                                                </Link>
-                                                </td>
-                                                <td>
-                                                <Link to={`/supprimer/${piece._id}`}>
-                                                    <Button variant="outline-danger" className="m-1" size="sm" >Supprimer</Button>
-                                                </Link>
-                                                </td>
-                                            </tr>
-                                        </>
-                                    ); 
-                                }                                      
-                                else{                 
+                                    <>  
+                                        <tr>  
+                                        <td>{piece.titre}</td>
+                                        <td>{piece.artiste}</td>
+                                        <td>{piece.categories.map(categorie =>{
+                                                return(
+                                                    <>
+                                                        <p>{categorie}</p>
+                                                    </>
+                                                );
+                                            })}
+                                        </td>
+                                        <td>
+                                        <Button variant="outline-info  " className="m-1" size="sm" onClick={() => handleClick(piece._id)}>Sélectionner</Button>
+                                        </td>
+                                         </tr>
+                                    </>
+                                 );
+                                } 
+                                    else{
+                                        return(
+                                                <>  
+                                                    <tr>  
+                                                        <td>{piece.titre}</td>
+                                                        <td>{piece.artiste}</td>
+                                                        <td>
+                                                            {piece.categories.map(categorie =>{
+                                                                return(
+                                                                    <>
+                                                                        <p>{categorie}</p>
+                                                                    </>
+                                                                );
+                                                            })}
+                                                        </td>
+                                                        <td>
+                                                            <Button variant="outline-success" className="m-1" size="sm" onClick={() => handleClick(piece._id)}>Ajouter</Button> 
+                                                        </td>
+                                                     </tr>
+                                                </>
+                                            );
+                                        } 
+                                    }                                      
+                            else{   
+                                if (listeIdDemandes.includes(piece._id)) {                  
                                     return(
                                         <>  
                                             <tr>  
@@ -171,22 +193,31 @@ function ListePiecesAdmin({ pieces }) {
                                                 <td>{piece.artiste}</td>
                                                 <td>{piece.categories}</td>
                                                 <td>
-                                                <Link to={`/modifier/${piece._id}`}>
-                                                    <Button variant="success" className="m-1" size="sm" >Modifier</Button>
-                                                </Link>
+                                                    <Button variant="outline-info" className="m-1" size="sm" onClick={() => handleClick(piece._id)}>Sélectionner</Button>
                                                 </td>
-                                                <td>
-                                                <Link to={`/supprimer/${piece._id}`}>
-                                                    <Button variant="danger" className="m-1" size="sm" >Supprimer</Button>
-                                                </Link>
-                                                </td>
-                                            </tr>
+                                             </tr>
                                         </>
                                     );
-                                } 
+                                }
+                                    
+                                else{
+                                    return(
+                                            <>  
+                                                <tr>  
+                                                <td>{piece.titre}</td>
+                                                <td>{piece.artiste}</td>
+                                                <td>{piece.categories}</td>
+                                                <td><Button variant="outline-success" className="m-1" size="sm" onClick={() => handleClick(piece._id)}>Ajouter</Button></td>
+                                                 </tr>
+                                            </>
+                                    );
+                                    }  
                             } 
-                        
-                        )}  
+                        } 
+                    }
+                )
+                }  
+
                     </tbody>
                 </Table>
             </>
@@ -195,7 +226,7 @@ function ListePiecesAdmin({ pieces }) {
     else {
         return <Alert variant={"info"} >Il n'y a pas de pièces dans le répertoire.</Alert>;
     }
+    
 }
 
-
-export default ListePiecesAdmin;
+export default ListePiecesDemande;

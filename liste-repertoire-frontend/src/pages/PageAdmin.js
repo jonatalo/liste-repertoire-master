@@ -9,9 +9,12 @@ import ListePiecesAdmin from '../composants/ListePiecesAdmin';
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
 
+
+
 function PageAdmin() {
     const [listePieces, setListePieces] = useState([]);
 
+    
     useEffect(() => {
         const chercherDonnees = async () => {
             const resultat = await fetch(`/api/pieces`);
