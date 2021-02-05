@@ -122,9 +122,13 @@ function FormulaireModifierDemande({ id }) {
             <ListGroup>
                 <ul>
                 {
+<<<<<<< HEAD
                     listeDemandeSpecial.map(piece => 
                     <li>{piece}</li>  
                     )
+=======
+                    listeDemandeSpecial.map(piece => <li>{piece}</li>)
+>>>>>>> 6ef88c66b8241b0e39850e3f26bf9010192f7000
                 }
                 </ul>
             </ListGroup>

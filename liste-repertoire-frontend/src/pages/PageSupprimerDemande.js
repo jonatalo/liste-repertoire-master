@@ -5,7 +5,6 @@ import {
 
 import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
-
 import { Link } from 'react-router-dom';
 import { Redirect } from 'react-router-dom';
 
