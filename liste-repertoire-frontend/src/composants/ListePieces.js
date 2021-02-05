@@ -109,16 +109,16 @@ function ListePieces({ pieces, handleClick, listeDemandes }) {
                     <thead>
                         <tr>
                             <th>Titre
-                                <Button variant="success" className="m-1" size="sm" onClick={() => setPieceTrie("Croissant")} ><FaAngleUp /></Button>
-                                <Button variant="success" className="m-1" size="sm" onClick={() => setPieceTrie("Decroissant")} ><FaAngleDown/></Button>
+                                <Button variant="outline-secondary" className="m-1" size="sm" onClick={() => setPieceTrie("Croissant")} ><FaAngleUp /></Button>
+                                <Button variant="outline-secondary" className="m-1" size="sm" onClick={() => setPieceTrie("Decroissant")} ><FaAngleDown/></Button>
                             </th>
                             <th>Artiste
-                                <Button variant="success" className="m-1" size="sm" onClick={() => setNomArtisteTrie("Croissant")}><FaAngleUp /></Button>
-                                <Button variant="success" className="m-1" size="sm" onClick={() => setNomArtisteTrie("Decroissant")} ><FaAngleDown/></Button>
+                                <Button variant="outline-secondary" className="m-1" size="sm" onClick={() => setNomArtisteTrie("Croissant")}><FaAngleUp /></Button>
+                                <Button variant="outline-secondary" className="m-1" size="sm" onClick={() => setNomArtisteTrie("Decroissant")} ><FaAngleDown/></Button>
                             </th>
                             <th>Categorie
-                                <Button variant="success" className="m-1" size="sm" onClick={() => setCategorieTrie("Croissant")} ><FaAngleUp /></Button>
-                                <Button variant="success" className="m-1" size="sm" onClick={() => setCategorieTrie("Decroissant")} ><FaAngleDown/></Button>
+                                <Button variant="outline-secondary" className="m-1" size="sm" onClick={() => setCategorieTrie("Croissant")} ><FaAngleUp /></Button>
+                                <Button variant="outline-secondary" className="m-1" size="sm" onClick={() => setCategorieTrie("Decroissant")} ><FaAngleDown/></Button>
                             </th>                            
                         </tr>
                     </thead>

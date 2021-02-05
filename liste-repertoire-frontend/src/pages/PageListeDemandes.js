@@ -101,12 +101,12 @@ function PageListeDemandes() {
                     <thead>
                         <tr>
                             <th>Nom du Demandeur
-                                <Button variant="success" className="m-1" size="sm" onClick={() => setNomDudemandeurTrie("Croissant")} ><FaAngleUp /></Button>
-                                <Button variant="success" className="m-1" size="sm" onClick={() => setNomDudemandeurTrie("Decroissant")} ><FaAngleDown/></Button>
+                                <Button variant="outline-secondary" className="m-1" size="sm" onClick={() => setNomDudemandeurTrie("Croissant")} ><FaAngleUp /></Button>
+                                <Button variant="outline-secondary" className="m-1" size="sm" onClick={() => setNomDudemandeurTrie("Decroissant")} ><FaAngleDown/></Button>
                             </th>
                             <th>Date
-                                <Button variant="success" className="m-1" size="sm" onClick={() => setDateTrie("Croissant")}><FaAngleUp /></Button>
-                                <Button variant="success" className="m-1" size="sm" onClick={() => setDateTrie("Decroissant")} ><FaAngleDown/></Button>
+                                <Button variant="outline-secondary" className="m-1" size="sm" onClick={() => setDateTrie("Croissant")}><FaAngleUp /></Button>
+                                <Button variant="outline-secondary" className="m-1" size="sm" onClick={() => setDateTrie("Decroissant")} ><FaAngleDown/></Button>
                             </th>
                             <th>Piece</th>     
                             <th>Actif</th>                        
