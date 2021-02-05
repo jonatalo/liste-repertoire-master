@@ -112,16 +112,16 @@ function ListePiecesAdmin({ pieces }) {
                     <thead>
                         <tr>
                             <th>Titre
-                                <Button variant="success" className="m-1" size="sm" onClick={() => setPieceTrie("Croissant")} ><FaAngleUp /></Button>
-                                <Button variant="success" className="m-1" size="sm" onClick={() => setPieceTrie("Decroissant")} ><FaAngleDown/></Button>
+                                <Button variant="outline-secondary" className="m-1" size="sm" onClick={() => setPieceTrie("Croissant")} ><FaAngleUp /></Button>
+                                <Button variant="outline-secondary" className="m-1" size="sm" onClick={() => setPieceTrie("Decroissant")} ><FaAngleDown/></Button>
                             </th>
                             <th>Artiste
-                                <Button variant="success" className="m-1" size="sm" onClick={() => setNomArtisteTrie("Croissant")}><FaAngleUp /></Button>
-                                <Button variant="success" className="m-1" size="sm" onClick={() => setNomArtisteTrie("Decroissant")} ><FaAngleDown/></Button>
+                                <Button variant="outline-secondary" className="m-1" size="sm" onClick={() => setNomArtisteTrie("Croissant")}><FaAngleUp /></Button>
+                                <Button variant="outline-secondary" className="m-1" size="sm" onClick={() => setNomArtisteTrie("Decroissant")} ><FaAngleDown/></Button>
                             </th>
                             <th>Categorie
-                                <Button variant="success" className="m-1" size="sm" onClick={() => setCategorieTrie("Croissant")} ><FaAngleUp /></Button>
-                                <Button variant="success" className="m-1" size="sm" onClick={() => setCategorieTrie("Decroissant")} ><FaAngleDown/></Button>
+                                <Button variant="outline-secondary" className="m-1" size="sm" onClick={() => setCategorieTrie("Croissant")} ><FaAngleUp /></Button>
+                                <Button variant="outline-secondary" className="m-1" size="sm" onClick={() => setCategorieTrie("Decroissant")} ><FaAngleDown/></Button>
                             </th> 
                             <th>
                                 Modifier
@@ -151,12 +151,12 @@ function ListePiecesAdmin({ pieces }) {
                                                 </td>
                                                 <td>
                                                 <Link to={`/modifier/${piece._id}`}>
-                                                    <Button variant="success" className="m-1" size="sm" >Modifier</Button>
+                                                    <Button variant="outline-success" className="m-1" size="sm" >Modifier</Button>
                                                 </Link>
                                                 </td>
                                                 <td>
                                                 <Link to={`/supprimer/${piece._id}`}>
-                                                    <Button variant="danger" className="m-1" size="sm" >Supprimer</Button>
+                                                    <Button variant="outline-danger" className="m-1" size="sm" >Supprimer</Button>
                                                 </Link>
                                                 </td>
                                             </tr>
