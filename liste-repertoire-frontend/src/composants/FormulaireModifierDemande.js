@@ -122,19 +122,13 @@ function FormulaireModifierDemande({ id }) {
             <ListGroup>
                 <ul>
                 {
-<<<<<<< HEAD
-                    listeDemandeSpecial.map(piece => 
-                    <li>{piece}</li>  
-                    )
-=======
                     listeDemandeSpecial.map(piece => <li>{piece}</li>)
->>>>>>> 6ef88c66b8241b0e39850e3f26bf9010192f7000
                 }
                 </ul>
             </ListGroup>
             
             <div>
-                <h1>Les pieces du répertoire</h1>
+                <h1>Pieces du répertoire</h1>
                 <Form className="mb-1">
                     <Form.Group>
                         <Form.Control type="text" value={recherche} placeholder="Entrer votre recherche ici" 
