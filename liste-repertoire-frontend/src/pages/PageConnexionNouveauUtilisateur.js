@@ -2,14 +2,17 @@ import React from 'react';
 import Button from 'react-bootstrap/Button'
 import { Link } from 'react-router-dom';
 import FormulaireNouveauUtilisateur from '../composants/FormulaireNouveauUtilisateur';
+import { useTranslation} from 'react-il8next';
 
 function PageConnexionNouveauUtilisateur() {
+    const { t } = useTranslation();
+    
     return (
     <>
-        <h1>Ajouter un nouveau utilisateur</h1>
+        <h1>{t('ajouternouveauutilisateur')}</h1>
         <FormulaireNouveauUtilisateur />
         <Link to="/connection">
-            <Button variant={'danger'} >Annuler</Button>    
+            <Button variant={'danger'} >{t('annuler')}</Button>    
         </Link>
     </>
     );    
