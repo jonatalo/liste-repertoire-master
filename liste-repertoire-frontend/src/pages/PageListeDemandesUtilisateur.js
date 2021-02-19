@@ -7,8 +7,11 @@ import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
 import ListGroup from 'react-bootstrap/ListGroup';
 import {UtiliseAuth} from '../context/auth'
+import { useTranslation} from 'react-il8next';
 
 function PageListeDemandesUtilisateur() {
+    const { t } = useTranslation();
+    
     const [listeDemandes, setListeDemandes] = useState([]);
     const {nom} = UtiliseAuth();
 
@@ -23,7 +26,7 @@ function PageListeDemandesUtilisateur() {
 
     return (
         <>
-            <h1>Demandes spéciales</h1>
+            <h1>{t('demandesspeciales')}</h1>
             <ListGroup>
             {
                 listeDemandes.map(demande => 
@@ -35,10 +38,10 @@ function PageListeDemandesUtilisateur() {
                         }
                         </ul>
                         <Link to={`/modifierDemande/${demande._id}`}>
-                            <Button variant="success" className="m-1" size="sm" >Modifier</Button>
+                            <Button variant="success" className="m-1" size="sm" >{t('modifier')}</Button>
                         </Link>
                         <Link to={`/supprimerDemande/${demande._id}`}>
-                            <Button variant="danger" className="m-1" size="sm" >Supprimer</Button>
+                            <Button variant="danger" className="m-1" size="sm" >{t('supprimer')}</Button>
                         </Link>
                     </ListGroup.Item>
                 )
