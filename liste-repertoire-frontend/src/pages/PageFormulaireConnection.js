@@ -4,7 +4,7 @@ import {
 import { Link } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import FormulaireConnection from '../composants/FormulaireConnection'
-import { useTranslation} from 'react-il8next';
+import { useTranslation} from 'react-i18next';
 
 function PageFormulaireConnection()
 {

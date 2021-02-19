@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTranslation} from 'react-il8next';
+import { useTranslation} from 'react-i18next';
 
 function PageAccueil() {
     const { t } = useTranslation(); 

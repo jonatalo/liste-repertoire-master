@@ -24,6 +24,7 @@ import {
 } from 'react-router-dom';
 import { ContexteAuth } from './context/auth';
 import { useState } from 'react';
+import Langage from './composants/Langages';
 
 function App() {
   const [authentification,setAuthentification]=useState(0);
@@ -35,6 +36,7 @@ function App() {
       <Router>
         <Container>
           <BarreNavigation />
+          <Langage />
           <Switch>
             <Route path="/" component={PageAccueil} exact />
             <Route path="/repertoire" component={PageRepertoire} />
