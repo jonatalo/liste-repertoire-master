@@ -12,10 +12,10 @@ import { Redirect } from 'react-router-dom';
 
 
 function FormulaireModifierDemande({ id }) {
-    const [listeDemandeSpecial, setListeDemandeSpecial] = useState(['']);
+    const [listeDemandeSpecial, setListeDemandeSpecial] = useState([]);
     const [listePieces, setListePieces] = useState([]);
     const [recherche, setRecherche] = useState('');
-    const [listeDemandes, setListeDemandes] = useState({});
+    const [listeDemandes, setListeDemandes] = useState([]);
     const [rediriger, setRediriger] = useState(false);
 
     useEffect(() => {
@@ -25,6 +25,8 @@ function FormulaireModifierDemande({ id }) {
             setListeDemandeSpecial(body.pieces);
         };
         chercherDonnees();
+        Object.assign(listeDemandes, listeDemandeSpecial);
+        setListeDemandes(listeDemandeSpecial);
         
     }, [id]);
     if( listePieces.length == 0 && recherche == ''){
@@ -39,15 +41,9 @@ function FormulaireModifierDemande({ id }) {
                 'Content-Type': 'application/json'
             }
         });
-        setListeDemandes({});
+        setListeDemandes([]);
         setRediriger(true);
     };
-    function SuppressionDemande(id){
-        if(listeDemandeSpecial[id] != undefined){
-            delete listeDemandeSpecial[id];
-            envoyerFormulaire();
-        } 
-    }
     function RecherDefault(){
         const chercherDonnees = async () => {
             const resultat = await fetch(`/api/pieces`);
@@ -96,7 +92,7 @@ function FormulaireModifierDemande({ id }) {
         }  
     }
     function handleClickPiece(id) {
-        const nouvelleListeDemandes = {};
+        const nouvelleListeDemandes = [];
         Object.assign(nouvelleListeDemandes, listeDemandes);
 
         if (listeDemandes[id] === undefined) {
@@ -108,13 +104,14 @@ function FormulaireModifierDemande({ id }) {
         }
 
         setListeDemandes(nouvelleListeDemandes);
+        console.log({listeDemandes});
     }
     function afficherRedirection() {
         if (rediriger === true) {
             return <Redirect to="/liste-demandes-utilisateur" />
         }
     }
-    if (listeDemandeSpecial != undefined) {
+    if (listeDemandeSpecial !== undefined) {
 
         return (
             <>  
@@ -138,6 +135,8 @@ function FormulaireModifierDemande({ id }) {
                 <Button variant="success" className="m-1" size="sm" onClick={RechercheParTitre}>Recherche par titre</Button>                
                 <Button variant="success" className="m-1" size="sm" onClick={RechercheParArtiste}>Recherche par artiste</Button>
                 <Button variant="success" className="m-1" size="sm" onClick={RechercheParCategorie}>Recherche par categorie</Button>
+                {setListeDemandes(Object.values({listeDemandeSpecial}))}
+                {console.log()}
                 <ListePiecesDemande pieces={listePieces} handleClick={handleClickPiece} listeDemandes={listeDemandes}/>
             </div>
             <Button onClick={envoyerFormulaire}>

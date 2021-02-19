@@ -51,10 +51,11 @@ function ListePiecesDemande({ pieces,  handleClick, listeDemandes }) {
     const [CategorieTrie,setCategorieTrie]=useState("Rien");
     const [PieceTrie,setPieceTrie]=useState("Rien");
     const [NomArtisteTrie,setNomArtisteTrie]=useState("Rien");
+    console.log(listeDemandes);
     if (listeDemandes !== undefined) {
         var listeIdDemandes = Object.keys(listeDemandes);
     } 
-
+    console.log(listeIdDemandes);
      if (pieces?.length) {
          var pieceMusicales=pieces;
         if(CategorieTrie == "Croissant")
@@ -119,6 +120,7 @@ function ListePiecesDemande({ pieces,  handleClick, listeDemandes }) {
         return (
             <> 
                 <Table className="table table-bordered">
+                    {console.log(listeDemandes)}
                     <thead>
                         <tr>
                             <th>Titre
