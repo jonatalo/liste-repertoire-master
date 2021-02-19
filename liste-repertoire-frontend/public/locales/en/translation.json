@@ -3,6 +3,7 @@
     "actif": "Active",
     "admin": "Admin",
     "afficherdemandespeciales": "Display special request",
+    "ajouter":"Add",
     "ajoutercategorie": "Add a category",
     "ajouterlapiece": "Add a song",
     "ajouternouveauutilisateur": "Add a new user",
@@ -42,6 +43,7 @@
     "rechercheparcategorie": "Search by category",
     "recherchepartitre": "Search by title",
     "repertoire": "Index",
+    "selectionner":"Select",
     "supprimer": "Delete",
     "titre": "Title",
     "voirdemandesspéciales": "See special request"

@@ -8,6 +8,8 @@ import { Link } from 'react-router-dom';
 import { Table } from 'react-bootstrap';
 import {FaAngleUp } from "react-icons/fa";
 import {FaAngleDown } from "react-icons/fa";
+import {useTranslation} from 'react-i18next';
+
 function DiviserParCategorie(pieceMusicales){
     const pieceConstruteur = {_id:"", tite:"",artiste:"",categories:""};
         var pieceMusicaleCategorie=[];
@@ -47,6 +49,7 @@ function DiviserParCategorie(pieceMusicales){
 }
 
 function ListePiecesAdmin({ pieces }) {
+    const {t} =useTranslation();
     const [CategorieTrie,setCategorieTrie]=useState("Rien");
     const [PieceTrie,setPieceTrie]=useState("Rien");
     const [NomArtisteTrie,setNomArtisteTrie]=useState("Rien");
@@ -111,23 +114,23 @@ function ListePiecesAdmin({ pieces }) {
                 <Table className="table table-bordered">
                     <thead>
                         <tr>
-                            <th>Titre
+                            <th>{t('titre')}
                                 <Button variant="outline-secondary" className="m-1" size="sm" onClick={() => setPieceTrie("Croissant")} ><FaAngleUp /></Button>
                                 <Button variant="outline-secondary" className="m-1" size="sm" onClick={() => setPieceTrie("Decroissant")} ><FaAngleDown/></Button>
                             </th>
-                            <th>Artiste
+                            <th>{t('artiste')}
                                 <Button variant="outline-secondary" className="m-1" size="sm" onClick={() => setNomArtisteTrie("Croissant")}><FaAngleUp /></Button>
                                 <Button variant="outline-secondary" className="m-1" size="sm" onClick={() => setNomArtisteTrie("Decroissant")} ><FaAngleDown/></Button>
                             </th>
-                            <th>Categorie
+                            <th>{t('categorie')}
                                 <Button variant="outline-secondary" className="m-1" size="sm" onClick={() => setCategorieTrie("Croissant")} ><FaAngleUp /></Button>
                                 <Button variant="outline-secondary" className="m-1" size="sm" onClick={() => setCategorieTrie("Decroissant")} ><FaAngleDown/></Button>
                             </th> 
                             <th>
-                                Modifier
+                                {t('modifier')}
                             </th>     
                             <th>
-                                Suprimer
+                                {t('supprimer')}
                             </th>                        
                         </tr>
                     </thead>
@@ -151,12 +154,12 @@ function ListePiecesAdmin({ pieces }) {
                                                 </td>
                                                 <td>
                                                 <Link to={`/modifier/${piece._id}`}>
-                                                    <Button variant="outline-success" className="m-1" size="sm" >Modifier</Button>
+                                                    <Button variant="outline-success" className="m-1" size="sm" >{t('modifier')}</Button>
                                                 </Link>
                                                 </td>
                                                 <td>
                                                 <Link to={`/supprimer/${piece._id}`}>
-                                                    <Button variant="outline-danger" className="m-1" size="sm" >Supprimer</Button>
+                                                    <Button variant="outline-danger" className="m-1" size="sm" >{t('supprimer')}</Button>
                                                 </Link>
                                                 </td>
                                             </tr>
@@ -172,12 +175,12 @@ function ListePiecesAdmin({ pieces }) {
                                                 <td>{piece.categories}</td>
                                                 <td>
                                                 <Link to={`/modifier/${piece._id}`}>
-                                                    <Button variant="success" className="m-1" size="sm" >Modifier</Button>
+                                                    <Button variant="success" className="m-1" size="sm" >{t('modifier')}</Button>
                                                 </Link>
                                                 </td>
                                                 <td>
                                                 <Link to={`/supprimer/${piece._id}`}>
-                                                    <Button variant="danger" className="m-1" size="sm" >Supprimer</Button>
+                                                    <Button variant="danger" className="m-1" size="sm" >{t('supprimer')}</Button>
                                                 </Link>
                                                 </td>
                                             </tr>
@@ -193,7 +196,7 @@ function ListePiecesAdmin({ pieces }) {
         );
     }
     else {
-        return <Alert variant={"info"} >Il n'y a pas de pièces dans le répertoire.</Alert>;
+        return <Alert variant={"info"} >{t('messagerepertoirevide')}</Alert>;
     }
 }
 

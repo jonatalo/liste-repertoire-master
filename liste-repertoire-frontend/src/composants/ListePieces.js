@@ -7,6 +7,7 @@ import Button from 'react-bootstrap/Button';
 import { Table } from 'react-bootstrap';
 import {FaAngleUp } from "react-icons/fa";
 import {FaAngleDown } from "react-icons/fa";
+import {useTranslation} from 'react-i18next';
 
 function DiviserParCategorie(pieceMusicales){
     const pieceConstruteur = {_id:"", tite:"",artiste:"",categories:""};
@@ -42,6 +43,7 @@ function DiviserParCategorie(pieceMusicales){
 
 }
 function ListePieces({ pieces, handleClick, listeDemandes }) {
+    const {t} =useTranslation();
     const [CategorieTrie,setCategorieTrie]=useState("Rien");
     const [PieceTrie,setPieceTrie]=useState("Rien");
     const [NomArtisteTrie,setNomArtisteTrie]=useState("Rien");
@@ -108,15 +110,15 @@ function ListePieces({ pieces, handleClick, listeDemandes }) {
                 <Table className="table table-bordered">
                     <thead>
                         <tr>
-                            <th>Titre
+                            <th>{t('titre')}
                                 <Button variant="outline-secondary" className="m-1" size="sm" onClick={() => setPieceTrie("Croissant")} ><FaAngleUp /></Button>
                                 <Button variant="outline-secondary" className="m-1" size="sm" onClick={() => setPieceTrie("Decroissant")} ><FaAngleDown/></Button>
                             </th>
-                            <th>Artiste
+                            <th>{t('artiste')}
                                 <Button variant="outline-secondary" className="m-1" size="sm" onClick={() => setNomArtisteTrie("Croissant")}><FaAngleUp /></Button>
                                 <Button variant="outline-secondary" className="m-1" size="sm" onClick={() => setNomArtisteTrie("Decroissant")} ><FaAngleDown/></Button>
                             </th>
-                            <th>Categorie
+                            <th>{t('categorie')}
                                 <Button variant="outline-secondary" className="m-1" size="sm" onClick={() => setCategorieTrie("Croissant")} ><FaAngleUp /></Button>
                                 <Button variant="outline-secondary" className="m-1" size="sm" onClick={() => setCategorieTrie("Decroissant")} ><FaAngleDown/></Button>
                             </th>                            
@@ -165,7 +167,7 @@ function ListePieces({ pieces, handleClick, listeDemandes }) {
         );
     }
     else {
-        return <Alert variant={"info"} >Il n'y a pas de pièces dans le répertoire.</Alert>;
+        return <Alert variant={"info"} >{t('messagerepertoirevide')}</Alert>;
     }
     
 }

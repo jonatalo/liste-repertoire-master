@@ -3,6 +3,7 @@
     "actif": "Actif",
     "admin": "Admin",
     "afficherdemandespeciales": "Afficher demande spéciales",
+    "ajouter":"Ajouter",
     "ajoutercategorie": "Ajouter une catégorie",
     "ajouterlapiece": "Ajouter la pièce",
     "ajouternouveauutilisateur": "Ajouter un nouveau utilisateur",
@@ -42,6 +43,7 @@
     "rechercheparcategorie": "Recherche par categorie",
     "recherchepartitre": "Recherche par titre",
     "repertoire": "Repertoire",
+    "selectionner":"Sélectionner",
     "supprimer": "Supprimer",
     "titre": "Titre",
     "voirdemandesspéciales": "Voir les demandes spéciales"
