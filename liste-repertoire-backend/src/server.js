@@ -1,10 +1,12 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import { MongoClient, ObjectID } from 'mongodb';
+import path from 'path';
 
 const app = express();
 
 app.use(bodyParser.json());
+app.use(express.static(path.join(_dirname, '/build')));
 
 const utiliserDB = async (operations, reponse) => {
     try {
@@ -281,6 +283,10 @@ app.delete('/api/demandes/supprimer/:id', (requete, reponse) => {
     }, reponse).catch(
         () => reponse.status(500).send("Erreur : la demande n'a pas été supprimée")
     );
+});
+
+app.get('*', (requete, reponse) => {
+    reponse.sendFile(path.join(_dirname + '/build/index.html'));
 });
 
 app.listen(8000, () => console.log("Serveur démarré sur le port 8000"));
