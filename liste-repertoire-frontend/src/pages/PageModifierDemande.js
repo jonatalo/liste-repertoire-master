@@ -2,7 +2,7 @@ import React from 'react';
 import FormulaireModifierDemande from '../composants/FormulaireModifierDemande';
 import Button from 'react-bootstrap/Button'
 import { Link } from 'react-router-dom';
-import { useTranslation} from 'react-il8next';
+import { useTranslation} from 'react-i18next';
 
 function PageModifierDemande({ match }) {
     const id = match.params.id;

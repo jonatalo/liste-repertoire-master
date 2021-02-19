@@ -11,7 +11,7 @@ import {FaAngleUp } from "react-icons/fa";
 import {FaAngleDown } from "react-icons/fa";
 import {UtiliseAuth} from '../context/auth'
 import { Link } from 'react-router-dom';
-import { useTranslation} from 'react-il8next';
+import { useTranslation} from 'react-i18next';
 
 
 function PageEnvoyerDemande() {

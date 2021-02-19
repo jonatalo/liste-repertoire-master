@@ -11,7 +11,7 @@ import {UtiliseAuth} from '../context/auth'
 import { Table } from 'react-bootstrap';
 import {FaAngleUp } from "react-icons/fa";
 import {FaAngleDown } from "react-icons/fa";
-import { useTranslation} from 'react-il8next';
+import { useTranslation} from 'react-i18next';
 
 function PageListeDemandes() {
     const { t } = useTranslation();

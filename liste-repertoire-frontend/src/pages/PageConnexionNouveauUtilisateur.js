@@ -2,7 +2,7 @@ import React from 'react';
 import Button from 'react-bootstrap/Button'
 import { Link } from 'react-router-dom';
 import FormulaireNouveauUtilisateur from '../composants/FormulaireNouveauUtilisateur';
-import { useTranslation} from 'react-il8next';
+import { useTranslation} from 'react-i18next';
 
 function PageConnexionNouveauUtilisateur() {
     const { t } = useTranslation();

@@ -5,7 +5,7 @@ import {
 } from 'react';
 
 import ListeClients from '../composants/ListeClients';
-import { useTranslation} from 'react-il8next';
+import { useTranslation} from 'react-i18next';
 
 function PagePriver() {
     const [ListeClients, setListeClients] = useState([]);
