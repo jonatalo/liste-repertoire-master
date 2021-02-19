@@ -138,7 +138,6 @@ function ListePiecesDemande({ pieces,  handleClick, listeDemandes }) {
                         </tr>
                     </thead>
                     <tbody>
-
                     {pieceMusicales.map(piece => {
                         if (handleClick != undefined) {
                                 if(typeof (piece.categories)!="string"){

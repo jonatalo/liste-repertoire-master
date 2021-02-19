@@ -25,12 +25,10 @@ function FormulaireModifierDemande({ id }) {
             setListeDemandeSpecial(body.pieces);
         };
         chercherDonnees();
-        Object.assign(listeDemandes, listeDemandeSpecial);
-        setListeDemandes(listeDemandeSpecial);
-        
     }, [id]);
     if( listePieces.length == 0 && recherche == ''){
         RecherDefault();
+
     }
     const envoyerFormulaire = async () => {
         const pieces = Object.values(listeDemandes);
@@ -45,21 +43,21 @@ function FormulaireModifierDemande({ id }) {
         setRediriger(true);
     };
     function RecherDefault(){
-        const chercherDonnees = async () => {
+        const chercherDonneesRecherche = async () => {
             const resultat = await fetch(`/api/pieces`);
             const body = await resultat.json().catch((error) => {console.log(error)});
             setListePieces(body);
         };
-        chercherDonnees();
+        chercherDonneesRecherche();
     }
     function RechercheParTitre(){
         if(recherche !== ''){
-            const chercherDonnees = async () => {
+            const chercherDonneesTitre = async () => {
                 const resultat = await fetch(`/api/pieces/titre/${recherche}`);
                 const body = await resultat.json().catch((error) => {console.log(error)});
                 setListePieces(body);
             };
-            chercherDonnees();
+            chercherDonneesTitre();
         }
         else{
             RecherDefault();
@@ -67,12 +65,12 @@ function FormulaireModifierDemande({ id }) {
     }
     function RechercheParArtiste(){
         if(recherche !== ''){
-            const chercherDonnees = async () => {
+            const chercherDonneesArtiste = async () => {
                 const resultat = await fetch(`/api/pieces/artiste/${recherche}`);
                 const body = await resultat.json().catch((error) => {console.log(error)});
                 setListePieces(body);
             };
-            chercherDonnees();
+            chercherDonneesArtiste();
         }
         else{
             RecherDefault();
@@ -80,12 +78,12 @@ function FormulaireModifierDemande({ id }) {
     }
     function RechercheParCategorie(){
         if(recherche !== ''){
-            const chercherDonnees = async () => {
+            const chercherDonneesCategorie = async () => {
                 const resultat = await fetch(`/api/pieces/categorie/${recherche}`);
                 const body = await resultat.json().catch((error) => {console.log(error)});
                 setListePieces(body);
             };
-            chercherDonnees();
+            chercherDonneesCategorie();
         }
         else{
             RecherDefault();
@@ -102,7 +100,6 @@ function FormulaireModifierDemande({ id }) {
         else {
             delete nouvelleListeDemandes[id];
         }
-
         setListeDemandes(nouvelleListeDemandes);
         console.log({listeDemandes});
     }
@@ -125,7 +122,7 @@ function FormulaireModifierDemande({ id }) {
             </ListGroup>
             
             <div>
-                <h1>Les pieces du répertoire</h1>
+                <h1>Pieces du répertoire</h1>
                 <Form className="mb-1">
                     <Form.Group>
                         <Form.Control type="text" value={recherche} placeholder="Entrer votre recherche ici" 
@@ -139,9 +136,7 @@ function FormulaireModifierDemande({ id }) {
                 {console.log()}
                 <ListePiecesDemande pieces={listePieces} handleClick={handleClickPiece} listeDemandes={listeDemandes}/>
             </div>
-            <Button onClick={envoyerFormulaire}>
-                Envoyer la modification
-            </Button>   
+            <Button onClick={envoyerFormulaire}>Envoyer la modification</Button> 
             </>
         );
     }
