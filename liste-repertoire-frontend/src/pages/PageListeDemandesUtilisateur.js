@@ -26,7 +26,7 @@ function PageListeDemandesUtilisateur() {
 
     return (
         <>
-            <h1>{t('demandesspeciales')}</h1>
+            <h1>{t('demandesspéciales')}</h1>
             <ListGroup>
             {
                 listeDemandes.map(demande => 

@@ -17,7 +17,7 @@
     "connection": "Connection",
     "connectionutilisateur": "Connection utilisateur",
     "date": "Date",
-    "demandesspeciales": "Demandes spéciales",
+    "demandesspéciales": "Demandes spéciales",
     "envoyerdemande": "Envoyer la demande",
     "envoyerdemandespeciale": "Envoyer une demande spéciale",
     "envoyermodification": "Envoyer la modification",
@@ -43,5 +43,5 @@
     "repertoire": "Repertoire",
     "supprimer": "Supprimer",
     "titre": "Titre",
-    "voirdemandesspeciales": "Voir les demandes spéciales"
+    "voirdemandesspéciales": "Voir les demandes spéciales"
 }

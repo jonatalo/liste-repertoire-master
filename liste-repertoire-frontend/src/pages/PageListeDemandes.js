@@ -98,7 +98,7 @@ function PageListeDemandes() {
 
     return (
         <>
-            <h1>{t('demandesspeciales')}</h1>
+            <h1>{t('demandesspéciales')}</h1>
         
                 <Table className="table table-bordered">
                     <thead>
