@@ -7,8 +7,10 @@ import Button from 'react-bootstrap/Button';
 import {UtiliseAuth} from '../context/auth'
 import Alert from 'react-bootstrap/Alert';
 import { Redirect } from 'react-router-dom';
+import {useTranslation} from 'react-i18next';
 
 function FormulaireConnection() {
+    const {t} =useTranslation();
     const [nomUtilisateur, setNomUtilisateur] = useState('');
     const [motPasse, setMotPasse] = useState('');
     const {authentification,setAuthentification} = UtiliseAuth();
@@ -20,7 +22,7 @@ function FormulaireConnection() {
         const utilisateur = await utilisateurjson.json();
         
         if(motPasse !== utilisateur.motDePasse){
-            <Alert variant="Danger" >Mot de passe invalide!</Alert>
+            <Alert variant="Danger" > {t('motdepasseinvalide')}</Alert>
         }
         else{
             if(nomUtilisateur=='admin'){
@@ -48,18 +50,18 @@ return(
     {afficherRedirection()}
         <Form>
             <Form.Group> 
-                <Form.Control type="text"  class="fadeIn second" name="login" placeholder="login"
+                <Form.Control type="text"  class="fadeIn second" name="login" placeholder={t('nomutilisateur')}
                     onChange={(event) => setNomUtilisateur(event.target.value)}
                 />
             </Form.Group> 
             <Form.Group>
-                <Form.Control type="password" class="fadeIn third" name="login" placeholder="password" 
+                <Form.Control type="password" class="fadeIn third" name="psswd" placeholder={t('motdepasse')}
                     onChange={(event) => setMotPasse(event.target.value)}
                 />
             </Form.Group>
             
             <Button variant="success" onClick={connectionUtilisateur}>
-            Connection
+            {t('connection')}
             </Button>  
         </Form>
     </>

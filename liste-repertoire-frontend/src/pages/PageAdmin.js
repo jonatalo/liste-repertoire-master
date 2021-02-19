@@ -8,10 +8,12 @@ import ListePiecesAdmin from '../composants/ListePiecesAdmin';
 
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
+import { useTranslation} from 'react-il8next';
 
 
 
 function PageAdmin() {
+    const {t} = useTranslation();
     const [listePieces, setListePieces] = useState([]);
 
     
@@ -26,18 +28,18 @@ function PageAdmin() {
 
     return (
         <>
-            <h1>Page administrateur</h1>
+            <h1>{t('pageadministrateur')}</h1>
 
             <Link to="/ajouter">
-                <Button>Ajouter une nouvelle pièce</Button>    
+                <Button>{t('ajouternouvellepiece')}</Button>    
             </Link>
             
-            <h2>Liste du répertoire</h2>
+            <h2>{t('listerepertoire')}</h2>
             <ListePiecesAdmin pieces={listePieces} />
 
 
             <Link to="/liste-demandes">
-                <Button>Voir les demandes spéciales</Button>
+                <Button>{t('voirdemandesspéciales')}</Button>
             </Link>
             
 

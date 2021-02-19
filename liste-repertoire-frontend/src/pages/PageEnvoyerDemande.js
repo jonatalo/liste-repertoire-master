@@ -11,9 +11,12 @@ import {FaAngleUp } from "react-icons/fa";
 import {FaAngleDown } from "react-icons/fa";
 import {UtiliseAuth} from '../context/auth'
 import { Link } from 'react-router-dom';
+import { useTranslation} from 'react-il8next';
 
 
 function PageEnvoyerDemande() {
+    const { t } = useTranslation();
+    
     const [listePieces, setListePieces] = useState([]);
     const [listeDemandes, setListeDemandes] = useState({});
     const [confirmation, setConfirmation] = useState(false);
@@ -104,29 +107,29 @@ function PageEnvoyerDemande() {
 
     function afficherConfirmation() {
         if (confirmation === true) {
-            return <Alert variant="success" >La demande a bien été envoyée.</Alert>
+            return <Alert variant="success" >{t('messageenvoyerdemande')}</Alert>
         }
     }
     return (
         <>
-            <h1>Envoyer une demande spéciale</h1>
+            <h1>{t('envoyerdemandespeciale')}</h1>
             <Form className="mb-1">
                 <Form.Group>
-                    <Form.Label>Bonjour : {nom}</Form.Label>
+                    <Form.Label>{t('bienvenue')} : {nom}</Form.Label>
                     <Form.Control type="text" value={recherche} placeholder="Entrer votre recherche ici" 
                             onChange={(event) => setRecherche(event.target.value)} />
                 </Form.Group>
             </Form>
-            <Button variant="success" className="m-1" size="sm" onClick={RechercheParTitre}>Recherche par titre</Button>                
-            <Button variant="success" className="m-1" size="sm" onClick={RechercheParArtiste}>Recherche par artiste</Button>
-            <Button variant="success" className="m-1" size="sm" onClick={RechercheParCategorie}>Recherche par categorie</Button>
+            <Button variant="success" className="m-1" size="sm" onClick={RechercheParTitre}>{t('recherchepartitre')}</Button>                
+            <Button variant="success" className="m-1" size="sm" onClick={RechercheParArtiste}>{t('rechercheparartiste')}</Button>
+            <Button variant="success" className="m-1" size="sm" onClick={RechercheParCategorie}>{t('rechercheparcategorie')}</Button>
             <ListePiecesDemande pieces={listePieces} handleClick={handleClickPiece} listeDemandes={listeDemandes}/>
 
             <Button onClick={envoyerDemande} >
-                Envoyer la demande
+            {t('envoyerdemande')}
             </Button>
             <Link to={`/liste-demandes-utilisateur`}>
-                <Button variant="success" className="m-1" size="sm" >Afficher demande spécial</Button>
+                <Button variant="success" className="m-1" size="sm" >{t('afficherdemandespeciales')}</Button>
             </Link>
             {afficherConfirmation()}
         </>
