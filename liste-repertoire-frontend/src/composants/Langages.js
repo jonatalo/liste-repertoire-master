@@ -11,7 +11,7 @@ function Langages(){
 
     function changerLangue(langue)
     {
-        i18n.changerLanguage(langue);
+        i18n.changeLanguage(langue);
     }
     
     return(
