@@ -1,7 +1,9 @@
 import React from 'react';
 import Alert from 'react-bootstrap/Alert'
+import {useTranslation} from 'react-i18next';
 
 function ListeClients({ clients }) {
+    const {t} =useTranslation();
     if (clients?.length) {
         var dictionnaireIDs = Object();
 
@@ -32,7 +34,7 @@ function ListeClients({ clients }) {
         );
     }
     else {
-        return <Alert variant={"info"} >Il n'y a pas de pièces dans le répertoire.</Alert>;
+        return <Alert variant={"info"} >{t('messagerepertoirevide')}</Alert>;
     }
 }
 

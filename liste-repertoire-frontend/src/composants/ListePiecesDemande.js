@@ -7,6 +7,7 @@ import Button from 'react-bootstrap/Button';
 import { Table } from 'react-bootstrap';
 import {FaAngleUp } from "react-icons/fa";
 import {FaAngleDown } from "react-icons/fa";
+import {useTranslation} from 'react-i18next';
 
 function DiviserParCategorie(pieceMusicales){
     const pieceConstruteur = {_id:"", tite:"",artiste:"",categories:""};
@@ -48,6 +49,7 @@ function DiviserParCategorie(pieceMusicales){
 
 
 function ListePiecesDemande({ pieces,  handleClick, listeDemandes }) {
+    const {t} =useTranslation();
     const [CategorieTrie,setCategorieTrie]=useState("Rien");
     const [PieceTrie,setPieceTrie]=useState("Rien");
     const [NomArtisteTrie,setNomArtisteTrie]=useState("Rien");
@@ -123,18 +125,18 @@ function ListePiecesDemande({ pieces,  handleClick, listeDemandes }) {
                     {console.log(listeDemandes)}
                     <thead>
                         <tr>
-                            <th>Titre
+                            <th>{t('titre')}
                                 <Button variant="outline-secondary" className="m-1" size="sm" onClick={() => setPieceTrie("Croissant")} ><FaAngleUp /></Button>
                                 <Button variant="outline-secondary" className="m-1" size="sm" onClick={() => setPieceTrie("Decroissant")} ><FaAngleDown/></Button>
                             </th>
-                            <th>Artiste
+                            <th>{t('artiste')}
                                 <Button variant="outline-secondary" className="m-1" size="sm" onClick={() => setNomArtisteTrie("Croissant")}><FaAngleUp /></Button>
                                 <Button variant="outline-secondary" className="m-1" size="sm" onClick={() => setNomArtisteTrie("Decroissant")} ><FaAngleDown/></Button>
                             </th>
-                            <th>Categorie
+                            <th>{t('categorie')}
                                 <Button variant="outline-secondary" className="m-1" size="sm" onClick={() => setCategorieTrie("Croissant")} ><FaAngleUp /></Button>
                                 <Button variant="outline-secondary" className="m-1" size="sm" onClick={() => setCategorieTrie("Decroissant")} ><FaAngleDown/></Button>
-                            </th>                            
+                            </th>                             
                         </tr>
                     </thead>
                     <tbody>
@@ -156,7 +158,7 @@ function ListePiecesDemande({ pieces,  handleClick, listeDemandes }) {
                                             })}
                                         </td>
                                         <td>
-                                        <Button variant="outline-info  " className="m-1" size="sm" onClick={() => handleClick(piece._id)}>Sélectionner</Button>
+                                        <Button variant="outline-info  " className="m-1" size="sm" onClick={() => handleClick(piece._id)}>{t('supprimer')}Sélectionner</Button>
                                         </td>
                                          </tr>
                                     </>
@@ -178,7 +180,7 @@ function ListePiecesDemande({ pieces,  handleClick, listeDemandes }) {
                                                             })}
                                                         </td>
                                                         <td>
-                                                            <Button variant="outline-success" className="m-1" size="sm" onClick={() => handleClick(piece._id)}>Ajouter</Button> 
+                                                            <Button variant="outline-success" className="m-1" size="sm" onClick={() => handleClick(piece._id)}{t('ajouter')}></Button> 
                                                         </td>
                                                      </tr>
                                                 </>
@@ -194,7 +196,7 @@ function ListePiecesDemande({ pieces,  handleClick, listeDemandes }) {
                                                 <td>{piece.artiste}</td>
                                                 <td>{piece.categories}</td>
                                                 <td>
-                                                    <Button variant="outline-info" className="m-1" size="sm" onClick={() => handleClick(piece._id)}>Sélectionner</Button>
+                                                    <Button variant="outline-info" className="m-1" size="sm" onClick={() => handleClick(piece._id)}>{t('selectionner')}</Button>
                                                 </td>
                                              </tr>
                                         </>
@@ -208,7 +210,7 @@ function ListePiecesDemande({ pieces,  handleClick, listeDemandes }) {
                                                 <td>{piece.titre}</td>
                                                 <td>{piece.artiste}</td>
                                                 <td>{piece.categories}</td>
-                                                <td><Button variant="outline-success" className="m-1" size="sm" onClick={() => handleClick(piece._id)}>Ajouter</Button></td>
+                                                <td><Button variant="outline-success" className="m-1" size="sm" onClick={() => handleClick(piece._id)}>{t('ajouter')}</Button></td>
                                                  </tr>
                                             </>
                                     );
@@ -225,7 +227,7 @@ function ListePiecesDemande({ pieces,  handleClick, listeDemandes }) {
         );
     }
     else {
-        return <Alert variant={"info"} >Il n'y a pas de pièces dans le répertoire.</Alert>;
+        return <Alert variant={"info"} >{t('messagerepertoirevide')}</Alert>;
     }
     
 }
