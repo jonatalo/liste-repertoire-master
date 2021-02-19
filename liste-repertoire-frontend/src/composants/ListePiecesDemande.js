@@ -158,7 +158,7 @@ function ListePiecesDemande({ pieces,  handleClick, listeDemandes }) {
                                             })}
                                         </td>
                                         <td>
-                                        <Button variant="outline-info  " className="m-1" size="sm" onClick={() => handleClick(piece._id)}>{t('supprimer')}Sélectionner</Button>
+                                        <Button variant="outline-info  " className="m-1" size="sm" onClick={() => handleClick(piece._id)}>{t('selectionner')}</Button>
                                         </td>
                                          </tr>
                                     </>
@@ -180,7 +180,7 @@ function ListePiecesDemande({ pieces,  handleClick, listeDemandes }) {
                                                             })}
                                                         </td>
                                                         <td>
-                                                            <Button variant="outline-success" className="m-1" size="sm" onClick={() => handleClick(piece._id)}{t('ajouter')}></Button> 
+                                                            <Button variant="outline-success" className="m-1" size="sm" onClick={() => handleClick(piece._id)}>{t('ajouter')}</Button> 
                                                         </td>
                                                      </tr>
                                                 </>
