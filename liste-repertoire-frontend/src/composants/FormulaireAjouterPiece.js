@@ -5,8 +5,10 @@ import {
 import { Form } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import { Redirect } from 'react-router-dom';
+import {useTranslation} from 'react-i18next';
 
 function FormulaireAjouterPiece({ id }) {
+    const {t} =useTranslation();
     const [titre, setTitre] = useState('');
     const [artiste, setArtiste] = useState('');
     const [categories, setCategories] = useState(['']);
@@ -44,23 +46,23 @@ function FormulaireAjouterPiece({ id }) {
         {afficherRedirection()}
         <Form className="mb-1">
             <Form.Group>
-                <Form.Label>Titre</Form.Label>
+                <Form.Label>{t('titre')}</Form.Label>
                 <Form.Control type="text" value={titre} 
                     onChange={(event) => setTitre(event.target.value)} />
             </Form.Group>
 
             <Form.Group>
-                <Form.Label>Artiste / Groupe</Form.Label>
+                <Form.Label>{t('artistegroupe')}</Form.Label>
                 <Form.Control type="text" value={artiste} 
                     onChange={(event) => setArtiste(event.target.value)} />
             </Form.Group>
 
             <Form.Group>
                 <Form.Label>
-                    Catégories
+                {t('categorie')}
                     <Button variant="primary" className="ml-2" 
                         onClick={ajouterCategorie}>
-                        Ajouter une catégorie
+                        {t('ajoutercategorie')}
                     </Button>
                 </Form.Label>
                 {
@@ -79,7 +81,7 @@ function FormulaireAjouterPiece({ id }) {
             
 
             <Button variant="success" onClick={envoyerFormulaire} >
-                Ajouter la pièce
+            {t('ajouterlapiece')}
             </Button>
         </Form>
     </>

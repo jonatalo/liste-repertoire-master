@@ -6,8 +6,10 @@ import {
 import { Form } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import { Redirect } from 'react-router-dom';
+import {useTranslation} from 'react-i18next';
 
 function FormulaireNouveauUtilisateur(){
+    const {t} =useTranslation();
     const [nomUtilisateur, setNomUtilsateur] = useState('');
     const [motDePasse, setMotDePasse] = useState('');
     const [confirmationMotDePasse, setConfirmationMotDePasse] = useState('');
@@ -49,26 +51,26 @@ function FormulaireNouveauUtilisateur(){
             {afficherRedirection()}
             <Form className="mb-1">
                 <Form.Group>
-                    <Form.Label>Nom utilisateur</Form.Label>
+                    <Form.Label>{t('nomutilisateur')}</Form.Label>
                     <Form.Control type="text" value={nomUtilisateur} required="required"
                         onChange={(event) => setNomUtilsateur(event.target.value)} />
                 </Form.Group>
     
                 <Form.Group>
-                    <Form.Label>Mot de passe </Form.Label>
+                    <Form.Label>{t('motdepasse')} </Form.Label>
                     <Form.Control type="password" value={motDePasse} required="required" 
                         onChange={(event) => setMotDePasse(event.target.value)} />
                 </Form.Group>
                 
                 <Form.Group>
-                    <Form.Label>Confirmation mot de passe</Form.Label>
+                    <Form.Label>{t('confirmationmotdepasse')}</Form.Label>
                     <Form.Control type="password" value={confirmationMotDePasse} required="required" minLength="8"maxLength="16"
                         onChange={(event) => setConfirmationMotDePasse(event.target.value)} />
                 </Form.Group> 
                 
     
                 <Button variant="primary" onClick={envoyerFormulaireUtilisateur} >
-                    Ajouter utilisateur
+                {t('ajouterutilisateur')}
                 </Button>
             </Form>
         </>

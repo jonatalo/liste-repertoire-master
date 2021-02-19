@@ -9,13 +9,15 @@ import { Form } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import ListePiecesDemande from '../composants/ListePiecesDemande';
 import { Redirect } from 'react-router-dom';
+import {useTranslation} from 'react-i18next';
 
 
 function FormulaireModifierDemande({ id }) {
-    const [listeDemandeSpecial, setListeDemandeSpecial] = useState(['']);
+    const {t} =useTranslation();
+    const [listeDemandeSpecial, setListeDemandeSpecial] = useState([]);
     const [listePieces, setListePieces] = useState([]);
     const [recherche, setRecherche] = useState('');
-    const [listeDemandes, setListeDemandes] = useState({});
+    const [listeDemandes, setListeDemandes] = useState([]);
     const [rediriger, setRediriger] = useState(false);
 
     useEffect(() => {
@@ -25,7 +27,6 @@ function FormulaireModifierDemande({ id }) {
             setListeDemandeSpecial(body.pieces);
         };
         chercherDonnees();
-
     }, [id]);
     if( listePieces.length == 0 && recherche == ''){
         RecherDefault();
@@ -40,15 +41,9 @@ function FormulaireModifierDemande({ id }) {
                 'Content-Type': 'application/json'
             }
         });
-        setListeDemandes({});
+        setListeDemandes([]);
         setRediriger(true);
     };
-    function SuppressionDemande(id){
-        if(listeDemandeSpecial[id] != undefined){
-            delete listeDemandeSpecial[id];
-            envoyerFormulaire();
-        } 
-    }
     function RecherDefault(){
         const chercherDonneesRecherche = async () => {
             const resultat = await fetch(`/api/pieces`);
@@ -97,7 +92,7 @@ function FormulaireModifierDemande({ id }) {
         }  
     }
     function handleClickPiece(id) {
-        const nouvelleListeDemandes = {};
+        const nouvelleListeDemandes = [];
         Object.assign(nouvelleListeDemandes, listeDemandes);
 
         if (listeDemandes[id] === undefined) {
@@ -108,13 +103,14 @@ function FormulaireModifierDemande({ id }) {
             delete nouvelleListeDemandes[id];
         }
         setListeDemandes(nouvelleListeDemandes);
+        console.log({listeDemandes});
     }
     function afficherRedirection() {
         if (rediriger === true) {
             return <Redirect to="/liste-demandes-utilisateur" />
         }
     }
-    if (listeDemandeSpecial != undefined) {
+    if (listeDemandeSpecial !== undefined) {
 
         return (
             <>  
@@ -128,24 +124,26 @@ function FormulaireModifierDemande({ id }) {
             </ListGroup>
             
             <div>
-                <h1>Pieces du répertoire</h1>
+                <h1>{t('messagepiecerepertoire')}</h1>
                 <Form className="mb-1">
                     <Form.Group>
-                        <Form.Control type="text" value={recherche} placeholder="Entrer votre recherche ici" 
+                        <Form.Control type="text" value={recherche} placeholder={t('entrerRecherche')}
                             onChange={(event) => setRecherche(event.target.value)} />
                     </Form.Group>
                 </Form>
-                <Button variant="success" className="m-1" size="sm" onClick={RechercheParTitre}>Recherche par titre</Button>                
-                <Button variant="success" className="m-1" size="sm" onClick={RechercheParArtiste}>Recherche par artiste</Button>
-                <Button variant="success" className="m-1" size="sm" onClick={RechercheParCategorie}>Recherche par categorie</Button>
+                <Button variant="success" className="m-1" size="sm" onClick={RechercheParTitre}>{t('recherchepartitre')}</Button>                
+                <Button variant="success" className="m-1" size="sm" onClick={RechercheParArtiste}>{t('rechercheparartiste')}</Button>
+                <Button variant="success" className="m-1" size="sm" onClick={RechercheParCategorie}>{t('rechercheparcategorie')}</Button>
+                {setListeDemandes(Object.values({listeDemandeSpecial}))}
+                {console.log()}
                 <ListePiecesDemande pieces={listePieces} handleClick={handleClickPiece} listeDemandes={listeDemandes}/>
             </div>
-            <Button onClick={envoyerFormulaire}>Envoyer la modification</Button> 
+            <Button onClick={envoyerFormulaire}>{t('envoyermodification')}</Button> 
             </>
         );
     }
     else {
-        return <Alert variant={"info"} >Il n'y a pas de pièces dans le répertoire.</Alert>;
+        return <Alert variant={"info"} >{t('messagerepertoirevide')}</Alert>;
     }
 }
 
