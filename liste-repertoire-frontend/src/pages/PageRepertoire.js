@@ -3,6 +3,7 @@ import {
     useState,
     useEffect
 } from 'react';
+import ListePieceRepertoire from '../composants/ListePieceRepertoire';
 import ListePieces from '../composants/ListePieces';
 import { Form } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
