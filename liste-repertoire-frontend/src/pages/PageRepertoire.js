@@ -15,7 +15,7 @@ function PageRepertoire() {
     const [listeDemandes, setListeDemandes] = useState({});
     const { t } = useTranslation();
     
-    if( listePieces.length == 0 && recherche == ''){
+    if( listePieces.length !== 0 && recherche == ''){
         RecherDefault();
     }
     function RecherDefault(){
