@@ -4,17 +4,20 @@ import {
 import { Link } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import FormulaireConnection from '../composants/FormulaireConnection'
+import { useTranslation} from 'react-il8next';
 
 function PageFormulaireConnection()
 {
+    const { t } = useTranslation();
+    
     return (
         <>
             
-            <h1>Connection utilisateur</h1>
+            <h1>{t('connectionutilisateur')}</h1>
             
             < FormulaireConnection />
             <Link to="/NouveauUtilisateur">
-                <Button>Nouvelle Utilisateur</Button>    
+                <Button>{t('nouvelleutilisateur')}</Button>    
             </Link>
         </>
     );

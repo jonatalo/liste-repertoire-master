@@ -11,8 +11,11 @@ import {UtiliseAuth} from '../context/auth'
 import { Table } from 'react-bootstrap';
 import {FaAngleUp } from "react-icons/fa";
 import {FaAngleDown } from "react-icons/fa";
+import { useTranslation} from 'react-il8next';
 
 function PageListeDemandes() {
+    const { t } = useTranslation();
+    
     const [listeDemandes, setListeDemandes] = useState([]);
     const [demandePresente,setDemandePresente]=useState();
     const [date,setDate]=useState();
@@ -95,21 +98,21 @@ function PageListeDemandes() {
 
     return (
         <>
-            <h1>Demandes spéciales</h1>
+            <h1>{t('demandesspéciales')}</h1>
         
                 <Table className="table table-bordered">
                     <thead>
                         <tr>
-                            <th>Nom du Demandeur
+                            <th>{t('nomdemandeur')}
                                 <Button variant="outline-secondary" className="m-1" size="sm" onClick={() => setNomDudemandeurTrie("Croissant")} ><FaAngleUp /></Button>
                                 <Button variant="outline-secondary" className="m-1" size="sm" onClick={() => setNomDudemandeurTrie("Decroissant")} ><FaAngleDown/></Button>
                             </th>
-                            <th>Date
+                            <th>{t('date')}
                                 <Button variant="outline-secondary" className="m-1" size="sm" onClick={() => setDateTrie("Croissant")}><FaAngleUp /></Button>
                                 <Button variant="outline-secondary" className="m-1" size="sm" onClick={() => setDateTrie("Decroissant")} ><FaAngleDown/></Button>
                             </th>
-                            <th>Piece</th>     
-                            <th>Actif</th>                        
+                            <th>{t('piece')}</th>     
+                            <th>{t('actif')}</th>                        
                         </tr>
                     </thead>
                     <tbody>

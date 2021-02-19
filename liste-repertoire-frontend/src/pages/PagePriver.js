@@ -5,10 +5,12 @@ import {
 } from 'react';
 
 import ListeClients from '../composants/ListeClients';
+import { useTranslation} from 'react-il8next';
 
 function PagePriver() {
     const [ListeClients, setListeClients] = useState([]);
-
+    const { t } = useTranslation();
+    
     useEffect(() => {
         const chercherDonnees = async () => {
             const resultat = await fetch(`/api/clients`);
@@ -20,7 +22,7 @@ function PagePriver() {
 
     return (
         <>
-            <h1>Liste du répertoire</h1>
+            <h1>{t('listerepertoire')}</h1>
             <ListeClients clients={ListeClients} />
         </>
     );

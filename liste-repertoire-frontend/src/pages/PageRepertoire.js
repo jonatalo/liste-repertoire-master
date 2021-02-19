@@ -8,11 +8,13 @@ import ListePieces from '../composants/ListePieces';
 import { Form } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
+import { useTranslation} from 'react-il8next';
 
 function PageRepertoire() {
     const [listePieces, setListePieces] = useState([]);
     const [recherche, setRecherche] = useState('');
     const [listeDemandes, setListeDemandes] = useState({});
+    const { t } = useTranslation();
     
     if( listePieces.length == 0 && recherche == ''){
         RecherDefault();
@@ -81,7 +83,7 @@ function PageRepertoire() {
     return (
         <>
             <div>
-                <h1>Liste du répertoire</h1>
+                <h1>{t('listerepertoire')}</h1>
                 <Form className="mb-1">
                     <Form.Group>
                         <Form.Control type="text" value={recherche} placeholder="Entrer votre recherche ici" 
@@ -89,9 +91,9 @@ function PageRepertoire() {
                     </Form.Group>
                 </Form>
 
-                <Button variant="success" className="m-1" size="sm" onClick={RechercheParTitre}>Recherche par titre</Button>
-                <Button variant="success" className="m-1" size="sm" onClick={RechercheParArtiste}>Recherche par artiste</Button>
-                <Button variant="success" className="m-1" size="sm" onClick={RechercheParCategorie}>Recherche par categorie</Button>
+                <Button variant="success" className="m-1" size="sm" onClick={RechercheParTitre}>{t('recherchepartitre')}</Button>
+                <Button variant="success" className="m-1" size="sm" onClick={RechercheParArtiste}>{t('rechercheparartiste')}</Button>
+                <Button variant="success" className="m-1" size="sm" onClick={RechercheParCategorie}>{t('rechercheparcategorie')}</Button>
                 <ListePieces pieces={listePieces} handleClick={handleClickPiece} listeDemandes={listeDemandes}/>
 
             </div>
